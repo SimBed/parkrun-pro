@@ -1,0 +1,33 @@
+<div id="items-filter" class="container mb-3 canvas gray100-canvas embossed">
+  <div class="container search">
+    <%= render partial: 'sort_selection' %>
+    <%= form_with(url: filter_runs_path, method: "get", class: "form-class", data: {turbo_frame: "items"}) do %>
+      <div class="container mb-1 px-1">
+        <div class="row">
+          <div class="col-6 px-0">
+            <fieldset>
+              <legend>AGEGROUPS</legend>
+              <div class='d-flex flex-row'>
+              <% %i[men women junior wheelchair].each do |key| %>
+              <div class='d-flex flex-column pe-3'>
+                <div><%=key%></div>
+              <% @agegroup_columns[key].each do |agegroup| %>
+                <%= label_tag nil, class: "chbox-lbl-filters" do %>
+                  <%= check_box_tag 'any_agegroup_of[]', agegroup, session[:filter_any_agegroup_of].present? ? session[:filter_any_agegroup_of].include?(agegroup) : false, id: "chbox#{agegroup}", onchange: "this.form.requestSubmit()" %>
+                  <%= agegroup %>
+                <% end %>
+              <% end %>
+              </div>
+              <% end %>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="container d-flex">
+            <%= link_to image_tag('dustbin.webp', class: 'table_icon'), clear_filters_runs_path, {class: "search searchdelete icon-container"} %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

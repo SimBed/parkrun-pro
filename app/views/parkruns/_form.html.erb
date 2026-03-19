@@ -1,0 +1,30 @@
+<%= form_with(model: parkrun) do |form| %>
+  <% if parkrun.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(parkrun.errors.count, "error") %> prohibited this parkrun from being saved:</h2>
+
+      <ul>
+        <% parkrun.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :code_name, style: "display: block" %>
+    <%= form.text_field :code_name %>
+  </div>
+  <div>
+    <%= form.label :verified, style: "display: block" %>
+    <%= form.checkbox :verified %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

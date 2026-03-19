@@ -1,0 +1,155 @@
+ a.whatsapp_group {
+  opacity: 0.1;
+ }
+
+ i.greyed-out {
+  opacity: 0.1;
+ }
+
+img.back_icon {
+  width: 2.0rem;
+  height: 2.0rem;
+ }
+
+img.header_icon {
+  width: 1.0rem;
+  height: 1.0rem;
+  @include media-breakpoint-up(lg) {
+    width: 1.4rem;
+    height: 1.4rem;
+    }   
+ }
+
+ %click-button-effect {
+  transform: scale(1.2);
+  opacity: 0.5
+ }
+
+img.table_icon {
+  width: 1.0rem;
+  height: 1.0rem;
+  opacity: 1.0;
+  @include media-breakpoint-up(lg) {
+    width: 1.3rem;
+    height: 1.3rem;
+  } 
+  &:hover { @extend %click-button-effect;}
+}
+
+img.booking_icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  opacity: 1.0;
+  @include media-breakpoint-up(lg) {
+    width: 1.8rem;
+    height: 1.8rem;
+  } 
+  &:hover { @extend %click-button-effect; }
+}
+
+div.book-item img:hover { @extend %click-button-effect; }
+
+img.contact_icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  opacity: 1.0;
+  @include media-breakpoint-up(lg) {
+    width: 1.5rem;
+    height: 1.5rem;
+    } 
+  }
+
+a img.contact_icon:hover { @extend %click-button-effect; }
+
+a img.table_icon {
+  width: 1.0rem;
+  height: 1.0rem;
+  opacity: 1.0;
+  &.greyed-out {
+    opacity: 0.1;
+  }
+  @include media-breakpoint-up(lg) {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  &.scale_up {
+    transform: scale(1.5);
+  }
+}
+
+a.disabled {
+  pointer-events: none;
+}
+
+a img.button_icon:hover {
+transform: scale(1.1);
+}
+
+img.footerlogo {
+  width: 6rem;
+  display: block;
+  margin: auto;
+}
+
+img.filter-red {
+  // https://codepen.io/sosuke/pen/Pjoqqp
+  filter: invert(10%) sepia(83%) saturate(7500%) hue-rotate(7deg) brightness(111%) contrast(117%);
+}
+img.filter-white {
+
+  filter: brightness(0) saturate(100%) invert(97%) sepia(98%) saturate(192%) hue-rotate(187deg) brightness(111%) contrast(100%);
+}
+
+a i.bi-sunset:hover, a i.bi-sunrise:hover {
+  transform: scale(1.2);
+  }
+
+img.table_icon {
+  &.dull {
+    opacity: 0.1;
+  }
+}
+
+img.more_icon {
+  margin-left: 1rem;
+  width: 1.0rem;
+  height: 1.0rem;
+  opacity: 1.0;
+  @include media-breakpoint-up(lg) {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  &:hover {
+    transform: scale(1.5);
+    opacity: 0.5
+    }
+}
+
+@mixin image-after-content {
+  background-size: 1em 1em;
+  display: inline-block;
+  width: 1em; 
+  height: 1em;
+  content: '';
+  margin-left: 0.5rem;
+}
+  
+img.table_header_icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  @include media-breakpoint-up(lg) {
+    width: 1.5rem;
+    height: 1.5rem;
+    }   
+  }
+
+img.error {
+  width: 100%;
+  // width: 16.0rem;
+  // height: 16.0rem;
+  opacity: 1.0;
+  @include media-breakpoint-up(lg) {
+    width: 32rem;
+    height: 32rem;
+    } 
+  }

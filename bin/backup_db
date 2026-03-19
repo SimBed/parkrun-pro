@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Don't use this for dumping development that you plan to restore to production. The database users are different, so it will create difficult tot resolve conflicts.
+# Instead just manually do
+# pg_dump -Fc --no-acl --no-owner -d parkrun_pro_development -f db/backup/latest.dump
+# pg_restore --no-owner --clean -U railsapps -d parkrun_pro_production latest.dump  (prompt for password)
+
+# backup timetstamped database
+# Production:
+# $ export PGPASSWORD='<database password>'
+# $bin/backup_db parkrun_pro_production railsapps
+
+# Development:
+# $bin/backup_db parkrun_pro_development
+
+set -e #Exit immediately if a command exits with a non-zero status.
+
+DB_NAME=$1 # First arg = database name (required)
+DB_USER=$2 # Second arg = optional username (nil for development, railsapps for production)
+
+# If no argument is given, exit with message:
+if [ -z "$DB_NAME" ]; then
+  echo "Usage: $0 <database_name>"
+  exit 1
+fi
+
+BACKUP_DIR="db/backups"
+
+mkdir -p "$BACKUP_DIR"
+
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+
+# Set backup file name
+BACKUP_FILE="$BACKUP_DIR/${DB_NAME}_backup_$TIMESTAMP.sql.gz"
+
+# Dump database and compress
+echo "Backing up database '$DB_NAME' to '$BACKUP_FILE'..."
+if [ -n "$DB_USER" ]; then
+  # username provided
+  pg_dump -U "$DB_USER" "$DB_NAME" | gzip > "$BACKUP_FILE"
+else
+  # no username, let Postgres default to current Linux user
+  pg_dump "$DB_NAME" | gzip > "$BACKUP_FILE"
+fi
+
+echo "✅ Backup completed successfully."

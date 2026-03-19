@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Parkruns" %>
+
+<h1>Parkruns <small> <%="(#{@parkruns.size})"%> </small></h1>
+
+<div id="parkruns">
+  <% @parkruns.each do |parkrun| %>
+    <%= render parkrun %>
+  <% end %>
+</div>
+
+<%= link_to "New parkrun", new_parkrun_path %>

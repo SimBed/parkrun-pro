@@ -1,0 +1,10 @@
+<div id="<%= dom_id parkrun %>">
+  <div>
+    <%= parkrun.name %>
+    <%= parkrun.homepage %>
+    <%= link_to 'edit', edit_parkrun_path(parkrun) %>
+    <%= link_to 'delete', parkrun, data: { turbo_method: :delete } %>
+    <%= parkrun.verified? ? '&#9989;'.html_safe : '&#x274c;'.html_safe  %>
+  </div>
+
+</div>

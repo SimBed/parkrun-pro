@@ -1,0 +1,18 @@
+a.current  {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+  color: $gray-800
+ }
+
+a.notcurrent {
+border-bottom: 1px dashed $gray-800;
+ }
+
+a.asc {
+background-image: url('up_arrow.gif');
+}
+
+a.desc {
+background-image: url('down_arrow.gif');
+}

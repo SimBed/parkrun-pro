@@ -1,0 +1,77 @@
+fieldset {
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  padding: 0.75rem 1rem;
+}
+
+legend {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bs-secondary-color);
+  padding: 0 0.4rem;
+  float: none;
+  width: auto;
+}
+
+.filter-col-header {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bs-secondary-color);
+  padding-bottom: 4px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.chbox-lbl-filters {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  padding: 2px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0;
+  line-height: 1.5;
+  white-space: nowrap;
+  transition: background 0.1s;
+}
+
+.chbox-lbl-filters:hover {
+  background: var(--bs-secondary-bg);
+}
+
+.chbox-lbl-filters input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 3px;
+  background: var(--bs-body-bg);
+  cursor: pointer;
+  position: relative;
+  transition: background 0.1s, border-color 0.1s;
+}
+
+.chbox-lbl-filters input[type="checkbox"]:checked {
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.chbox-lbl-filters input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.5px;
+  width: 5px;
+  height: 9px;
+  border: 1.5px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(40deg);
+}

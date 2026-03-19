@@ -1,0 +1,11 @@
+<% stats = @summary_stats[0] %>
+<div class="container my-3 mb-5 canvas gray100-canvas embossed col-6">
+  <div class="row p-3">
+        <p><strong>Count:</strong> <%= number_with_delimiter(stats.count) %></p>
+        <p><strong>Fastest:</strong> <%= min_sec_format(stats.min) %></p>
+        <p><strong>Slowest:</strong> <%= min_sec_format(stats.max) %></p>
+        <p><strong>Median:</strong> <%= min_sec_format(stats.median) %></p>
+        <p><strong>Mean:</strong> <%= min_sec_format(stats.mean) %></p>
+        <p class='mb-0'><strong>Standard Deviation:</strong> <%= "#{min_sec_format(stats.stddev)} " %></p>
+  </div>
+</div>

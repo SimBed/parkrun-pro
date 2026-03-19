@@ -1,0 +1,11 @@
+<% content_for :title, "New parkrun" %>
+
+<h1>New parkrun</h1>
+
+<%= render "form", parkrun: @parkrun %>
+
+<br>
+
+<div>
+  <%= link_to "Back to parkruns", parkruns_path %>
+</div>

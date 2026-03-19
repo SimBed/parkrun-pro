@@ -1,0 +1,10 @@
+<% content_for :title, "Venues for latest results" %>
+
+<div class="container my-4">
+    <h1 class="h4 mb-0">Venues <small> <%="(#{@parkruns.size})"%> </small></h1>
+    <p class="text-muted mb-0 small">for latest results</p>
+
+    <% @parkruns.each do |parkrun| %>
+      <div><%= parkrun %></div>
+    <% end %>
+</div>

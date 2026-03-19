@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css?family=Quicksand");
+
+.fs-7 {
+  font-size: $font-size-base * 0.9;
+}
+
+.fs-8 {
+  font-size: $font-size-base * 0.8;
+  @include media-breakpoint-up(md) {
+    font-size: $font-size-base * 0.9;
+  }    
+}
+
+.fs-9 {
+  font-size: $font-size-base * 0.8;
+  @include media-breakpoint-up(md) {
+    font-size: $font-size-base * 1.0;
+  }
+}
+
+// alternative to non-responsive bootstrap fs-6 etc...
+.fs-fluid-1 { font-size: clamp(2rem, 1rem + 3vw, 3.5rem); }
+.fs-fluid-2 { font-size: clamp(1.75rem, 0.9rem + 2.5vw, 3rem); }
+.fs-fluid-3 { font-size: clamp(1.5rem, 0.8rem + 2vw, 2.5rem); }
+.fs-fluid-4 { font-size: clamp(1.25rem, 0.7rem + 1.5vw, 2rem); }
+.fs-fluid-5 { font-size: clamp(1rem, 0.6rem + 1vw, 1.5rem); }
+.fs-fluid-6 { font-size: clamp(0.75rem, 0.5rem + 0.5vw, 1.25rem); }
+.fs-fluid-7 { font-size: clamp(0.7rem, 0.45rem + 0.5vw, 1.1rem); }
+
+

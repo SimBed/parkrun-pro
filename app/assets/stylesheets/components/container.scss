@@ -1,0 +1,18 @@
+#white-canvas {
+  .navbar-space {
+    padding-top: 8rem;
+    @include media-breakpoint-up(lg) {
+      padding-top: 10rem;
+     }  
+  }
+  .navbar-space-home {
+    padding-top: 6rem;
+    @include media-breakpoint-up(lg) {
+      padding-top: 6rem;
+      }  
+  }  
+ }
+
+div.actions input {
+  margin-top: 0.5rem ;
+}
