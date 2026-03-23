@@ -19,7 +19,7 @@ class ParkrunsControllerTest < ActionDispatch::IntegrationTest
   test "should create parkrun" do
     sign_in_as(users(:one))
     assert_difference("Parkrun.count") do
-      post parkruns_path, params: { parkrun: { name: 'Aberdare', code_name: 'aberdare' } }
+      post parkruns_path, params: { parkrun: { name: "Aberdare", code_name: "aberdare" } }
     end
 
     assert_redirected_to parkruns_path
@@ -33,7 +33,7 @@ class ParkrunsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update parkrun" do
     sign_in_as(users(:one))
-    patch parkrun_path(@parkrun), params: { parkrun: { name: @parkrun.name + 'A' } }
+    patch parkrun_path(@parkrun), params: { parkrun: { name: @parkrun.name + "A" } }
     assert_redirected_to parkruns_path
   end
 

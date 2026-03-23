@@ -2,6 +2,13 @@
   <div class="container search">
     <%= render partial: 'sort_selection' %>
     <%= form_with(url: filter_runs_path, method: "get", class: "form-class", data: {turbo_frame: "items"}) do %>
+        <i class="bi bi-calendar3"></i>
+        <select class="form-control-sm mb-2 sort" name="date" onchange="this.form.requestSubmit()">
+          <%= options_for_select @dates, session[:filter_date] %>
+        </select>
+        <select class="form-control-sm mb-2 sort" name="parkrun" onchange="this.form.requestSubmit()">
+          <%= options_for_select @parkruns, session[:filter_parkrun] %>
+        </select>
       <div class="container mb-1 px-1">
         <div class="row">
           <div class="col-6 px-0">

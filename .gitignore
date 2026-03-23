@@ -46,6 +46,7 @@
 
 /parkrun_names.txt
 /db/backups/*
+/latest.dump
 
-a .rake_tasks~ file showed up
+# a .rake_tasks~ file showed up
 *~

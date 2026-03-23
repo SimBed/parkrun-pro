@@ -2,19 +2,27 @@
   <div class="">
     <h1 class="h4 mb-0">UK Parkruns</h1>
     <h2 class="h5 mb-0">Results</h1>
-    <%= render partial: 'date_selection' %>
   </div>
   <%= render 'filter_form' %>
   <div>
-    <%= line_chart @chart_runs %>
+    <%= line_chart @line_chart_data %>
+  </div>
+  <div>
+    <%= column_chart @pie_chart_data.group(:agegroup).count %>
   </div>
   <%= render 'stats_summary' %>
   <%== @pagy.series_nav(:bootstrap) %>
 
+  <%= form_with url: runs_path, method: :get, class: "form-class" do %>
+    <%= label_tag :time, "Jump to time (mm:ss or h:mm:ss)" %>
+    <%= text_field_tag :time, params[:time] %>
+    <%= submit_tag "Go" %>
+  <% end %>
+
   <div class="card shadow-sm border-0">
     <div class="card-body p-0">
       <div class="d-none d-md-grid px-2 py-2 border-bottom text-muted small fw-semibold"
-           style="grid-template-columns: 80px 240px 240px 80px 80px 80px 80px 80px 80px;">
+           style="grid-template-columns: 100px 240px 240px 80px 80px 80px 80px 80px 80px;">
         <div>Position</div>
         <div>Name</div>
         <div>Parkrun</div>
@@ -41,7 +49,7 @@
                     <%= number_with_delimiter(@pagy.offset + index + 1) %>
                   </div>
                   <div class="fw-semibold text-body">
-                    <%= run.name %>
+                    <%= run.anonymized_name %>
                   </div>
                 </div>
                 <div class="fw-semibold">
@@ -59,14 +67,14 @@
 
             <%# DESKTOP %>
             <div class="d-none d-md-grid text-muted small align-items-center"
-                  style="grid-template-columns: 80px 240px 240px 80px 80px 80px 80px 80px 80px;">
+                  style="grid-template-columns: 100px 240px 240px 80px 80px 80px 80px 80px 80px;">
               <div class="d-flex align-items-center">
                 <div class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2 py-1 fw-semibold">
                   <%= number_with_delimiter(@pagy.offset + index + 1) %>
                 </div>
               </div>
               <div class="fw-semibold text-body">
-                <%= run.name %>
+                <%= run.anonymized_name %>
               </div>
               <div>
                 <%= run.parkrun %>

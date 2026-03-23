@@ -7,6 +7,11 @@ class Run < ApplicationRecord
   # scope :order_by_agegrade, -> { order(agegrade: :desc, time: :asc, name: :asc) }
   scope :any_agegroup_of, ->(agegroup_filter) { where(agegroup: agegroup_filter) }
 
+  def anonymized_name
+    # Rails.env == 'production' ? name.split.map {|a| a.first}.join : name
+    Rails.env == "production" ? name.split.map { |n| n.split("").shuffle.join }.join(" ") : name
+  end
+
   def self.parkruns
     order(parkrun: :asc).distinct.pluck(:parkrun)
   end
@@ -23,34 +28,44 @@ class Run < ApplicationRecord
     order(date: :desc).distinct.pluck(:date)
   end
 
-  def self.summary_stats(agegroups: nil, group_by_parkrun: true)
-    query = all
-
-    query = query.where(agegroup: agegroups) if agegroups.present?
-
-    if group_by_parkrun
-    query
-    .group(:parkrun)
-    .select(<<~SQL)
-      parkrun,
+  def self.summary_stats
+    select(<<~SQL)
       COUNT(time) AS count,
-      AVG(time) AS mean,
-      STDDEV(time) AS stddev,
       MIN(time) AS min,
       MAX(time) AS max,
-      percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median
+      percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median,
+      AVG(time) AS mean,
+      STDDEV(time) AS stddev
     SQL
-    .order(:parkrun).index_by(&:parkrun)
-    else
-      query
-      .select(<<~SQL)
-        COUNT(time) AS count,
-        MIN(time) AS min,
-        MAX(time) AS max,
-        percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median,
-        AVG(time) AS mean,
-        STDDEV(time) AS stddev
-      SQL
-    end
   end
+  # def self.summary_stats(agegroups: nil, group_by_parkrun: true)
+  #   query = all
+
+  #   query = query.where(agegroup: agegroups) if agegroups.present?
+
+  #   if group_by_parkrun
+  #   query
+  #   .group(:parkrun)
+  #   .select(<<~SQL)
+  #     parkrun,
+  #     COUNT(time) AS count,
+  #     AVG(time) AS mean,
+  #     STDDEV(time) AS stddev,
+  #     MIN(time) AS min,
+  #     MAX(time) AS max,
+  #     percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median
+  #   SQL
+  #   .order(:parkrun).index_by(&:parkrun)
+  #   else
+  #     query
+  #     .select(<<~SQL)
+  #       COUNT(time) AS count,
+  #       MIN(time) AS min,
+  #       MAX(time) AS max,
+  #       percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median,
+  #       AVG(time) AS mean,
+  #       STDDEV(time) AS stddev
+  #     SQL
+  #   end
+  # end
 end

@@ -6,10 +6,13 @@ class RunsController < ApplicationController
     prepare_dates
     prepare_agegroups
     date = session[:filter_date] || @dates&.first
+    parkrun = session[:filter_parkrun] || "All"
     @runs = Run.where(date:)
+    prepare_parkruns
+    @runs = @runs.where(parkrun:) unless parkrun == "All"
     handle_filter
     handle_sort
-    @chart_runs = @runs.unscope(:order).group("FLOOR(time / 20.0) * 20").count(:time).sort.to_h.transform_keys do |seconds|
+    @line_chart_data = @runs.unscope(:order).group("FLOOR(time / 20.0) * 20").count(:time).sort.to_h.transform_keys do |seconds|
                     time = Time.at(seconds).utc
                     if seconds < 3600
                       time.strftime("%-M:%S")   # mm:ss
@@ -17,9 +20,19 @@ class RunsController < ApplicationController
                       time.strftime("%-H:%M:%S") # h:mm:ss
                     end
                   end
-    @summary_stats = @runs.unscope(:order).summary_stats(agegroups: session[:filter_any_agegroup], group_by_parkrun: false)
-    @pagy, @runs = pagy(:countish, @runs, limit: 10000, size: 25)
+    @pie_chart_data = @runs.unscope(:order)
+    # @summary_stats = @runs.unscope(:order).summary_stats(agegroups: session[:filter_any_agegroup], group_by_parkrun: false)
+    @summary_stats = @runs.unscope(:order).summary_stats
+    pagy_limit = 1000
+    if params[:time].present?
+      seconds = parse_time_to_seconds(params[:time])
 
+      position = @runs.where("time < ?", seconds).count
+      page = (position / pagy_limit) + 1
+
+      redirect_to runs_path(page: page) and return
+    end
+    @pagy, @runs = pagy(:countish, @runs, limit: pagy_limit, size: 25)
   end
 
   def parkruns
@@ -33,8 +46,8 @@ class RunsController < ApplicationController
   end
 
   def filter
-    # clear_session(:date, :filter_any_agegroup_of)
-    set_session(:date, :any_agegroup_of)
+    clear_session(:filter_date, :filter_parkrun, :filter_any_agegroup_of)
+    set_session(:date, :parkrun, :any_agegroup_of)
     redirect_to runs_path
   end
 
@@ -62,5 +75,24 @@ class RunsController < ApplicationController
 
   def prepare_dates
     @dates = Run.dates.map { |date| date.strftime("%d %B %Y") }
+  end
+
+  def prepare_parkruns
+    @parkruns = [ [ "All Venues", "All" ] ] + @runs.distinct(:parkrun).order(:parkrun).pluck(:parkrun)
+  end
+
+  def parse_time_to_seconds(str)
+    parts = str.split(":").map(&:to_i)
+
+    case parts.length
+    when 2
+      m, s = parts
+      m * 60 + s
+    when 3
+      h, m, s = parts
+      h * 3600 + m * 60 + s
+    else
+      0
+    end
   end
 end
