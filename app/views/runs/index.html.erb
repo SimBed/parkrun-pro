@@ -1,22 +1,25 @@
 <div class="container my-4">
-  <div class="">
+  <div class="mb-2">
     <h1 class="h4 mb-0">UK Parkruns</h1>
-    <h2 class="h5 mb-0">Results</h1>
+    <h2 class="h5 mb-0">Aggregated Results</h2>
   </div>
   <%= render 'filter_form' %>
-  <div>
-    <%= line_chart @line_chart_data %>
+  <div class="mb-3 canvas gray100-canvas embossed">
+    <%= line_chart @line_chart_data, xtitle: "Time (#{@grouping_size} secs grouping)", ytitle: "Count", title: @chart_title %>
   </div>
-  <div>
-    <%= column_chart @pie_chart_data.group(:agegroup).count %>
+<div id="items-filter" class="mb-3 canvas gray100-canvas embossed">
+    <%= column_chart @pie_chart_data.group(:agegroup).count, xtitle: "Age Group", ytitle: "Count", title: @chart_title %>
   </div>
   <%= render 'stats_summary' %>
   <%== @pagy.series_nav(:bootstrap) %>
 
-  <%= form_with url: runs_path, method: :get, class: "form-class" do %>
-    <%= label_tag :time, "Jump to time (mm:ss or h:mm:ss)" %>
-    <%= text_field_tag :time, params[:time] %>
-    <%= submit_tag "Go" %>
+  <%= form_with url: runs_path, method: :get do %>
+    <div class="input-group input-group-sm"">  
+      <%= text_field_tag :time, params[:time], placeholder:"mm:ss or h:mm:ss", class: "" %>
+      <%= button_tag type: "submit", class: "btn btn-primary btn-sm p-1" do %>
+        <i class="bi bi-clock"></i>
+      <% end %>
+    </div>    
   <% end %>
 
   <div class="card shadow-sm border-0">

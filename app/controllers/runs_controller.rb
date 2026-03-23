@@ -12,7 +12,8 @@ class RunsController < ApplicationController
     @runs = @runs.where(parkrun:) unless parkrun == "All"
     handle_filter
     handle_sort
-    @line_chart_data = @runs.unscope(:order).group("FLOOR(time / 20.0) * 20").count(:time).sort.to_h.transform_keys do |seconds|
+    @grouping_size = @runs.size < 2000 ? 60 : 20
+    @line_chart_data = @runs.unscope(:order).group("FLOOR(time / #{@grouping_size}) * #{@grouping_size}").count(:time).sort.to_h.transform_keys do |seconds|
                     time = Time.at(seconds).utc
                     if seconds < 3600
                       time.strftime("%-M:%S")   # mm:ss
@@ -20,6 +21,7 @@ class RunsController < ApplicationController
                       time.strftime("%-H:%M:%S") # h:mm:ss
                     end
                   end
+    @chart_title = "#{parkrun}, #{date}"
     @pie_chart_data = @runs.unscope(:order)
     # @summary_stats = @runs.unscope(:order).summary_stats(agegroups: session[:filter_any_agegroup], group_by_parkrun: false)
     @summary_stats = @runs.unscope(:order).summary_stats

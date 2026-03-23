@@ -1,17 +1,24 @@
-<div id="items-filter" class="container mb-3 canvas gray100-canvas embossed">
-  <div class="container search">
+<div id="items-filter" class="mb-3 canvas gray100-canvas embossed">
+  <div class="search">
     <%= render partial: 'sort_selection' %>
     <%= form_with(url: filter_runs_path, method: "get", class: "form-class", data: {turbo_frame: "items"}) do %>
-        <i class="bi bi-calendar3"></i>
-        <select class="form-control-sm mb-2 sort" name="date" onchange="this.form.requestSubmit()">
-          <%= options_for_select @dates, session[:filter_date] %>
-        </select>
-        <select class="form-control-sm mb-2 sort" name="parkrun" onchange="this.form.requestSubmit()">
-          <%= options_for_select @parkruns, session[:filter_parkrun] %>
-        </select>
-      <div class="container mb-1 px-1">
+      <div class="d-flex flex-column flex-md-row">
+        <div>
+          <i class="bi bi-calendar3"></i>
+          <select class="form-control-sm mb-1 mb-md-2 sort me-2" name="date" onchange="this.form.requestSubmit()">
+            <%= options_for_select @dates, session[:filter_date] %>
+          </select>
+        </div>
+        <div>
+          <i class="bi bi-geo-alt"></i>
+          <select class="form-control-sm mb-1 mb-md-2 sort" name="parkrun" onchange="this.form.requestSubmit()">
+            <%= options_for_select @parkruns, session[:filter_parkrun] %>
+          </select>
+        </div>
+      </div>
+      <div class="mb-1 px-1">
         <div class="row">
-          <div class="col-6 px-0">
+          <div class="col-12 col-md-8 col-lg-6 px-0">
             <fieldset>
               <legend>AGEGROUPS</legend>
               <div class='d-flex flex-row'>
@@ -27,12 +34,12 @@
               </div>
               <% end %>
               </div>
-            </fieldset>
-          </div>
-
           <div class="container d-flex">
             <%= link_to image_tag('dustbin.webp', class: 'table_icon'), clear_filters_runs_path, {class: "search searchdelete icon-container"} %>
           </div>
+            </fieldset>
+          </div>
+
         </div>
       </div>
     <% end %>
