@@ -47,7 +47,7 @@ class Run < ApplicationRecord
             substring(agegroup FROM '\\d+')::int
           ELSE NULL
         END
-      ) AS avg_age      
+      ) AS avg_age#{'      '}
     SQL
   end
   # def self.summary_stats(agegroups: nil, group_by_parkrun: true)

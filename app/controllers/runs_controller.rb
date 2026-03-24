@@ -22,6 +22,8 @@ class RunsController < ApplicationController
                     end
                   end
     @chart_title = "#{parkrun + (parkrun == 'All' ? ' Venues' : '') }, #{date}"
+    @age_group_filters_count = session[:filter_any_agegroup_of]&.length
+    @chart_sub_title = "(#{@age_group_filters_count} age groups selected)"
     @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).order(:agegroup).count
     # @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).order("count_all DESC").count
     @summary_stats = @runs.unscope(:order).summary_stats
@@ -34,6 +36,7 @@ class RunsController < ApplicationController
 
       redirect_to runs_path(page: page) and return
     end
+    @show_pagy = true if @runs.size > pagy_limit
     @pagy, @runs = pagy(:countish, @runs, limit: pagy_limit, size: 25)
   end
 

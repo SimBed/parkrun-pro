@@ -16,3 +16,11 @@
 div.actions input {
   margin-top: 0.5rem ;
 }
+
+.toggle-icon {
+  transition: transform 0.2s ease;
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
