@@ -13,7 +13,7 @@ class RunsController < ApplicationController
     handle_filter
     handle_sort
     @grouping_size = @runs.size < 2000 ? 60 : 20
-    @line_chart_data = @runs.unscope(:order).group("FLOOR(time / #{@grouping_size}) * #{@grouping_size}").count(:time).sort.to_h.transform_keys do |seconds|
+    @line_chart_count_by_time = @runs.unscope(:order).group("FLOOR(time / #{@grouping_size}) * #{@grouping_size}").count(:time).sort.to_h.transform_keys do |seconds|
                     time = Time.at(seconds).utc
                     if seconds < 3600
                       time.strftime("%-M:%S")   # mm:ss
@@ -21,12 +21,12 @@ class RunsController < ApplicationController
                       time.strftime("%-H:%M:%S") # h:mm:ss
                     end
                   end
-    @chart_title = "#{parkrun}, #{date}"
-    @pie_chart_data = @runs.unscope(:order)
-    # @summary_stats = @runs.unscope(:order).summary_stats(agegroups: session[:filter_any_agegroup], group_by_parkrun: false)
+    @chart_title = "#{parkrun + (parkrun == 'All' ? ' Venues' : '') }, #{date}"
+    @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).count
+    # @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).order("count_all DESC").count
     @summary_stats = @runs.unscope(:order).summary_stats
     pagy_limit = 1000
-    if params[:time].present?
+    if params[:time].present? && params[:time] =~ /\A\d{1,2}:\d{2}(:\d{2})?\z/
       seconds = parse_time_to_seconds(params[:time])
 
       position = @runs.where("time < ?", seconds).count

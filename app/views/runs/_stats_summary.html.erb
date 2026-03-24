@@ -1,4 +1,21 @@
 <% stats = @summary_stats[0] %>
+
+<% @stats = [{name: 'Count', number: number_with_delimiter(stats.count), icon: 'bi-list-ol' },
+             {name: 'Fastest', number: min_sec_format(stats.min), icon: 'bi-lightning-charge' },
+             {name: 'Median', number: min_sec_format(stats.median), icon: 'bi-bullseye' },
+             {name: 'Mean', number: min_sec_format(stats.mean), icon: 'bi-calculator' },
+             {name: 'Slowest', number: min_sec_format(stats.max), icon: 'bi-hourglass-split' },             
+             {name: 'SD', number: min_sec_format(stats.stddev), icon: 'bi-plus-slash-minus' }] %>
+<div class="container my-3 mb-5 canvas gray100-canvas embossed ms-0  p-3">
+
+<div class="row g-3 mb-0">
+  <%= render partial: 'stat', collection: @stats %>
+</div>
+</div>
+
+
+
+<% if false  %>
 <div class="container my-3 mb-5 canvas gray100-canvas embossed col-6 ms-0  p-3">
   <h3 style="font-family: 'Helvetica Neue', 'Helvetica', 'Arial'; font-size: 20px"
       class='fw-bolder text-black mb-2'><%="#{@chart_title} (summary statistics)"%></h3>
@@ -11,3 +28,4 @@
         <p class='mb-0'><strong>Standard Deviation:</strong> <%= "#{min_sec_format(stats.stddev)} " %></p>
   </div>
 </div>
+<% end %>

@@ -4,13 +4,20 @@
     <h2 class="h5 mb-0">Aggregated Results</h2>
   </div>
   <%= render 'filter_form' %>
-  <div class="mb-3 canvas gray100-canvas embossed">
-    <%= line_chart @line_chart_data, xtitle: "Time (#{@grouping_size} secs grouping)", ytitle: "Count", title: @chart_title %>
+  <div class="mb-5 canvas gray100-canvas embossed">
+    <h3 style="font-family: 'Helvetica Neue', 'Helvetica', 'Arial'; font-size: 22px"
+        class='fw-bolder text-black mb-2 text-center'><%="#{@chart_title}"%>
+    </h3>
+    <%= render 'stats_summary' %>
   </div>
-<div id="items-filter" class="mb-3 canvas gray100-canvas embossed">
-    <%= column_chart @pie_chart_data.group(:agegroup).count, xtitle: "Age Group", ytitle: "Count", title: @chart_title %>
+  <div class="mb-5 canvas gray100-canvas embossed">
+    <div id="" class="mb-3 canvas gray100-canvas embossed">
+      <%= line_chart @line_chart_count_by_time, xtitle: "Time (#{@grouping_size} secs grouping)", ytitle: "Count", title: "Runners by Time" %>
+    </div>
+    <div id="" class="mb-3 canvas gray100-canvas embossed">
+      <%= column_chart @column_chart_count_by_agegroup, xtitle: "Age Group", ytitle: "Count", title: "Runners by Age Group" %>
+    </div>
   </div>
-  <%= render 'stats_summary' %>
   <%== @pagy.series_nav(:bootstrap) %>
 
   <%= form_with url: runs_path, method: :get do %>
