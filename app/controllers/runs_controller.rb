@@ -22,7 +22,7 @@ class RunsController < ApplicationController
                     end
                   end
     @chart_title = "#{parkrun + (parkrun == 'All' ? ' Venues' : '') }, #{date}"
-    @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).count
+    @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).order(:agegroup).count
     # @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).order("count_all DESC").count
     @summary_stats = @runs.unscope(:order).summary_stats
     pagy_limit = 1000

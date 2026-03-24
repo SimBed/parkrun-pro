@@ -5,7 +5,8 @@
              {name: 'Median', number: min_sec_format(stats.median), icon: 'bi-bullseye' },
              {name: 'Mean', number: min_sec_format(stats.mean), icon: 'bi-calculator' },
              {name: 'Slowest', number: min_sec_format(stats.max), icon: 'bi-hourglass-split' },             
-             {name: 'SD', number: min_sec_format(stats.stddev), icon: 'bi-plus-slash-minus' }] %>
+            #  {name: 'SD', number: min_sec_format(stats.stddev), icon: 'bi-plus-slash-minus' },
+             {name: 'Average Age', number: number_with_precision(stats.avg_age, precision: 1), icon: 'bi-person' }] %>
 <div class="container my-3 mb-5 canvas gray100-canvas embossed ms-0  p-3">
 
 <div class="row g-3 mb-0">
