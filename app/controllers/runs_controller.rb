@@ -22,8 +22,11 @@ class RunsController < ApplicationController
                     end
                   end
     @chart_title = "#{parkrun + (parkrun == 'All' ? ' Venues' : '') }, #{date}"
-    @age_group_filters_count = session[:filter_any_agegroup_of]&.length
-    @chart_sub_title = "(#{@age_group_filters_count} age groups selected)"
+    @chart_sub_title = if session[:filter_any_agegroup_of]
+      "(#{helpers.pluralize(session[:filter_any_agegroup_of].length, 'age-group')} selected)"
+    else
+      "(All age-groups)"
+    end
     @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).order(:agegroup).count
     # @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).order("count_all DESC").count
     @summary_stats = @runs.unscope(:order).summary_stats

@@ -3,7 +3,7 @@
     <h1 class="h4 mb-0">UK Parkruns</h1>
     <h2 class="h5 mb-0">Aggregated Results</h2>
   </div>
-  <%= turbo_frame_tag 'runs' do %>
+  <%= turbo_frame_tag 'filter_and_charts' do %>
     <%= render 'filter_form' %>
     <%= turbo_frame_tag 'charts_and_stats' do %>
       <div class="mb-5 canvas gray100-canvas embossed">
@@ -21,110 +21,26 @@
           <%= column_chart @column_chart_count_by_agegroup, xtitle: "Age Group", ytitle: "Count", title: "Runners by Age Group" %>
         </div>
       </div>
-      <% if @show_pagy %>
-        <%== @pagy.series_nav(:bootstrap) %>
+      <%= turbo_frame_tag 'runs_table' do %>
+        <div class="mb-5 canvas gray100-canvas embossed ps-2 py-2">
+          <div class="canvas gray100-canvas embossed col-9  col-lg-6 col-xl-4 p-1 mb-2">
+            <% if @show_pagy %>
+              <%== @pagy.series_nav(:bootstrap) %>
 
-        <%= form_with url: runs_path, method: :get do %>
-          <div class="input-group input-group-sm"">  
-            <%= text_field_tag :time, params[:time], placeholder:"mm:ss or h:mm:ss", class: "" %>
-            <%= button_tag type: "submit", class: "btn btn-primary btn-sm p-1" do %>
-              <i class="bi bi-clock"></i>
-            <% end %>
-          </div>    
-        <% end %>
-      <% end %>
-
-      <div class="card shadow-sm border-0">
-        <div class="card-body p-0">
-          <div class="d-none d-md-grid px-2 py-2 border-bottom text-muted small fw-semibold"
-              style="grid-template-columns: 100px 240px 240px 80px 80px 80px 80px 80px 80px;">
-            <div>Position</div>
-            <div>Name</div>
-            <div>Parkrun</div>
-            <div>Local</div>
-            <div>Gender</div>
-            <div>Group</div>
-            <div>Count</div>
-            <div>Grade</div>
-            <div class="text-end">Time</div>
-          </div>
-
-          <div class="list-group list-group-flush">
-            <% @runs.each_with_index do |run, index| %>
-              <div class="list-group-item py-1 border-0 border-bottom">
-
-                <%#= render partial: 'mobile', locals: {run:, index:}%>
-                <%#= render partial: 'desktop', locals: {run:, index:}%>
-
-                <%# MOBILE %>
-                <div class="d-flex d-md-none flex-column gap-1">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center gap-2">
-                      <div class="badge bg-primary-subtle text-primary-emphasis rounded-pill py-1 fw-semibold">
-                        <%= number_with_delimiter(@pagy.offset + index + 1) %>
-                      </div>
-                      <div class="fw-semibold text-body">
-                        <%= run.anonymized_name %>
-                      </div>
-                    </div>
-                    <div class="fw-semibold">
-                      <%= min_sec_format(run.time) %>
-                    </div>
-                  </div>
-                  <div class="text-muted small">
-                    <span><%= run.parkrun %></span>
-                    <span class="mx-1">•</span>
-                    <span><%= run.agegroup %></span>
-                    <span class="mx-1">•</span>
-                    <span><%= number_to_percentage(run.agegrade, precision: 1) %></span>
-                  </div>
+              <%= form_with url: runs_path, method: :get do %>
+                <div class="input-group input-group-sm mb-1"">
+                  <%= text_field_tag :time, params[:time], placeholder:"mm:ss or h:mm:ss", class: "" %>
+                  <%= button_tag type: "submit", class: "btn btn-primary btn-sm p-1" do %>
+                    <i class="bi bi-clock"></i>
+                  <% end %>
                 </div>
-
-                <%# DESKTOP %>
-                <div class="d-none d-md-grid text-muted small align-items-center"
-                      style="grid-template-columns: 100px 240px 240px 80px 80px 80px 80px 80px 80px;">
-                  <div class="d-flex align-items-center">
-                    <div class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2 py-1 fw-semibold">
-                      <%= number_with_delimiter(@pagy.offset + index + 1) %>
-                    </div>
-                  </div>
-                  <div class="fw-semibold text-body">
-                    <%= run.anonymized_name %>
-                  </div>
-                  <div>
-                    <%= run.parkrun %>
-                  </div>
-                  <div>
-                    <%= run.position %>
-                  </div>
-                  <div>
-                    <%= run.gender %>
-                  </div>
-                  <div>
-                    <%= run.agegroup %>
-                  </div>
-                  <div>
-                    <%= run.runs %>
-                  </div>
-                  <div>
-                    <%= number_to_percentage(run.agegrade, precision: 1) %>
-                  </div>
-                  <div class="text-end">
-                    <%= min_sec_format(run.time) %>
-                  </div>
-                </div>
-
-              </div>
+              <% end %>
             <% end %>
+            <%= render partial: 'sort_selection' %>
           </div>
-
-          <% if @runs.blank? %>
-            <div class="px-3 py-4 text-center text-muted">
-              No runs to display yet.
-            </div>
-          <% end %>
+          <%= render partial: 'runs_table' %>
         </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

@@ -9,7 +9,8 @@ class Run < ApplicationRecord
 
   def anonymized_name
     # Rails.env == 'production' ? name.split.map {|a| a.first}.join : name
-    Rails.env == "production" ? name.split.map { |n| n.split("").shuffle.join }.join(" ") : name
+    # Rails.env == "production" ? name.split.map { |n| n.split("").shuffle.join }.join(" ") : name
+    name
   end
 
   def self.parkruns
