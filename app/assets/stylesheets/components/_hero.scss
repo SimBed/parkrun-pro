@@ -1,0 +1,25 @@
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #0f172a, #2563eb);
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+// .hero h1::after {
+//   content: "🏃";
+//   margin-left: 10px;
+// }
+
+.hero h2 {
+  font-size: 1.3rem;
+  font-weight: 300;
+  opacity: 0.9;
+}
