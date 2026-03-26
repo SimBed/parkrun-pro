@@ -1,0 +1,13 @@
+.toggle-icon {
+  transition: transform 0.2s ease;
+}
+
+.rotate-90 {
+  transform: rotate(90deg);
+}
+
+// Next-sibling combinator
+// Selects a div.column-group place immediately after another div.column group
+div.column-group + div.column-group {
+  margin-top: 1rem;
+}

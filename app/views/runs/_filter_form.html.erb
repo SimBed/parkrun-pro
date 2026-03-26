@@ -19,27 +19,56 @@
         <i class="bi bi-chevron-right toggle-icon" data-agegroup-filter-target="icon"></i>
         Age Group Filters
       </button>
-      <div class="mb-1 px-1 d-none" data-agegroup-filter-target="content">
+      <div class="mb-1 px-1 d-none collapse-content" data-agegroup-filter-target="filters">
         <div class="row">
           <div class="col-12 col-md-8 col-lg-6 px-0">
+
             <fieldset>
+              <div class="d-flex">
+                <button type="button" data-action="agegroup-filter#selectMen"
+                                      class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 rounded p-1 me-1">
+                  <i class="bi bi-person-fill"></i>
+                  <span>Men</span>
+                </button>
+
+                <button type="button" data-action="agegroup-filter#selectWomen"
+                                      class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 rounded p-1 me-1">
+                  <i class="bi bi-person-fill"></i>
+                  <span>Women</span>
+                </button>
+
+                <%= link_to clear_filters_runs_path, {class: "btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 rounded p-1 me-1",
+                                                      data: {turbo_frame: "filter_and_charts"} } do %>
+                <%= image_tag('dustbin.webp', class: 'table_icon') %>
+                <%# <i class="bi bi-x-circle"></i> %>
+                <%# <span class="link-text">Clear</span> %>
+                <% end %>
+              </div>
               <!--legend>AGEGROUPS</legend-->
               <div class='d-flex flex-row'>
-              <% %i[men women junior wheelchair].each do |key| %>
-              <div class='d-flex flex-column pe-3'>
-                <div><%=key%></div>
-              <% @agegroup_columns[key].each do |agegroup| %>
-                <%= label_tag nil, class: "chbox-lbl-filters" do %>
-                  <%= check_box_tag 'any_agegroup_of[]', agegroup, session[:filter_any_agegroup_of].present? ? session[:filter_any_agegroup_of].include?(agegroup) : false, id: "chbox#{agegroup}", onchange: "this.form.requestSubmit()" %>
-                  <%= agegroup %>
+                <% [[:men], [:women], [:junior, :wheelchair]].each do |column| %>
+                  <div class='d-flex flex-column pe-3'>
+                    <% column.each do |key| %>
+                    <div class="column-group">
+                      <div><%=key%></div>
+                      <% @agegroup_columns[key].each do |agegroup| %>
+                        <%= label_tag nil, class: "chbox-lbl-filters" do %>
+                          <%= check_box_tag 'any_agegroup_of[]',
+                                            agegroup,
+                                            session[:filter_any_agegroup_of].present? ? session[:filter_any_agegroup_of].include?(agegroup) : false,
+                                            data: {"agegroup-filter-target": key},
+                                            onchange: "this.form.requestSubmit()" %>
+                          <%= agegroup %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <% end %>        
+                  </div>
                 <% end %>
-              <% end %>
               </div>
-              <% end %>
+              <div class="container d-flex">
+                <%= link_to image_tag('dustbin.webp', class: 'table_icon'), clear_filters_runs_path, {class: "search searchdelete icon-container", data: {turbo_frame: "filter_and_charts"} }  %>
               </div>
-          <div class="container d-flex">
-            <%= link_to image_tag('dustbin.webp', class: 'table_icon'), clear_filters_runs_path, {class: "search searchdelete icon-container", data: {turbo_frame: "filter_and_charts"} }  %>
-          </div>
             </fieldset>
           </div>
 
