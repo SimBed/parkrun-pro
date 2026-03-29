@@ -1,17 +1,11 @@
 <div id="agegroup-filter" class="mb-3 canvas gray100-canvas embossed" data-controller="agegroup-filter">
   <div class="search">
-    <%= form_with(url: filter_runs_path, method: "get", class: "form-class") do %>
+    <%= form_with(url: filter_venue_stats_path, method: "get", class: "form-class", data: {turbo_frame: "charts_and_stats"}) do %>
       <div class="d-flex flex-column flex-md-row">
         <div>
           <i class="bi bi-calendar3"></i>
           <select class="form-control-sm mb-1 mb-md-2 sort me-2" name="date" onchange="this.form.requestSubmit()">
-            <%= options_for_select @dates, session[:run_filter_date] %>
-          </select>
-        </div>
-        <div>
-          <i class="bi bi-geo-alt"></i>
-          <select class="form-control-sm mb-1 mb-md-2 sort" name="venue" onchange="this.form.requestSubmit()">
-            <%= options_for_select @parkruns, session[:run_filter_venue] %>
+            <%= options_for_select @dates, session[:venue_stats_filter_date] %>
           </select>
         </div>
       </div>
@@ -37,7 +31,7 @@
                   <span>Women</span>
                 </button>
 
-                <%= link_to clear_filters_runs_path, {class: "btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 rounded p-1 me-1",
+                <%= link_to clear_filters_venue_stats_path, {class: "btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 rounded p-1 me-1",
                                                       data: {turbo_frame: "filter_and_charts"} } do %>
                 <%= image_tag('dustbin.webp', class: 'table_icon') %>
                 <%# <i class="bi bi-x-circle"></i> %>
@@ -55,7 +49,7 @@
                         <%= label_tag nil, class: "chbox-lbl-filters" do %>
                           <%= check_box_tag 'any_agegroup_of[]',
                                             agegroup,
-                                            session[:run_filter_any_agegroup_of].present? ? session[:run_filter_any_agegroup_of].include?(agegroup) : false,
+                                            session[:venue_stats_filter_any_agegroup_of].present? ? session[:venue_stats_filter_any_agegroup_of].include?(agegroup) : false,
                                             data: {"agegroup-filter-target": key},
                                             onchange: "this.form.requestSubmit()" %>
                           <%= agegroup %>
@@ -67,7 +61,7 @@
                 <% end %>
               </div>
               <div class="container d-flex">
-                <%= link_to image_tag('dustbin.webp', class: 'table_icon'), clear_filters_runs_path, {class: "search searchdelete icon-container", data: {turbo_frame: "filter_and_charts"} }  %>
+                <%= link_to image_tag('dustbin.webp', class: 'table_icon'), clear_filters_venue_stats_path, {class: "search searchdelete icon-container", data: {turbo_frame: "filter_and_charts"} }  %>
               </div>
             </fieldset>
           </div>

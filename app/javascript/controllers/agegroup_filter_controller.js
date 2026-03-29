@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = ["filters", "icon", "men", "women"]
 
   connect() {
-    const saved = localStorage.getItem('filters-view')
+    const saved = localStorage.getItem('run-filters-view')
     if (saved === "open") {
       this.filtersTarget.classList.remove("d-none")
       this.iconTarget.classList.add("rotate-90")
@@ -16,26 +16,28 @@ export default class extends Controller {
     const isHidden = this.filtersTarget.classList.toggle("d-none")
     this.iconTarget.classList.toggle("rotate-90")
 
-    localStorage.setItem('filters-view', isHidden ? "closed" : "open")
+    localStorage.setItem('run-filters-view', isHidden ? "closed" : "open")
     // this.filtersTarget.classList.toggle("d-none")
     // this.iconTarget.classList.toggle("rotate-90")
   }
 
   selectMen(event) {
     this.menTargets.forEach(cb => {
-       cb.checked = true
-      cb.dispatchEvent(new Event("change", {bubbles: true}))
+      cb.checked = true
+      // cb.dispatchEvent(new Event("change", {bubbles: true}))
     });
     // submit once (avoids multiple submits)
     // this.menTargets[0].closest("form").requestSubmit()
-    event.target.form.requestSubmit()
+    event.currentTarget.form.requestSubmit()
   }
   selectWomen(event) {
     this.womenTargets.forEach(cb => {
-       cb.checked = true
-      cb.dispatchEvent(new Event("change", {bubbles: true}))
+      cb.checked = true
+      // cb.dispatchEvent(new Event("change", {bubbles: true}))
     });
-    event.target.form.requestSubmit()
+    // note buggy if use event.target as this refers to the the exact clicked element (i, span, etc.) wich dont 'have a form' 
+    // rather than the containing button which does 'have a form'
+    event.currentTarget.form.requestSubmit()
   }
 
 }

@@ -6,9 +6,10 @@ class RunQuery
     any_agegroup_of
   ].freeze
 
-  def initialize(session, records)
+  def initialize(session, records, controller)
     @session = session
     @records = records
+    @controller = controller
   end
 
   def call
@@ -21,21 +22,21 @@ class RunQuery
     relation = @records
 
     SIMPLE_SCOPES.each do |key|
-      relation = relation.public_send(key) if filter_present?(key)
+      relation = relation.public_send(key) if filter_present?(key, @controller)
     end
 
     ARGUMENT_SCOPES.each do |key|
-      relation = relation.public_send(key, filter_value(key)) if filter_present?(key)
+      relation = relation.public_send(key, filter_value(key, @controller)) if filter_present?(key, @controller)
     end
 
     relation
   end
 
-  def filter_present?(key)
-    @session["filter_#{key}"].present?
+  def filter_present?(key, controller)
+    @session["#{controller}_filter_#{key}"].present?
   end
 
-  def filter_value(key)
-    @session["filter_#{key}"]
+  def filter_value(key, controller)
+    @session["#{controller}_filter_#{key}"]
   end
 end

@@ -1,6 +1,6 @@
-desc "verify each parkrun homepage exists"
+desc "verify each parkrun venue homepage exists"
 task verify_sites: :environment do
-  Parkrun.where.not(verified: true).each do |parkrun|
-    parkrun.update(verified: true) if WebsiteRequester.new(parkrun.homepage).request
+  Venue.where.not(verified: true).each do |venue|
+    venue.update(verified: true) if WebsiteRequester.new(venue.homepage).request
   end
 end

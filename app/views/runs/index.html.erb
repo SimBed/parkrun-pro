@@ -1,8 +1,8 @@
 <div class="container my-4">
-<div class="hero">
-  <h1>UK Parkruns</h1>
-  <h2>Aggregated race results across the country</h2>
-</div>
+  <div class="hero">
+    <h1>UK Parkruns</h1>
+    <h2>Aggregated race results across the country</h2>
+  </div>
   <%= turbo_frame_tag 'filter_and_charts' do %>
     <%= render 'filter_form' %>
     <%= turbo_frame_tag 'charts_and_stats' do %>
@@ -43,4 +43,10 @@
       <% end %>
     <% end %>
   <% end %>
+
+  <%= link_to venue_stats_path do %>
+    <i class="bi bi-arrow-left-right"></i>
+    Venues
+  <%end%>
+
 </div>

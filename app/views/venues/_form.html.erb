@@ -1,10 +1,10 @@
-<%= form_with(model: parkrun) do |form| %>
-  <% if parkrun.errors.any? %>
+<%= form_with(model: venue) do |form| %>
+  <% if venue.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(parkrun.errors.count, "error") %> prohibited this parkrun from being saved:</h2>
+      <h2><%= pluralize(venue.errors.count, "error") %> prohibited this venue from being saved:</h2>
 
       <ul>
-        <% parkrun.errors.each do |error| %>
+        <% venue.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

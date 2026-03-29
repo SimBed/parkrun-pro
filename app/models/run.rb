@@ -2,6 +2,7 @@ class Run < ApplicationRecord
   scope :order_by_time, -> { order(time: :asc, name: :asc) }
   scope :order_by_agegrade, -> { order("agegrade DESC NULLS LAST, time ASC, name ASC") }
   scope :order_by_runs, -> { order(runs: :desc, name: :asc) }
+  scope :order_by_parkrun, -> { order(:parkrun) }
   scope :has_agegroup_like, ->(key) { where("agegroup LIKE ?", "%#{key}%") }
   # the nulls in agegrade would get ordered first by default
   # scope :order_by_agegrade, -> { order(agegrade: :desc, time: :asc, name: :asc) }
@@ -32,8 +33,8 @@ class Run < ApplicationRecord
   def self.summary_stats
     select(<<~SQL)
       COUNT(time) AS count,
-      MIN(time) AS min,
-      MAX(time) AS max,
+      MIN(time) AS fastest,
+      MAX(time) AS slowest,
       percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median,
       AVG(time) AS mean,
       STDDEV(time) AS stddev,
@@ -48,37 +49,41 @@ class Run < ApplicationRecord
             substring(agegroup FROM '\\d+')::int
           ELSE NULL
         END
-      ) AS avg_age#{'      '}
+      ) AS avg_age
     SQL
   end
-  # def self.summary_stats(agegroups: nil, group_by_parkrun: true)
-  #   query = all
 
-  #   query = query.where(agegroup: agegroups) if agegroups.present?
+  # Returns the number of duplicate records that would be deleted
+  def self.duplicate_count
+    sql = <<~SQL
+      SELECT COUNT(*) FROM (
+        SELECT id,
+               ROW_NUMBER() OVER (
+                 PARTITION BY name, date, time, parkrun, agegrade
+                 ORDER BY id
+               ) AS row_num
+        FROM #{table_name}
+      ) t
+      WHERE row_num > 1;
+    SQL
 
-  #   if group_by_parkrun
-  #   query
-  #   .group(:parkrun)
-  #   .select(<<~SQL)
-  #     parkrun,
-  #     COUNT(time) AS count,
-  #     AVG(time) AS mean,
-  #     STDDEV(time) AS stddev,
-  #     MIN(time) AS min,
-  #     MAX(time) AS max,
-  #     percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median
-  #   SQL
-  #   .order(:parkrun).index_by(&:parkrun)
-  #   else
-  #     query
-  #     .select(<<~SQL)
-  #       COUNT(time) AS count,
-  #       MIN(time) AS min,
-  #       MAX(time) AS max,
-  #       percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median,
-  #       AVG(time) AS mean,
-  #       STDDEV(time) AS stddev
-  #     SQL
-  #   end
-  # end
+    connection.select_value(sql).to_i
+  end
+
+  def self.delete_duplicates!
+    connection.execute(<<~SQL)
+      DELETE FROM #{table_name}
+      WHERE id IN (
+        SELECT id FROM (
+          SELECT id,
+                 ROW_NUMBER() OVER (
+                   PARTITION BY name, date, time, parkrun, agegrade
+                   ORDER BY id
+                 ) AS row_num
+          FROM #{table_name}
+        ) t
+        WHERE row_num > 1
+      );
+    SQL
+  end
 end

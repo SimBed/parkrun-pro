@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Venues" %>
+
+<h1>Venues <small> <%="(#{@venues.size})"%> </small></h1>
+
+<div id="venues">
+  <% @venues.each do |venue| %>
+    <%= render venue %>
+  <% end %>
+</div>
+
+<%= link_to "New venue", new_venue_path %>

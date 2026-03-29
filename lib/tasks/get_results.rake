@@ -1,13 +1,13 @@
-desc "scrape each parkrun endpoint for latest results"
+desc "scrape each parkrun venue endpoint for latest results"
 task get_results: :environment do
-  date = Date.parse("21 March 2026")
+  date = Date.parse("28 March 2026")
   count = 0
-  # Parkrun.order(:id).limit(30).offset(274).each do |parkrun|
-  Parkrun.order(:id).limit(100).find_each(start: 1595, batch_size: 20) do |parkrun|
-      puts "processing #{parkrun.name}, id: #{parkrun.id}"
+  # Venue.order(:id).limit(30).offset(274).each do |venue|
+  Venue.order(:id).limit(200).find_each(start: 1592, batch_size: 10) do |venue|
+      puts "processing #{venue.name}, id: #{venue.id}"
       rows = []
       time_now = Time.current
-      response = WebsiteRequester.new(parkrun.latest_results_page).request
+      response = WebsiteRequester.new(venue.latest_results_page).request
       exit if response.nil?
       next if response == "not found"
       noko_doc = Nokogiri::HTML(response)
@@ -29,9 +29,9 @@ task get_results: :environment do
             hours, minutes, secs = time_parts
             hours * 3600 + minutes * 60 + secs
           end
-        parkrun_name = parkrun.name
+        venue_name = venue.name
         rows << { name:, gender:, agegroup:, time: seconds, position:, runs:, agegrade:,
-                  parkrun: parkrun_name,
+                  parkrun: venue_name,
                   date:,
                   created_at: time_now,
                   updated_at: time_now
@@ -44,9 +44,9 @@ task get_results: :environment do
       puts "sleeping for: #{sleep_time} seconds"
       sleep sleep_time # mitigate getting blocked
     count += 1
-    if count % 20 == 0
+    if count % 10 == 0
       puts "quick rest"
-      sleep_time = rand(60..62)
+      sleep_time = rand(40..70)
       puts "sleeping for: #{sleep_time} seconds"
       sleep sleep_time
     end

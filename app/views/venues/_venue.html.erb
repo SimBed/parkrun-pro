@@ -1,0 +1,10 @@
+<div id="<%= dom_id venue %>">
+  <div>
+    <%= venue.name %>
+    <%= venue.homepage %>
+    <%= link_to 'edit', edit_venue_path(venue) %>
+    <%= link_to 'delete', venue, data: { turbo_method: :delete } %>
+    <%= venue.verified? ? '&#9989;'.html_safe : '&#x274c;'.html_safe  %>
+  </div>
+
+</div>

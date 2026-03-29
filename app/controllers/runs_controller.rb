@@ -5,8 +5,8 @@ class RunsController < ApplicationController
   def index
     prepare_dates
     prepare_agegroups
-    date = session[:filter_date] || @dates&.first
-    parkrun = session[:filter_parkrun] || "All"
+    date = session[:run_filter_date] || @dates&.first
+    parkrun = session[:run_filter_venue] || "All"
     @runs = Run.where(date:)
     prepare_parkruns
     @runs = @runs.where(parkrun:) unless parkrun == "All"
@@ -22,8 +22,8 @@ class RunsController < ApplicationController
                     end
                   end
     @chart_title = "#{parkrun + (parkrun == 'All' ? ' Venues' : '') }, #{date}"
-    @chart_sub_title = if session[:filter_any_agegroup_of]
-      "(#{helpers.pluralize(session[:filter_any_agegroup_of].length, 'age-group')} selected)"
+    @chart_sub_title = if session[:run_filter_any_agegroup_of]
+      "(#{helpers.pluralize(session[:run_filter_any_agegroup_of].length, 'age-group')} selected)"
     else
       "(All age-groups)"
     end
@@ -49,20 +49,20 @@ class RunsController < ApplicationController
   end
 
   def clear_filters
-    clear_session(:filter_any_agegroup_of)
+    clear_session(:run_filter_any_agegroup_of)
     redirect_to runs_path
   end
 
   def filter
-    clear_session(:filter_date, :filter_parkrun, :filter_any_agegroup_of)
-    set_session(:date, :parkrun, :any_agegroup_of)
+    clear_session(:run_filter_date, :run_filter_venue, :run_filter_any_agegroup_of)
+    set_session("run", :date, :venue, :any_agegroup_of)
     redirect_to runs_path
   end
 
   private
 
   def handle_filter
-    @runs = RunQuery.new(session, @runs).call
+    @runs = RunQuery.new(session, @runs, :run).call
   end
 
   def initialize_sort
@@ -71,18 +71,6 @@ class RunsController < ApplicationController
 
   def handle_sort
     @runs = @runs.send("order_by_#{session[:run_sort_option]}")
-  end
-
-  def prepare_agegroups
-    @agegroup_columns = { junior: Run.agegroup_like("J"),
-                men: Run.agegroup_like("SM") + Run.agegroup_like("VM"),
-                women: Run.agegroup_like("SW") + Run.agegroup_like("VW"),
-                wheelchair: Run.agegroup_like("WC")
-              }
-  end
-
-  def prepare_dates
-    @dates = Run.dates.map { |date| date.strftime("%d %B %Y") }
   end
 
   def prepare_parkruns

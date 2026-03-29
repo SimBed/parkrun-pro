@@ -2,11 +2,12 @@
 
 # Don't use this for dumping development that you plan to restore to production. The database users are different, so it will create difficult tot resolve conflicts.
 # Instead just manually do
-# pg_dump -Fc --no-acl --no-owner -d parkrun_pro_development -f db/backups/latest.dump
-# scp latest.dump server:apps//parkrun-pro/
+# pg_dump -Fc --no-acl --no-owner -d parkrun_pro_development -f latest.dump
+# mv latest.dump latest.dumpold (on production server or just remove)
+# scp latest.dump [server name]:apps//parkrun-pro/
 # sudo -u postgres dropdb parkrun_pro_production
 # sudo -u postgres createdb -O railsapps parkrun_pro_production
-# pg_restore --no-owner -U railsapps -d parkrun_pro_production latest.dump (prompt for password)
+# pg_restore --no-owner -U railsapps -d parkrun_pro_production latest.dump (prompt for database password)
 
 # backup timetstamped database
 # Production:
