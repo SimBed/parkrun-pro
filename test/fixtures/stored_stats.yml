@@ -1,0 +1,13 @@
+one:
+  date: 2026-03-14
+  parkrun: Abbey Park  
+  count: 198294
+  fastest: 887
+  slowest: 5446
+  median: 1757.0
+  mean: 1845.3984991981603074
+  stddev: 478.171965901664
+  avg_age: 43.3697354593589588
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>  
+

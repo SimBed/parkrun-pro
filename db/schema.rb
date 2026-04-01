@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_27_101751) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_31_192615) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,6 +47,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_27_101751) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "stored_stats", force: :cascade do |t|
+    t.float "avg_age"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.date "date", null: false
+    t.integer "fastest"
+    t.float "mean"
+    t.float "median"
+    t.string "parkrun", null: false
+    t.integer "slowest"
+    t.float "stddev"
+    t.datetime "updated_at", null: false
+    t.index ["date", "parkrun"], name: "index_stored_stats_on_date_and_parkrun", unique: true
+    t.index ["date"], name: "index_stored_stats_on_date"
+    t.index ["parkrun"], name: "index_stored_stats_on_parkrun"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address", null: false
@@ -65,4 +82,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_27_101751) do
   end
 
   add_foreign_key "sessions", "users"
+
+  create_view "summary_stats", materialized: true, sql_definition: <<-SQL
+      SELECT date,
+      count("time") AS count,
+      min("time") AS fastest,
+      max("time") AS slowest,
+      percentile_cont((0.5)::double precision) WITHIN GROUP (ORDER BY (("time")::double precision)) AS median,
+      avg("time") AS mean,
+      stddev("time") AS stddev,
+      avg(
+          CASE
+              WHEN ((agegroup)::text ~ '\\d+-\\d+'::text) THEN (((("substring"((agegroup)::text, '\\d+'::text))::integer + ("substring"((agegroup)::text, '-(\\d+)'::text))::integer))::numeric / 2.0)
+              WHEN ((agegroup)::text ~ '\\d+'::text) THEN (("substring"((agegroup)::text, '\\d+'::text))::integer)::numeric
+              ELSE NULL::numeric
+          END) AS avg_age
+     FROM runs
+    GROUP BY date;
+  SQL
 end

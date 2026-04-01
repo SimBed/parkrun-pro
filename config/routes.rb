@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   resources :users, only: [ :index ]
+  namespace :charts do
+    get "count_by_time"
+    get "count_by_agegroup"
+  end
   root "runs#index"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

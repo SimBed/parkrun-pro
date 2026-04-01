@@ -62,6 +62,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "rack-mini-profiler"
 end
 
 group :test do
@@ -69,3 +70,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "scenic", "~> 1.9"

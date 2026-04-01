@@ -1,4 +1,4 @@
-<% stats = @summary_stats[0] %>
+<% stats = @summary_stats %>
 
 <% @stats = [{name: 'Count', number: number_with_delimiter(stats.count), icon: 'bi-list-ol' },
              {name: 'Fastest', number: min_sec_format(stats.fastest), icon: 'bi-lightning-charge' },
