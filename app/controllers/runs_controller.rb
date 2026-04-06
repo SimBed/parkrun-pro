@@ -1,28 +1,22 @@
 class RunsController < ApplicationController
   allow_unauthenticated_access
-  before_action :initialize_sort, only: :index
+  # before_action :initialize_sort, only: :index
 
   def index
-    prepare_dates
-    prepare_agegroups
-    @date = session[:run_filter_date] ||= @dates&.first
-    @parkrun =session[:run_filter_venue] ||= "All"
-    @runs = Run.where(date: @date)
-    prepare_parkruns
-    @runs = @runs.where(parkrun: @parkrun) unless @parkrun == "All"
+    prepare_filter_options
+    set_filters
+    set_sort_options
     handle_filter
     handle_sort
     handle_headings
-    # @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).order(:agegroup).count
-    # @column_chart_count_by_agegroup = @runs.unscope(:order).group(:agegroup).order("count_all DESC").count
     handle_summary_stats
     handle_pagination
   end
 
-  def parkruns
-    @parkruns = Run.parkruns
-    @agegroups = Run.agegroups
-  end
+  # def parkruns
+  #   @parkruns = Run.parkruns
+  #   @agegroups = Run.agegroups
+  # end
 
   def clear_filters
     clear_session(:run_filter_any_agegroup_of)
@@ -37,20 +31,45 @@ class RunsController < ApplicationController
 
   private
 
+  def set_filters
+    @date = session[:run_filter_date] ||= @dates&.first
+    @parkrun = session[:run_filter_venue] ||= "All"
+  end
+
+  def set_sort_options
+    default_sort_option = "time"
+    default_sort_direction = "asc"
+    session[:run_sort_option] = params[:run_sort_option] || session[:run_sort_option] || default_sort_option
+    session[:run_sort_direction] = params[:run_sort_direction] || session[:run_sort_direction] || default_sort_direction
+    @run_sort_option = session[:run_sort_option]
+    @run_sort_direction = session[:run_sort_direction]
+    # @sort_column = params[:sort] || "time"
+    # @sort_direction = params[:direction] || "asc"
+  end
+
   def handle_filter
+    @runs = Run.where(date: @date)
+    @runs = @runs.where(parkrun: @parkrun) unless @parkrun == "All"
     @runs = RunQuery.new(session, @runs, :run).call
   end
 
-  def initialize_sort
-    session[:run_sort_option] = params[:run_sort_option] || session[:run_sort_option] || "time"
+  def handle_sort
+    # @runs = @runs.send("order_by_#{session[:run_sort_option]}")
+    # @runs = @runs.order("#{@sort_column} #{@sort_direction}")
+    @runs = @runs.send("order_by_#{@run_sort_option}_#{@run_sort_direction}")
   end
 
-  def handle_sort
-    @runs = @runs.send("order_by_#{session[:run_sort_option]}")
+  def prepare_filter_options
+    prepare_dates
+    prepare_agegroups
+    prepare_parkruns
   end
 
   def prepare_parkruns
-    @parkruns = [ [ "All Venues", "All" ] ] + @runs.distinct(:parkrun).order(:parkrun).pluck(:parkrun)
+    @parkruns = [ [ "All Venues", "All" ] ] + Run.parkruns
+    # ok to show parkruns that didnt have results on the selected date. Only showing parkruns that have results on the selected date is confusing if you change filters and the parkrun selected disappears from the dropdown.
+    # Better to show all parkruns that have results in the database, even if they didnt have results on the selected date.
+    # @parkruns = [ [ "All Venues", "All" ] ] + @runs.distinct(:parkrun).order(:parkrun).pluck(:parkrun)
   end
 
   def handle_headings
@@ -76,13 +95,16 @@ class RunsController < ApplicationController
   end
 
   def handle_summary_stats
+    # Use of lambda for lazy execution (only run if needed)
+    full_query_method = -> { @runs.unscope(:order).summary_stats[0] }
     @summary_stats = case summary_stats_method
     when :full_query
-      @runs.unscope(:order).summary_stats[0]
+      full_query_method.call
     when :material_view
-      SummaryStats.on(@date)[0]
+      SummaryStats.on(@date)[0] || full_query_method.call
     when :stored_stats
-      StoredStats.for(@date, @parkrun)
+      # @runs.unscope(:order).summary_stats[0]
+      StoredStats.for(@date, @parkrun) || full_query_method.call
     end
   end
 

@@ -1,7 +1,10 @@
 class Run < ApplicationRecord
-  scope :order_by_time, -> { order(time: :asc, name: :asc) }
-  scope :order_by_agegrade, -> { order("agegrade DESC NULLS LAST, time ASC, name ASC") }
-  scope :order_by_runs, -> { order(runs: :desc, name: :asc) }
+  scope :order_by_time_asc, -> { order(time: :asc, name: :asc) }
+  scope :order_by_time_desc, -> { order(time: :desc, name: :asc) }
+  scope :order_by_agegrade_asc, -> { order("agegrade ASC NULLS LAST, time ASC, name ASC") }
+  scope :order_by_agegrade_desc, -> { order("agegrade DESC NULLS LAST, time ASC, name ASC") }
+  scope :order_by_runs_asc, -> { order(runs: :asc, time: :asc, name: :asc) }
+  scope :order_by_runs_desc, -> { order(runs: :desc, name: :asc) }
   scope :order_by_parkrun, -> { order(:parkrun) }
   scope :has_agegroup_like, ->(key) { where("agegroup LIKE ?", "%#{key}%") }
   # the nulls in agegrade would get ordered first by default
@@ -15,6 +18,7 @@ class Run < ApplicationRecord
   end
 
   def self.parkruns
+    # NOTE: Run.distinct(:parkrun) (without the pluck) doesnt return what is intuitively expected. Run.select(:parkrun).distinct works as expected.
     order(parkrun: :asc).distinct.pluck(:parkrun)
   end
 
