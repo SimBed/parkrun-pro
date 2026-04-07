@@ -33,10 +33,8 @@ class RunsController < ApplicationController
   def set_sort_options
     default_sort_option = "time"
     default_sort_direction = "asc"
-    session[:run_sort_option] = params[:run_sort_option] || session[:run_sort_option] || default_sort_option
-    session[:run_sort_direction] = params[:run_sort_direction] || session[:run_sort_direction] || default_sort_direction
-    @run_sort_option = session[:run_sort_option]
-    @run_sort_direction = session[:run_sort_direction]
+    @sort_option = session[:run_sort_option] = params[:sort_option] || session[:run_sort_option] || default_sort_option
+    @sort_direction = session[:run_sort_direction] = params[:sort_direction] || session[:run_sort_direction] || default_sort_direction
   end
 
   def handle_filter
@@ -46,7 +44,7 @@ class RunsController < ApplicationController
   end
 
   def handle_sort
-    @runs = @runs.send("order_by_#{@run_sort_option}_#{@run_sort_direction}")
+    @runs = @runs.send("order_by_#{@sort_option}_#{@sort_direction}")
   end
 
   def prepare_filter_options

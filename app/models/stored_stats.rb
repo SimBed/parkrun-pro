@@ -15,7 +15,7 @@ class StoredStats < ApplicationRecord
       fastest: result.fastest,
       slowest: result.slowest,
       median: result.median,
-      mean: result.mean,
+      # mean: result.mean,
       stddev: result.stddev,
       avg_age: result.avg_age
     })

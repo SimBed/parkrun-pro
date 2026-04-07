@@ -1,6 +1,5 @@
 class VenueStatsController < ApplicationController
   allow_unauthenticated_access
-  before_action :initialize_sort, only: :index
 
   def index
     prepare_filter_options
@@ -32,8 +31,8 @@ class VenueStatsController < ApplicationController
   def set_sort_options
     default_sort_option = "fastest"
     default_sort_direction = "asc"
-    @venue_stats_sort_option = session[:venue_stats_sort_option] = params[:venue_stats_sort_option] || session[:venue_stats_sort_option] || default_sort_option
-    @venue_stats_sort_direction = session[:venue_stats_sort_direction] = params[:venue_stats_sort_direction] || session[:venue_stats_sort_direction] || default_sort_direction
+    @sort_option = session[:venue_stats_sort_option] = params[:sort_option] || session[:venue_stats_sort_option] || default_sort_option
+    @sort_direction = session[:venue_stats_sort_direction] = params[:sort_direction] || session[:venue_stats_sort_direction] || default_sort_direction
   end
 
   def handle_filter
@@ -46,17 +45,8 @@ class VenueStatsController < ApplicationController
     prepare_agegroups
   end
 
-  def initialize_sort
-    session[:venue_stats_sort_option] = params[:venue_stats_sort_option] || session[:venue_stats_sort_option] || "parkrun"
-  end
-
   def handle_sort
-    # @runs = @runs.send("order_by_#{session[:venue_stats_sort_option]}")
-    sort_option = session[:venue_stats_sort_option]
-    sort_order = "ASC"
-    sort_order = "DESC" if %w[count slowest].include? sort_option
-    # commented out verison casues pagy to subsequently fail. Have to use the 'subquery approach' for columns like 'fastest' tp remain recognized
-    @venue_stats = @venue_stats.order("#{session[:venue_stats_sort_option]} #{sort_order}")
+    @venue_stats = @venue_stats.order("#{@sort_option} #{@sort_direction}")
   end
 
   def summary_stats_method

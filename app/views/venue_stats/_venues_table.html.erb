@@ -2,15 +2,14 @@
 <div class="card shadow-sm border-0">
   <div class="card-body p-0">
     <div class="d-none d-xl-grid px-2 py-2 border-bottom text-muted small fw-semibold"
-        style="grid-template-columns: 100px 240px 240px 80px 80px 80px 80px 80px 80px;">
+        style="grid-template-columns: 100px 240px 120px 80px 80px 80px 80px 80px 80px;">
       <div>Position</div>
-      <div>Name</div>
-      <div>Count</div>
-      <div>Fastest</div>
-      <div>Median</div>
-      <div>Mean</div>
-      <div>Slowest</div>
-      <div>Average Age</div>
+      <div><%= sortable(column: 'parkrun', coltitle: 'Name', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
+      <div><%= sortable(column: 'count', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
+      <div><%= sortable(column: 'fastest', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
+      <div><%= sortable(column: 'median', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
+      <div><%= sortable(column: 'slowest', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
+      <div><%= sortable(column: 'avg_age', coltitle: 'Average Age', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
     </div>
 
     <div class="list-group list-group-flush">
@@ -43,7 +42,7 @@
 
           <%# DESKTOP %>
           <div class="d-none d-xl-grid text-muted small align-items-center"
-                style="grid-template-columns: 100px 240px 240px 80px 80px 80px 80px 80px 80px;">
+                style="grid-template-columns: 100px 240px 120px 80px 80px 80px 80px 80px 80px;">
             <div class="d-flex align-items-center">
               <div class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2 py-1 fw-semibold">
                 <%= number_with_delimiter(index +1) %>
@@ -60,9 +59,6 @@
             </div>
             <div>
               <%= min_sec_format(run.median) %>
-            </div>
-            <div>
-              <%= min_sec_format(run.mean) %>
             </div>
             <div>
               <%= min_sec_format(run.slowest) %>

@@ -54,7 +54,7 @@ class Run < ApplicationRecord
     select_parts << "MIN(time) AS fastest"
     select_parts << "MAX(time) AS slowest"
     select_parts << "percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median"
-    select_parts << "AVG(time) AS mean"
+    # select_parts << "AVG(time) AS mean"
     # select_parts << "STDDEV(time) AS stddev"
     select_parts << <<~SQL
                       AVG(

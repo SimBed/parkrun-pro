@@ -6,7 +6,7 @@ module ApplicationHelper
     #   direction = opp_direction(sort_direction)
     # end
     direction = opp_direction(sort_direction)
-    link_to coltitle, { run_sort_option: column, run_sort_direction: direction }, { class: css_class }
+    link_to coltitle, { sort_option: column, sort_direction: direction }, { class: css_class }
   end
 
   def opp_direction(direction)
