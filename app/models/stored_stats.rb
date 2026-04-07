@@ -1,6 +1,8 @@
 class StoredStats < ApplicationRecord
-  def self.for(date, parkrun)
-    find_by(date:, parkrun:)
+  def self.for(date, parkrun = nil)
+    return find_by(date:, parkrun:) if parkrun
+
+    where(date:)
   end
 
   def self.compute_summary_for(date, parkrun)

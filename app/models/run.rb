@@ -35,30 +35,69 @@ class Run < ApplicationRecord
     # order(date: :desc).distinct.pluck(:date)
     this_saturday = Date.current.beginning_of_week(:saturday)
 
-    (START_DATE..this_saturday).step(7).to_a
+    (START_DATE..this_saturday).step(7).to_a.reverse
   end
 
-  def self.summary_stats
-    select(<<~SQL)
-      COUNT(time) AS count,
-      MIN(time) AS fastest,
-      MAX(time) AS slowest,
-      percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median,
-      AVG(time) AS mean,
-      STDDEV(time) AS stddev,
-      AVG(
-        CASE
-          WHEN agegroup ~ '\\d+-\\d+' THEN
-            (
-              substring(agegroup FROM '\\d+')::int +
-              substring(agegroup FROM '-(\\d+)')::int
-            ) / 2.0
-          WHEN agegroup ~ '\\d+' THEN
-            substring(agegroup FROM '\\d+')::int
-          ELSE NULL
-        END
-      ) AS avg_age
-    SQL
+  def self.summary_stats(group_by: nil)
+    # Without grouping (runs view):
+    # SELECT COUNT(time), MIN(time)...
+    # FROM runs
+
+    # With grouping (venue_stats view):
+    # SELECT parkrun, COUNT(time), MIN(time)...
+    # FROM runs
+    # GROUP BY parkrun
+
+    select_parts = []
+    select_parts << group_by if group_by
+    select_parts << "COUNT(time) AS count"
+    select_parts << "MIN(time) AS fastest"
+    select_parts << "MAX(time) AS slowest"
+    select_parts << "percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median"
+    select_parts << "AVG(time) AS mean"
+    # select_parts << "STDDEV(time) AS stddev"
+    select_parts << <<~SQL
+                      AVG(
+                        CASE
+                          WHEN agegroup ~ '\\d+-\\d+' THEN
+                            (
+                              substring(agegroup FROM '\\d+')::int +
+                              substring(agegroup FROM '-(\\d+)')::int
+                            ) / 2.0
+                          WHEN agegroup ~ '\\d+' THEN
+                            substring(agegroup FROM '\\d+')::int
+                          ELSE NULL
+                        END
+                      ) AS avg_age
+                    SQL
+
+    relation = select(select_parts.join(", "))
+    group_by ? relation.group(group_by) : relation
+
+
+    # relation = select(<<~SQL)
+    #   #{group_by ? "#{group_by}," : ""}
+    #   COUNT(time) AS count,
+    #   MIN(time) AS fastest,
+    #   MAX(time) AS slowest,
+    #   percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median,
+    #   AVG(time) AS mean,
+    #   STDDEV(time) AS stddev,
+    #   AVG(
+    #     CASE
+    #       WHEN agegroup ~ '\\d+-\\d+' THEN
+    #         (
+    #           substring(agegroup FROM '\\d+')::int +
+    #           substring(agegroup FROM '-(\\d+)')::int
+    #         ) / 2.0
+    #       WHEN agegroup ~ '\\d+' THEN
+    #         substring(agegroup FROM '\\d+')::int
+    #       ELSE NULL
+    #     END
+    #   ) AS avg_age
+    # SQL
+
+    # group_by ? relation.group(group_by) : relation
   end
 
   # Returns the number of duplicate records that would be deleted

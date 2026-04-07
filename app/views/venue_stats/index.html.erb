@@ -8,7 +8,7 @@
       <%= turbo_frame_tag 'venues_table' do %>
         <div class="mb-5 canvas gray100-canvas embossed ps-2 py-2">
           <div class="canvas gray100-canvas embossed col col-lg-6 col-xl-4 p-1 mb-2">
-
+            <%#== @pagy.series_nav(:bootstrap) %>
             <%= render partial: 'sort_selection' %>
           </div>
           <%= render partial: 'venues_table' %>

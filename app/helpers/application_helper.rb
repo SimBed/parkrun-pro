@@ -14,4 +14,8 @@ module ApplicationHelper
 
     "asc"
   end
+
+  def date_format(dates)
+    dates.map { |date| date.strftime("%d %b %Y") }
+  end
 end

@@ -3,13 +3,13 @@ class VenueStatsController < ApplicationController
   before_action :initialize_sort, only: :index
 
   def index
-    prepare_dates
-    prepare_agegroups
-    date = session[:venue_stats_filter_date] || @dates&.first
-    @runs = Run.where(date:)
+    prepare_filter_options
+    set_filters
+    set_sort_options
     handle_filter
-    @venue_stats = @runs.summary_stats.select(:parkrun).group(:parkrun)
+    handle_summary_stats
     handle_sort
+    # handle_pagination
   end
 
   def clear_filters
@@ -25,8 +25,25 @@ class VenueStatsController < ApplicationController
 
   private
 
+  def set_filters
+    @date = session[:venue_stats_filter_date] || @dates&.first
+  end
+
+  def set_sort_options
+    default_sort_option = "fastest"
+    default_sort_direction = "asc"
+    @venue_stats_sort_option = session[:venue_stats_sort_option] = params[:venue_stats_sort_option] || session[:venue_stats_sort_option] || default_sort_option
+    @venue_stats_sort_direction = session[:venue_stats_sort_direction] = params[:venue_stats_sort_direction] || session[:venue_stats_sort_direction] || default_sort_direction
+  end
+
   def handle_filter
+    @runs = Run.where(date: @date)
     @runs = RunQuery.new(session, @runs, :venue_stats).call
+  end
+
+  def prepare_filter_options
+    prepare_dates
+    prepare_agegroups
   end
 
   def initialize_sort
@@ -38,6 +55,31 @@ class VenueStatsController < ApplicationController
     sort_option = session[:venue_stats_sort_option]
     sort_order = "ASC"
     sort_order = "DESC" if %w[count slowest].include? sort_option
+    # commented out verison casues pagy to subsequently fail. Have to use the 'subquery approach' for columns like 'fastest' tp remain recognized
     @venue_stats = @venue_stats.order("#{session[:venue_stats_sort_option]} #{sort_order}")
   end
+
+  def summary_stats_method
+    if session[:venue_stats_filter_any_agegroup_of]
+      :full_query
+    else
+      :stored_stats
+    end
+  end
+
+  def handle_summary_stats
+    # Use of lambda for lazy execution (only run if needed)
+    full_query_method = -> { @runs.unscope(:order).summary_stats(group_by: "parkrun") }
+    @venue_stats = case summary_stats_method
+    when :full_query
+      full_query_method.call
+    when :stored_stats
+      StoredStats.for(@date) || full_query_method.call
+    end
+  end
+
+  # def handle_pagination
+  #   pagy_limit = 100
+  #   @pagy, @venue_stats = pagy(:countish, @venue_stats, limit: pagy_limit)
+  # end
 end

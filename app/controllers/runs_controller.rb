@@ -1,6 +1,5 @@
 class RunsController < ApplicationController
   allow_unauthenticated_access
-  # before_action :initialize_sort, only: :index
 
   def index
     prepare_filter_options
@@ -12,11 +11,6 @@ class RunsController < ApplicationController
     handle_summary_stats
     handle_pagination
   end
-
-  # def parkruns
-  #   @parkruns = Run.parkruns
-  #   @agegroups = Run.agegroups
-  # end
 
   def clear_filters
     clear_session(:run_filter_any_agegroup_of)
@@ -43,8 +37,6 @@ class RunsController < ApplicationController
     session[:run_sort_direction] = params[:run_sort_direction] || session[:run_sort_direction] || default_sort_direction
     @run_sort_option = session[:run_sort_option]
     @run_sort_direction = session[:run_sort_direction]
-    # @sort_column = params[:sort] || "time"
-    # @sort_direction = params[:direction] || "asc"
   end
 
   def handle_filter
@@ -54,8 +46,6 @@ class RunsController < ApplicationController
   end
 
   def handle_sort
-    # @runs = @runs.send("order_by_#{session[:run_sort_option]}")
-    # @runs = @runs.order("#{@sort_column} #{@sort_direction}")
     @runs = @runs.send("order_by_#{@run_sort_option}_#{@run_sort_direction}")
   end
 
@@ -103,7 +93,6 @@ class RunsController < ApplicationController
     when :material_view
       SummaryStats.on(@date)[0] || full_query_method.call
     when :stored_stats
-      # @runs.unscope(:order).summary_stats[0]
       StoredStats.for(@date, @parkrun) || full_query_method.call
     end
   end
