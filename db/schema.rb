@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_31_192615) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_06_200424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "agegroups", force: :cascade do |t|
+    t.boolean "active"
+    t.integer "average_age"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.string "gender"
+    t.string "name"
+    t.integer "position"
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_agegroups_on_category"
+    t.index ["gender"], name: "index_agegroups_on_gender"
+    t.index ["name"], name: "index_agegroups_on_name", unique: true
+    t.index ["position"], name: "index_agegroups_on_position"
+  end
 
   create_table "runs", force: :cascade do |t|
     t.decimal "agegrade", precision: 5, scale: 2

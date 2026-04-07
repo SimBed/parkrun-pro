@@ -5,7 +5,7 @@
         <div>
           <i class="bi bi-calendar3"></i>
           <select class="form-control-sm mb-1 mb-md-2 sort me-2" name="date" onchange="this.form.requestSubmit()">
-            <%= options_for_select @dates, session[:run_filter_date] %>
+            <%= options_for_select @dates.map { |date| date.strftime("%d %B %Y") }, session[:run_filter_date] %>
           </select>
         </div>
         <div>

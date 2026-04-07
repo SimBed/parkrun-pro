@@ -1,10 +1,10 @@
 desc "scrape each parkrun venue endpoint for latest results"
 task get_results: :environment do
-  date = Date.parse("7 February 2026")
+  date = Date.parse("31 January 2026")
   count = 0
   # Venue.order(:id).limit(30).offset(274).each do |venue|
   # Venue.order(:id).limit(300).find_each(start: 834, batch_size: 10) do |venue|
-  Venue.order(:id).limit(100).find_each(start: 1635, batch_size: 10) do |venue|
+  Venue.order(:id).limit(700).find_each(start: 1042, batch_size: 10) do |venue|
       puts "processing #{venue.name}, id: #{venue.id}"
       rows = []
       time_now = Time.current

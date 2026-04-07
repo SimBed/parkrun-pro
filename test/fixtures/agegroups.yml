@@ -1,0 +1,14 @@
+one:
+  name: SM18-19
+  position: 1
+  category: senior
+  gender: male
+  average_age: 18.5
+  active: true
+two:
+  name: SM20-24
+  position: 2
+  category: senior
+  gender: male
+  average_age: 22
+  active: true
