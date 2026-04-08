@@ -1,5 +1,5 @@
 .canvas {
-  position: relative;
+  // position: relative;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-right: 0.25rem;
@@ -43,12 +43,4 @@
       margin-right: auto; 
     }
   }
-}
-
-// google map on contact page
-#gmap_canvas {
-  overflow: hidden;
-  height :19em;
-  width: 35em;
-  margin-top: 2em;
 }

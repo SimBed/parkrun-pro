@@ -2,7 +2,7 @@
 <div class="card shadow-sm border-0">
   <div class="card-body p-0">
     <div class="d-none d-xl-grid px-2 py-2 border-bottom text-muted small fw-semibold"
-        style="grid-template-columns: 100px 240px 120px 80px 80px 80px 80px 80px 80px;">
+        style="grid-template-columns: 100px 240px 120px 100px 100px 100px 120px;">
       <div>Position</div>
       <div><%= sortable(column: 'parkrun', coltitle: 'Name', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
       <div><%= sortable(column: 'count', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
@@ -42,7 +42,7 @@
 
           <%# DESKTOP %>
           <div class="d-none d-xl-grid text-muted small align-items-center"
-                style="grid-template-columns: 100px 240px 120px 80px 80px 80px 80px 80px 80px;">
+                style="grid-template-columns: 100px 240px 120px 100px 100px 100px 120px;">
             <div class="d-flex align-items-center">
               <div class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2 py-1 fw-semibold">
                 <%= number_with_delimiter(index +1) %>

@@ -1,52 +1,17 @@
 <div class="container my-4">
-  <div class="hero">
-    <h1>UK Parkruns</h1>
-    <h2>Aggregated race results across the country</h2>
-  </div>
+  <%= render 'hero' %>
   <%= turbo_frame_tag 'filter_and_charts' do %>
     <%= render 'filter_form' %>
     <%= turbo_frame_tag 'charts_and_stats' do %>
-      <div class="mb-5 canvas gray100-canvas embossed">
-        <h3 style="font-family: 'Helvetica Neue', 'Helvetica', 'Arial'; font-size: 22px"
-            class='fw-bolder text-black mb-2 text-center'><%="#{@summary_title}"%>
-            <div class="text-muted fs-7"><%="#{@summary_sub_title}"%></div>
-        </h3>
-        <%= render 'stats_summary' %>
-      </div>
-      <div class="mb-5 canvas gray100-canvas embossed">
-        <div id="" class="mb-3 canvas gray100-canvas embossed">
-          <%= line_chart charts_count_by_time_path, xtitle: "Time (#{@grouping_size} secs grouping)", ytitle: "Count", title: "Runners by Time" %>
-        </div>
-        <div id="" class="mb-3 canvas gray100-canvas embossed">
-          <%= column_chart charts_count_by_agegroup_path, xtitle: "Age Group", ytitle: "Count", title: "Runners by Age Group" %>
-        </div>
-      </div>
-      <%= turbo_frame_tag 'runs_table' do %>
-        <div class="mb-5 canvas gray100-canvas embossed ps-2 py-2">
-          <div class="canvas gray100-canvas embossed col col-lg-6 col-xl-4 p-1 mb-2">
-            <% if @show_pagy %>
-              <%== @pagy.series_nav(:bootstrap) %>
-
-              <%= form_with url: runs_path, method: :get do %>
-                <div class="input-group input-group-sm mb-1"">
-                  <%= text_field_tag :time, params[:time], placeholder:"mm:ss or h:mm:ss", class: "" %>
-                  <%= button_tag type: "submit", class: "btn btn-primary btn-sm p-1" do %>
-                    <i class="bi bi-clock"></i>
-                  <% end %>
-                </div>
-              <% end %>
-            <% end %>
-            <%#= render partial: 'sort_selection' %>
-          </div>
-          <%= render partial: 'runs_table' %>
-        </div>
-      <% end %>
+      <%= render 'stats_summary' %>
+      <%= render 'charts' %>
+      <%= render 'runs' %>
     <% end %>
   <% end %>
 
   <%= link_to venue_stats_path do %>
     <i class="bi bi-arrow-left-right"></i>
     Venues
-  <%end%>
+  <% end %>
 
 </div>

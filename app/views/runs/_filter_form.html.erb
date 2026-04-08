@@ -1,4 +1,4 @@
-<div id="agegroup-filter" class="mb-3 canvas gray100-canvas embossed" data-controller="agegroup-filter">
+<div id="agegroup-filter" class="sticky-top mb-3 canvas gray100-canvas embossed" data-controller="agegroup-filter">
   <div class="search">
     <%= form_with(url: filter_runs_path, method: "get", class: "form-class") do %>
       <div class="d-flex flex-column flex-md-row">
@@ -10,21 +10,23 @@
         </div>
         <div>
           <i class="bi bi-geo-alt"></i>
-          <select class="form-control-sm mb-1 mb-md-2 sort" name="venue" onchange="this.form.requestSubmit()">
+          <select class="form-control-sm mb-1 mb-md-2 sort me-2" name="venue" onchange="this.form.requestSubmit()">
             <%= options_for_select @parkruns, session[:run_filter_venue] %>
           </select>
         </div>
+        <div  >
+          <button type="button" data-action="agegroup-filter#toggle" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded p-1">
+            <i class="bi bi-chevron-right toggle-icon" data-agegroup-filter-target="icon"></i>
+            Age Groups
+          </button>
+        </div>
       </div>
-      <button type="button" data-action="agegroup-filter#toggle" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2 rounded p-1">
-        <i class="bi bi-chevron-right toggle-icon" data-agegroup-filter-target="icon"></i>
-        Age Group Filters
-      </button>
       <div class="mb-1 px-1 d-none collapse-content" data-agegroup-filter-target="filters">
         <div class="row">
           <div class="col-12 col-md-8 col-lg-6 px-0">
 
             <fieldset>
-              <div class="d-flex">
+              <div class="d-flex mb-1">
                 <button type="button" data-action="agegroup-filter#selectMen"
                                       class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 rounded p-1 me-1">
                   <i class="bi bi-person-fill"></i>
@@ -40,11 +42,8 @@
                 <%= link_to clear_filters_runs_path, {class: "btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 rounded p-1 me-1",
                                                       data: {turbo_frame: "filter_and_charts"} } do %>
                 <%= image_tag('dustbin.webp', class: 'table_icon') %>
-                <%# <i class="bi bi-x-circle"></i> %>
-                <%# <span class="link-text">Clear</span> %>
                 <% end %>
               </div>
-              <!--legend>AGEGROUPS</legend-->
               <div class='d-flex flex-row'>
                 <% [[:men], [:women], [:junior, :wheelchair]].each do |column| %>
                   <div class='d-flex flex-column pe-3'>
@@ -68,7 +67,6 @@
               </div>
             </fieldset>
           </div>
-
         </div>
       </div>
     <% end %>
