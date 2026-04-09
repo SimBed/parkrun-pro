@@ -1,7 +1,7 @@
 <div class="container my-4">
   <%= render 'hero' %>
   <%= turbo_frame_tag 'filter_and_charts' do %>
-    <%= render 'filter_form' %>
+    <%= render 'runs/filter/filter_form' %>
     <%= turbo_frame_tag 'charts_and_stats' do %>
       <%= render 'stats_summary' %>
       <%= render 'charts' %>

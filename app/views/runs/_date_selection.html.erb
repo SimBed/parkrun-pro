@@ -1,7 +1,0 @@
-<form action="/runs/filter" method="GET">
-  <div class="mt-0">
-    <select class="form-control-sm mb-2 sort" name="date" onchange="this.form.requestSubmit()">
-      <%= options_for_select @dates, session[:filter_date] %>
-    </select>
-  </div>
-</form>

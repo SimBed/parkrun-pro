@@ -9,3 +9,7 @@ h3.stats {
     color: $gray-800;
   }
 }
+
+.agegroup-label:not(:first-of-type) {
+  margin-top: 0.5rem;
+}

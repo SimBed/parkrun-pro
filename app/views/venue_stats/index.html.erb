@@ -1,19 +1,16 @@
 <div class="container my-4">
-  <div class="hero">
-    <h1>UK Parkruns</h1>
-    <h2>Aggregated race results across the country</h2>
-  </div>
+  <%= render 'hero' %>
   <%= turbo_frame_tag 'filter_and_charts' do %>
-    <%= render 'filter_form' %>
-      <%= turbo_frame_tag 'venues_table' do %>
-        <div class="mb-5 canvas gray100-canvas embossed ps-2 py-2">
-          <div class="canvas gray100-canvas embossed col col-lg-6 col-xl-4 p-1 mb-2">
-            <%#== @pagy.series_nav(:bootstrap) %>
-            <%= render partial: 'sort_selection' %>
-          </div>
-          <%= render partial: 'venues_table' %>
+    <%= render 'venue_stats/filter/filter_form' %>
+    <%= turbo_frame_tag 'venues_table' do %>
+      <div class="mb-5 canvas gray100-canvas embossed ps-2 py-2">
+        <div class="canvas gray100-canvas embossed col col-lg-6 col-xl-4 p-1 mb-2">
+          <%#== @pagy.series_nav(:bootstrap) %>
+          <%= render 'sort_selection' %>
         </div>
-      <% end %>
+        <%= render 'venues_table' %>
+      </div>
+    <% end %>
   <% end %>
 
   <%= link_to runs_path do %>

@@ -1,0 +1,19 @@
+<div class='d-flex flex-row'>
+  <% [[:men], [:women], [:junior, :wheelchair]].each do |column| %>
+    <div class='d-flex flex-column pe-3'>
+      <% column.each do |key| %>
+        <div class='fw-bolder agegroup-label'><%= key %></div>
+        <% @agegroup_columns[key].each do |agegroup| %>
+          <%= label_tag nil, class: "chbox-lbl-filters" do %>
+            <%= check_box_tag 'any_agegroup_of[]',
+                              agegroup,
+                              filter_any_agegroup_of.present? ? filter_any_agegroup_of.include?(agegroup) : false,
+                              data: {"agegroup-filter-target": key},
+                              onchange: "this.form.requestSubmit()" %>
+            <%= agegroup %>
+          <% end %>
+        <% end %>
+      <% end %>        
+    </div>
+  <% end %>
+</div>

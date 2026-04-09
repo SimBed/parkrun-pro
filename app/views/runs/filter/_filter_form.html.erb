@@ -1,0 +1,17 @@
+<div class="sticky-top mb-2 canvas gray100-canvas embossed" data-controller="agegroup-filter">
+  <div class="search">
+    <%= form_with(url: filter_runs_path, method: "get", class: "form-class") do %>
+      <%= render 'runs/filter/key_filters' %>
+      <div class="mb-1 px-1 d-none" data-agegroup-filter-target="filters">
+        <div class="row">
+          <div class="col-12 col-md-8 col-lg-6 px-0">
+            <fieldset class='mt-1'>
+              <%= render 'shared/filter/bulk_select_buttons', clear_route: clear_filters_runs_path %>
+              <%= render 'shared/filter/agegroup_checkboxes', filter_any_agegroup_of: session[:run_filter_any_agegroup_of] %>               
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
