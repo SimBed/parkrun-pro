@@ -23,7 +23,7 @@ gem "jbuilder"
 gem "bcrypt", "~> 3.1.7"
 gem "pagy", "~> 43.3"
 gem "chartkick", "~> 5.2"
-gem "groupdate", "~> 6.7"
+gem "groupdate", "~> 6.8"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
