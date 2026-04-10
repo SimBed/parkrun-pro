@@ -1,78 +1,28 @@
-.navbar-brand {
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
-  // font-size: 1.2rem;
-  // color: $black;
-  font-family: Arial, Helvetica, sans-serif;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, $gray-900 0%, $gray-500 100%);
-  padding: 0.7rem 0.7rem;
-  border-radius: 0.5rem;
-  @include media-breakpoint-up(md) {
-    padding: 1rem 1.5rem;
-    letter-spacing: 0.15rem;    
-    }    
-}
-
-@media (min-width: 900px) {
-  .navbar-brand {
-    font-size: 1.5rem;
-    letter-spacing: 0.2rem;    
-  }
-}
-
-.navbar-sticky {
-  transform: translateY(0);
-  transition: all .4s ease-in-out;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: auto;
-  left: 0;
-  opacity: 1;
-  z-index: 1040
-}
-
-.navbar-headroom {
-  margin-top: 7rem;
-}
-
-nav.disappear {
-  transform: translateY(-100%);
-}
-
-.brand-background {
-  position: absolute;
-  // inset: 0; /* fully inside */
+.pill-nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  opacity: 0.5;
-  gap: 0.8rem; /* space images out so first/last peek beyond text */
-  padding: 0 0.4rem; /* adjust to let first/last overlap text */
-  img {
-    height: 1.5em;
-    @include media-breakpoint-up(md) {
-    height: 1.8em;
-      }  
-  }
+  justify-content: center;
+  gap: 8px;
 }
 
-.brand-text {
-  position: relative;
-  font-weight: bold;
-  font-size: 1rem;
-  color: #fff;
-  line-height: 1;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-  @include media-breakpoint-up(md) {
-    font-size: 1.5rem;
-    }  
-}  
+.pill-link {
+  padding: 7px 22px;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  transition: all 0.15s ease;
 
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+  }
 
-
-
+  &.active {
+    background: white;
+    color: #0f172a;
+    border-color: white;
+  }
+}

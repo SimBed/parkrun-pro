@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def active_tab(tab_name)
+    controller_name.to_sym == tab_name ? "active" : ""
+  end
+
   def sortable(column:, coltitle: nil, default_direction: "asc", sort_column:, sort_direction:)
     coltitle ||= column.titleize
     css_class = column == sort_column ? "current #{sort_direction}" : "notcurrent"
