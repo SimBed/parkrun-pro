@@ -1,16 +1,20 @@
-<% venue_stats_sort_option = session[:venue_stats_sort_option]%>
-<form action="/venue_stats" method="GET">
-  <div class="mt-0 mb-0">
-    <i class="bi bi-sort-alpha-down"></i>
-    <select class="form-control-sm sort" name="venue_stats_sort_option" onchange="this.form.requestSubmit()">
-      <option disabled="disabled" selected="selected" value="">Sort by</option>
-      <option value="parkrun" <%="selected" if venue_stats_sort_option == "parkrun"%> >name</option>
-      <option value="count" <%="selected" if venue_stats_sort_option == "count"%> >count</option>
-      <option value="fastest" <%="selected" if venue_stats_sort_option == "fastest"%> >fastest</option>
-      <option value="median" <%="selected" if venue_stats_sort_option == "median"%> >median</option>
-      <option value="mean" <%="selected" if venue_stats_sort_option == "mean"%> >mean</option>
-      <option value="slowest" <%="selected" if venue_stats_sort_option == "slowest"%> >slowest</option>
-      <option value="avg_age" <%="selected" if venue_stats_sort_option == "avg_age"%> >average age</option>
-    </select>
-  </div>
+<form action="/venue_stats" method="GET", class="d-flex d-xl-none align-items-center">
+  <i class="bi bi-sort-alpha-down fs-6"></i>
+  <select class="form-control-sm sort" name="sort_option" onchange="this.form.requestSubmit()">
+    <option disabled="disabled" selected="selected" value="">Sort by</option>
+    <% [['parkrun', 'name'], ['count', 'count'], ['fastest', 'fastest'], ['median', 'median'],
+        ['slowest', 'slowest'], ['avg_age', 'average age']].each do |value, label| %>
+      <option value="<%= value %>" <%="selected" if @sort_option == value%> ><%= label %></option>
+    <% end %>
+  </select>
+
+  <button name="sort_direction" value="<%= @next_direction %>" class="btn btn-sort-direction btn-primary">
+    <span class="arrow-default">
+      <%= @sort_direction == "asc" ? "↑" : "↓" %>
+    </span>
+
+    <span class="arrow-hover">
+      <%= @next_direction == "asc" ? "↑" : "↓" %>
+    </span>    
+  </button>
 </form>

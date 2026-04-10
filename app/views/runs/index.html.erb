@@ -1,11 +1,11 @@
 <div class="container my-4">
   <%= render 'hero' %>
-  <%= turbo_frame_tag 'filter_and_charts' do %>
+  <%= turbo_frame_tag 'filter_and_data' do %>
     <%= render 'runs/filter/filter_form' %>
-    <%= turbo_frame_tag 'charts_and_stats' do %>
-      <%= render 'stats_summary' %>
+    <%= turbo_frame_tag 'data' do %>
+      <%= render 'stats' %>
       <%= render 'charts' %>
-      <%= render 'runs' %>
+      <%= render 'table' %>
     <% end %>
   <% end %>
 

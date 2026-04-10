@@ -1,16 +1,10 @@
 <div class="container my-4">
   <%= render 'hero' %>
-  <%= turbo_frame_tag 'filter_and_charts' do %>
+  <%= turbo_frame_tag 'filter_and_data' do %>
     <%= render 'venue_stats/filter/filter_form' %>
-    <%= turbo_frame_tag 'venues_table' do %>
-      <div class="mb-5 canvas gray100-canvas embossed ps-2 py-2">
-        <div class="canvas gray100-canvas embossed col col-lg-6 col-xl-4 p-1 mb-2">
-          <%#== @pagy.series_nav(:bootstrap) %>
-          <%= render 'sort_selection' %>
-        </div>
-        <%= render 'venues_table' %>
-      </div>
-    <% end %>
+    <%= turbo_frame_tag 'data' do %>
+      <%= render 'table' %>
+    <% end %>    
   <% end %>
 
   <%= link_to runs_path do %>

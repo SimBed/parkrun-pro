@@ -33,6 +33,7 @@ class VenueStatsController < ApplicationController
     default_sort_direction = "asc"
     @sort_option = session[:venue_stats_sort_option] = params[:sort_option] || session[:venue_stats_sort_option] || default_sort_option
     @sort_direction = session[:venue_stats_sort_direction] = params[:sort_direction] || session[:venue_stats_sort_direction] || default_sort_direction
+    @next_direction = @sort_direction == "asc" ? "desc" : "asc"
   end
 
   def handle_filter
