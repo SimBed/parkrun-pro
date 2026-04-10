@@ -1,4 +1,4 @@
-<div class="mb-5 canvas gray100-canvas embossed">
+<div class="mb-5 px-md-2 canvas gray100-canvas embossed pt-2">
   <div class="mb-3 canvas gray100-canvas embossed">
     <%= line_chart charts_count_by_time_path, xtitle: "Time (#{@grouping_size} secs grouping)", title: "Runners by Time" %>
   </div>
@@ -6,3 +6,4 @@
     <%= column_chart charts_count_by_agegroup_path, xtitle: "Age Group", title: "Runners by Age Group" %>
   </div>
 </div>
+

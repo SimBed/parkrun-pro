@@ -1,11 +1,18 @@
-<form action="/runs" method="GET">
-  <div class="mt-0 mb-0">
-    <i class="bi bi-sort-alpha-down"></i>
-    <select class="form-control-sm sort" name="run_sort_option" onchange="this.form.requestSubmit()">
-      <option disabled="disabled" selected="selected" value="">Sort by</option>
-      <option value="time" <%="selected" if session[:run_sort_option] == "time"%> >time</option>
-      <option value="agegrade" <%="selected" if session[:run_sort_option] == "agegrade"%> >age grade</option>
-      <option value="runs" <%="selected" if session[:run_sort_option] == "runs"%> >parkrun count</option>
-    </select>
-  </div>
+<form action="/runs" method="GET", class="d-flex d-xl-none align-items-center">
+  <i class="bi bi-sort-alpha-down fs-6"></i>
+  <select class="form-control-sm sort" name="sort_option" onchange="this.form.requestSubmit()">
+    <option disabled="disabled" selected="selected" value="">Sort by</option>
+    <option value="time" <%="selected" if @sort_option == "time"%> >time</option>
+    <option value="agegrade" <%="selected" if @sort_option == "agegrade"%> >age grade</option>
+  </select>
+
+  <button name="sort_direction" value="<%= @next_direction %>" class="btn btn-sort-direction btn-primary">
+    <span class="arrow-default">
+      <%= @sort_direction == "asc" ? "↑" : "↓" %>
+    </span>
+
+    <span class="arrow-hover">
+      <%= @next_direction == "asc" ? "↑" : "↓" %>
+    </span>    
+  </button>
 </form>

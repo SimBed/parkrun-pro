@@ -1,4 +1,4 @@
-form .btn {
+form button.btn-agegroup {
   --bs-btn-line-height: 1.0;
   --bs-btn-bg: #{$gray-50};
   --bs-btn-border-color: #{$gray-700};
@@ -6,4 +6,24 @@ form .btn {
   --bs-btn-hover-border-color:#{$gray-700};
   --bs-btn-color: #{$gray-700};  
 }
+
+form button.btn-sort-direction {
+  width: 2.0rem;
+  padding: 0;
+
+  .arrow-hover {
+    display: none;
+  }
+
+  &:hover .arrow-default {
+    display: none;
+  }
+
+  &:hover .arrow-hover {
+    display: inline;
+  }
+}
+
+
+
 

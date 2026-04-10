@@ -1,6 +1,6 @@
-<div>
+<div class= 'my-1 my-md-0'>
   <i class="bi bi-geo-alt"></i>
-  <select class="form-control-sm sort me-2" name="venue" onchange="this.form.requestSubmit()">
+  <select class="form-control-sm sort me-md-2" name="venue" onchange="this.form.requestSubmit()">
     <%= options_for_select @parkruns, session[:run_filter_venue] %>
   </select>
 </div>

@@ -16,7 +16,7 @@ class StoredStats < ApplicationRecord
       slowest: result.slowest,
       median: result.median,
       # mean: result.mean,
-      stddev: result.stddev,
+      # stddev: result.stddev,
       avg_age: result.avg_age
     })
   end
