@@ -1,0 +1,9 @@
+<div class="container my-4">
+  <%= render 'shared/hero' %>
+  <%= turbo_frame_tag 'filter_and_charts' do %>
+    <%#render 'runs/filter/filter_form' %>
+    <%= turbo_frame_tag 'data' do %>
+      <%= render 'charts' %>
+      <% end %>
+  <% end %>
+</div>

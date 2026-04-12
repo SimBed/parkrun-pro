@@ -5,7 +5,13 @@ Rails.application.routes.draw do
       get "clear_filters"
     end
   end
-  resources :runs do
+  resources :trends, only: [ :index ] do
+    collection do
+      get "filter"
+      get "clear_filters"
+    end
+  end
+  resources :runs, only: [ :index ] do
     collection do
       get "filter"
       get "clear_filters"
@@ -18,6 +24,11 @@ Rails.application.routes.draw do
   namespace :charts do
     get "count_by_time"
     get "count_by_agegroup"
+    get "count_by_date"
+    get "fastest_time_by_date"
+    get "median_time_by_date"
+    get "slowest_time_by_date"
+    get "avg_age_by_date"
   end
   root "runs#index"
 

@@ -1,0 +1,23 @@
+<div class="mb-5 px-md-2 canvas gray100-canvas embossed pt-2" data-controller='chart'>
+  <div class="mb-3 canvas gray100-canvas embossed">
+    <%= line_chart charts_count_by_date_path, title: "Runners by Date", thousands: ",", library: { animation: true } %>
+  </div>
+  <div class="mb-3 canvas gray100-canvas embossed" data: {"chart-target": "fastestTimeByDate"}>
+    <%= line_chart charts_fastest_time_by_date_path, title: "Fastest Time by Date", id: 'fastestTimeByDate',
+                                                     library: { animation: true } %>
+  </div>
+  <div class="mb-3 canvas gray100-canvas embossed" data: {"chart-target": "medianTimeByDate"}>
+    <%= line_chart charts_median_time_by_date_path, title: "Median Time by Date", id: 'medianTimeByDate',
+                                                     library: { animation: true } %>
+  </div>
+  <div class="mb-3 canvas gray100-canvas embossed" data: {"chart-target": "slowestTimeByDate"}>
+    <%= line_chart charts_slowest_time_by_date_path, title: "Slowest Time by Date", id: 'slowestTimeByDate',
+                                                     library: { animation: true } %>
+  </div>
+  <div class="mb-3 canvas gray100-canvas embossed" data: {"chart-target": "avgAgeByDate"}>
+    <%= line_chart charts_avg_age_by_date_path, title: "Average Age by Date", id: 'avgAgeByDate',
+                                                     library: { animation: true,     
+                                                                scales: { y: { min: 42, max: 44 } }
+                                                              } %>
+  </div>
+</div>
