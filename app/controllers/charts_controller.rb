@@ -16,7 +16,8 @@ class ChartsController < ApplicationController
 
   def count_by_agegroup
     handle_filter
-    column_chart_data = @runs.group(:agegroup).order(:agegroup).count
+    # column_chart_data = @runs.group(:agegroup).order(:agegroup).count
+    column_chart_data = @runs.group(:agegroup).order_by_agegroup.count
     # @runs.unscope(:order).group(:agegroup).order("count_all DESC").count
     render json: column_chart_data
   end

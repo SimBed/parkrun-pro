@@ -11,6 +11,8 @@ class Run < ApplicationRecord
   # the nulls in agegrade would get ordered first by default
   # scope :order_by_agegrade, -> { order(agegrade: :desc, time: :asc, name: :asc) }
   scope :any_agegroup_of, ->(agegroup_filter) { where(agegroup: agegroup_filter) }
+  AGEGROUP_ORDER = Agegroup.order(:position).pluck(:name)
+  scope :order_by_agegroup, -> { in_order_of(:agegroup, AGEGROUP_ORDER) }
 
   def anonymized_name
     # Rails.env == 'production' ? name.split.map {|a| a.first}.join : name
