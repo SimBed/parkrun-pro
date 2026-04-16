@@ -2,9 +2,10 @@
   <div>
     <%= venue.name %>
     <%= venue.homepage %>
+    <%= venue.address %>
     <%= link_to 'edit', edit_venue_path(venue) %>
     <%= link_to 'delete', venue, data: { turbo_method: :delete } %>
-    <%= venue.verified? ? '&#9989;'.html_safe : '&#x274c;'.html_safe  %>
+    <%= venue.active? ? '&#9989;'.html_safe : '&#x274c;'.html_safe  %>
   </div>
 
 </div>

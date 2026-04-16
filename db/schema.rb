@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_06_200424) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_15_184658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -88,12 +88,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_06_200424) do
   end
 
   create_table "venues", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.string "address"
+    t.string "closest_city"
     t.string "code_name", null: false
     t.datetime "created_at", null: false
     t.string "name", null: false
+    t.string "postcode"
+    t.string "region"
     t.datetime "updated_at", null: false
     t.boolean "verified", default: false
+    t.index ["active"], name: "index_venues_on_active"
+    t.index ["closest_city"], name: "index_venues_on_closest_city"
     t.index ["name"], name: "index_venues_on_name"
+    t.index ["region"], name: "index_venues_on_region"
   end
 
   add_foreign_key "sessions", "users"

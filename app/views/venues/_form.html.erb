@@ -23,6 +23,18 @@
     <%= form.label :verified, style: "display: block" %>
     <%= form.checkbox :verified %>
   </div>
+  <div>
+    <%= form.label :address, style: "display: block" %>
+    <%= form.text_field :address %>
+  </div>
+  <div>
+    <%= form.label :postcode, style: "display: block" %>
+    <%= form.text_field :postcode %>
+  </div>
+  <div>
+    <%= form.label :active, style: "display: block" %>
+    <%= form.checkbox :active %>
+  </div>
 
   <div>
     <%= form.submit %>

@@ -2,7 +2,12 @@ one:
   name: Abbey Park
   code_name: abbeypark
   verified: true
+  postcode: nil
+  active: true
 two:
   name: Aberbeeg
   code_name: abeerbeeg
   verified: true
+  postcode: nil
+  active: true
+

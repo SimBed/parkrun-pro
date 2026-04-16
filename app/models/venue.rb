@@ -22,27 +22,7 @@ class Venue < ApplicationRecord
     "https://www.parkrun.org.uk/#{code_name}/results/#{DateManager.latest_results_date}/"
   end
 
-  # def self.stats(agegroups)
-  #   # Run.where(parkrun: name).pluck(Arel.sql(<<~SQL)).first
-  #   #   COUNT(time),
-  #   #   AVG(time),
-  #   #   STDDEV(time),
-  #   #   MIN(time),
-  #   #   MAX(time),
-  #   #   percentile_cont(0.5) WITHIN GROUP (ORDER BY time)
-  #   # SQL
-  #   Run.connection.select_all(<<~SQL)
-  #     SELECT
-  #       parkrun,
-  #       COUNT(time) AS count,
-  #       AVG(time) AS mean,
-  #       STDDEV(time) AS stddev,
-  #       MIN(time) AS min,
-  #       MAX(time) AS max,
-  #       percentile_cont(0.5) WITHIN GROUP (ORDER BY time) AS median
-  #     FROM runs
-  #     GROUP BY parkrun
-  #     ORDER BY parkrun
-  #   SQL
-  # end
+  def address_page
+    "https://www.parkrun.org.uk/#{code_name}/"
+  end
 end

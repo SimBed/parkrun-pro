@@ -49,7 +49,7 @@ class VenuesController < ApplicationController
     end
 
     def venue_params
-      params.expect(venue: [ :name, :code_name, :verified ])
+      params.expect(venue: [ :name, :code_name, :verified, :address, :postcode, :active ])
     end
 
   def prepare_agegroups
