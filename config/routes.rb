@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get "clear_filters"
     end
   end
+  resources :friends, only: [ :index ]
   resources :venues
   resource :session
   resources :passwords, param: :token

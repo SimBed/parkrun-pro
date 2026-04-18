@@ -11,8 +11,20 @@ class Run < ApplicationRecord
   # the nulls in agegrade would get ordered first by default
   # scope :order_by_agegrade, -> { order(agegrade: :desc, time: :asc, name: :asc) }
   scope :any_agegroup_of, ->(agegroup_filter) { where(agegroup: agegroup_filter) }
-  AGEGROUP_ORDER = Agegroup.order(:position).pluck(:name)
-  scope :order_by_agegroup, -> { in_order_of(:agegroup, AGEGROUP_ORDER) }
+  # AGEGROUP_ORDER = Agegroup.order(:position).pluck(:name)
+  scope :order_by_agegroup, -> { in_order_of(:agegroup, Agegroup.order(:position).pluck(:name)) }
+  # scope :name_like, ->(name) { where("name ILIKE ?", "#{name}%") }
+
+  def self.name_like(names)
+    return none unless names
+    # names = names&.reject(&:blank?)
+    # return none if names.empty? # Run.none is an empty ActiveRecord::Relation, so chainable
+
+    conditions = names.map { "name ILIKE ?" }.join(" OR ")
+    values = names.map { |name| "%#{name}%" }
+
+    where(conditions, *values)
+  end
 
   def anonymized_name
     # Rails.env == 'production' ? name.split.map {|a| a.first}.join : name
