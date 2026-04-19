@@ -11,3 +11,23 @@
 div.column-group + div.column-group {
   margin-top: 1rem;
 }
+
+.rotating {
+  animation: flash 2s ease-in infinite;
+}
+
+@keyframes rotate {
+  50% {
+    transform: rotate(90deg);
+  }
+}
+
+.flashing {
+  animation: flash 2s ease-in infinite;
+}
+
+@keyframes flash {
+  50% {
+    transform: scale(1.05);
+  }
+}
