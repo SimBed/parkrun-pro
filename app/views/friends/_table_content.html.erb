@@ -1,17 +1,18 @@
+<% data_action = 'friends#sort' %>
 <div class="mb-1 canvas gray100-canvas embossed">
 <div class="card shadow-sm border-0">
   <div class="card-body p-0">
     <div class="d-none d-xl-grid px-2 py-2 border-bottom text-muted small fw-semibold"
         style="grid-template-columns: 100px 240px 240px 120px 80px 80px 80px 80px 80px;">
       <div>Position</div>
-      <div>Name</div>
+      <div class="column col-1x"><%= sortable(column: 'name', sort_column: @sort_option, sort_direction: @sort_direction, data_action:) %></div>
       <div>Parkrun</div>
       <div>Date</div>
       <div>Local</div>
       <div>Group</div>
-      <div class="column col-1x"><%= sortable(column: 'runs', coltitle: 'Count', sort_column: @sort_option, sort_direction: @sort_direction)  %></div>
-      <div class="column col-1x"><%= sortable(column: 'agegrade', coltitle: 'Grade', sort_column: @sort_option, sort_direction: @sort_direction)  %></div>
-      <div class="column col-1x"><%= sortable(column: 'time', sort_column: @sort_option, sort_direction: @sort_direction)  %></div>
+      <div class="column col-1x"><%= sortable(column: 'runs', coltitle: 'Count', sort_column: @sort_option, sort_direction: @sort_direction, data_action:) %></div>
+      <div class="column col-1x"><%= sortable(column: 'agegrade', coltitle: 'Grade', sort_column: @sort_option, sort_direction: @sort_direction, data_action:)  %></div>
+      <div class="column col-1x"><%= sortable(column: 'time', sort_column: @sort_option, sort_direction: @sort_direction, data_action:) %></div>
     </div>
 
     <div class="list-group list-group-flush">

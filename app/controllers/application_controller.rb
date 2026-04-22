@@ -10,15 +10,9 @@ class ApplicationController < ActionController::Base
 
   def prepare_agegroups
     @agegroup_columns = Agegroup.categorized
-    # @agegroup_columns = { junior: Run.agegroup_like("J"),
-    #             men: Run.agegroup_like("SM") + Run.agegroup_like("VM"),
-    #             women: Run.agegroup_like("SW") + Run.agegroup_like("VW"),
-    #             wheelchair: Run.agegroup_like("WC")
-    #           }
   end
 
   def prepare_dates
-    # @dates = Run.dates.map { |date| date.strftime("%d %B %Y") }
     @dates = Run.dates
   end
 end

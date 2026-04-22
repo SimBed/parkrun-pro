@@ -1,3 +1,4 @@
 <%= turbo_stream.update "table" do %>
+  <%= render "sort_selection" %>
   <%= render "table_content", runs: @runs %>
 <% end %>

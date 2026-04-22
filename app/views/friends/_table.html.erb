@@ -1,5 +1,6 @@
 <div class="mb-3 canvas gray100-canvas embossed px-md-2 py-2">
   <%= turbo_frame_tag 'table' do %>
+    <%= render 'sort_selection' %>
     <%= render 'table_content', runs: [] %>
   <% end %>
 </div>

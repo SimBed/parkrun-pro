@@ -26,9 +26,9 @@ export default class extends Controller {
     this.saveNames(names)
     
     this.inputTarget.value = ""
-    console.log(names)
     this.updateNamesUI()
-    this.fetchRecords(names)
+
+    this.fetchRecords(names)   
   }
 
    remove(event) {
@@ -43,9 +43,40 @@ export default class extends Controller {
     this.fetchRecords(names)
   } 
 
-  fetchRecords(names) {
-    const query = names.map(n => `names[]=${encodeURIComponent(n)}`).join("&")
+  // triggrerd differently small screen/large screen, hence checking in multiple places for the sort option and direction
+  sort(event) {
+    event.preventDefault()
+    console.log("sort event triggered")
+    
+    const el = event.currentTarget
+    console.log(el)
 
+    const sortOption =
+      el.value || // triggered by selecting an option from <select> (small screen)
+      el.dataset.sortOption || // triggered by link click in heading (large screen)
+      el.closest("form")?.querySelector('[name="sort_option"]')?.value // triggered by sort order button click (small screen)
+
+      console.log(el.dataset.sortDirection, el.closest("form")?.dataset.sortDirection)
+    const sortDirection =
+      el.dataset.sortDirection || // triggered by link click in heading (large screen)
+      el.closest("form")?.dataset.sortDirection // triggered by selecting an option from <select> or sort order button click (small screen)
+    console.log(`sortOption: ${sortOption}, sortDirection: ${sortDirection}`)
+    const names = this.loadNames()
+    this.saveSortParams(sortOption, sortDirection)
+    this.fetchRecords(names)
+  }
+
+  fetchRecords(names) {
+    let sortOption = this.loadSortOption()
+    console.log(sortOption)
+    let sortDirection = this.loadSortDirection()
+    let query = names.map(n => `names[]=${encodeURIComponent(n)}`).join("&")
+    if (sortOption) {
+      query += `&sort_option=${encodeURIComponent(sortOption)}`
+    }
+    if (sortDirection) {
+      query += `&sort_direction=${encodeURIComponent(sortDirection)}`
+    }
     fetch(`/friends?${query}`, {
       headers: { "Accept": "text/vnd.turbo-stream.html" }
     })  
@@ -64,8 +95,41 @@ export default class extends Controller {
     }
   }
 
+  // loadSortOption() {
+  //   return localStorage.getItem("sort_option") || "time"
+  // }
+
+  loadSortOption() {
+  const value = localStorage.getItem("sort_option")
+
+  if (value === null || value === "undefined") {
+    return "time"
+  }
+
+  return value
+}
+
+loadSortDirection() {
+  const value = localStorage.getItem("sort_direction")
+
+  if (value === null || value === "undefined") {
+    return "asc"
+  }
+  console.log(value)
+    return value
+}
+
+  // loadSortDirection() {
+  //   return localStorage.getItem("sort_direction") || "asc"
+  // }
+
   saveNames(names) {
     localStorage.setItem("names", JSON.stringify(names))
+  }
+
+  saveSortParams(sortOption, sortDirection) {
+    localStorage.setItem("sort_option", sortOption)
+    localStorage.setItem("sort_direction", sortDirection)
   }
 
   updateNamesUI() {

@@ -1,0 +1,21 @@
+<div class="canvas gray100-canvas embossed col col-lg-6 col-xl-4 p-1 mb-2 d-xl-none">
+  <form action="/friends" method="GET" class="d-flex align-items-center" data-sort-direction=<%= @next_direction %> data-action="friends#sort">
+    <i class="bi bi-sort-alpha-down fs-6"></i>
+    <select class="form-control-sm sort" name="sort_option" data-action="friends#sort">
+      <option disabled="disabled" selected="selected" value="">Sort by</option>
+      <option value="name" <%="selected" if @sort_option == "name"%> data-sort-option="name">name</option>
+      <option value="time" <%="selected" if @sort_option == "time"%> data-sort-option="time">time</option>
+      <option value="agegrade" <%="selected" if @sort_option == "agegrade"%> data-sort-option="agegrade">age grade</option>
+    </select>
+
+    <button name="sort_direction" class="btn btn-sort-direction btn-primary">
+      <span class="arrow-default">
+        <%= @sort_direction == "asc" ? "↑" : "↓" %>
+      </span>
+
+      <span class="arrow-hover">
+        <%= @next_direction == "asc" ? "↑" : "↓" %>
+      </span>    
+    </button>
+  </form>
+</div>

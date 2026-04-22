@@ -1,5 +1,7 @@
 class Run < ApplicationRecord
   START_DATE = Date.new(2026, 1, 3)
+  scope :order_by_name_asc, -> { order(name: :asc, date: :desc) }
+  scope :order_by_name_desc, -> { order(name: :desc, date: :desc) }
   scope :order_by_time_asc, -> { order(time: :asc, name: :asc) }
   scope :order_by_time_desc, -> { order(time: :desc, name: :asc) }
   scope :order_by_agegrade_asc, -> { order("agegrade ASC NULLS LAST, time ASC, name ASC") }
