@@ -1,8 +1,9 @@
-<%= form_with url: runs_path, method: :get do %>
+<%= form_with url: runs_path, method: :get, data: { controller: "time-validator" } do %>
   <div class="input-group input-group-sm mb-1">
-    <%= text_field_tag :time, params[:time], placeholder:"mm:ss or h:mm:ss", class: "" %>
-    <%= button_tag type: "submit", class: "btn btn-primary btn-sm p-1" do %>
+    <%= text_field_tag :time, params[:time_input], placeholder:"mm:ss or h:mm:ss", data: { "time-validator_target": "input", action: "input->time-validator#validate" } %>
+    <%= button_tag type: "submit", class: "btn btn-primary btn-sm p-1", disabled: true, data: { time_validator_target: "button" } do %>
       <i class="bi bi-clock"></i>
     <% end %>
   </div>
+  <div class="text-danger small mb-1 d-none" data-time-validator-target="error"></div>
 <% end %>

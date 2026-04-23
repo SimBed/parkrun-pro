@@ -33,8 +33,15 @@ class RunsController < ApplicationController
   def set_sort_options
     default_sort_option = "time"
     default_sort_direction = "asc"
-    @sort_option = session[:run_sort_option] = params[:sort_option] || session[:run_sort_option] || default_sort_option
-    @sort_direction = session[:run_sort_direction] = params[:sort_direction] || session[:run_sort_direction] || default_sort_direction
+
+    # if time search, ignore any sort params and use defaults, to ensure time search always sorts by time ascending
+    if params[:time_input]
+      @sort_option = session[:run_sort_option] = default_sort_option
+      @sort_direction = session[:run_sort_direction] = default_sort_direction
+    else
+      @sort_option = session[:run_sort_option] = params[:sort_option] || session[:run_sort_option] || default_sort_option
+      @sort_direction = session[:run_sort_direction] = params[:sort_direction] || session[:run_sort_direction] || default_sort_direction
+    end
     @next_direction = @sort_direction == "asc" ? "desc" : "asc"
   end
 
@@ -101,7 +108,7 @@ class RunsController < ApplicationController
     time_input = params[:time]
     if Utility::TimeParser.correct_time_format?(time_input)
       page = Utility::PageFinder.find_page(time_input, @runs, pagy_limit)
-      redirect_to runs_path(page: page) and return
+      redirect_to runs_path(page: page, time_input:) and return
     end
     @show_pagy = true if @runs.size > pagy_limit
     @pagy, @runs = pagy(:countish, @runs, limit: pagy_limit, size: 25)

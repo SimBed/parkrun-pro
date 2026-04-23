@@ -1,3 +1,6 @@
+# in appplication.rb config.autoload_paths << Rails.root.join("lib") to ensure available to controllers and views without requiring it explicitly.
+# config.eager_load_paths << Rails.root.join("lib") for production.
+
 module Utility
   module TimeParser
     def self.parse_time_to_seconds(str)
