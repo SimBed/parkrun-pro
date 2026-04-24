@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get "filter"
       get "clear_filters"
     end
+    get :close, on: :member
   end
   resources :friends, only: [ :index ]
   resources :venues

@@ -43,7 +43,7 @@ export default class extends Controller {
     this.fetchRecords(names)
   } 
 
-  // triggrerd differently small screen/large screen, hence checking in multiple places for the sort option and direction
+  // triggererd differently small screen/large screen, hence checking in multiple places for the sort option and direction
   sort(event) {
     event.preventDefault()
     console.log("sort event triggered")
@@ -56,11 +56,10 @@ export default class extends Controller {
       el.dataset.sortOption || // triggered by link click in heading (large screen)
       el.closest("form")?.querySelector('[name="sort_option"]')?.value // triggered by sort order button click (small screen)
 
-      console.log(el.dataset.sortDirection, el.closest("form")?.dataset.sortDirection)
     const sortDirection =
       el.dataset.sortDirection || // triggered by link click in heading (large screen)
       el.closest("form")?.dataset.sortDirection // triggered by selecting an option from <select> or sort order button click (small screen)
-    console.log(`sortOption: ${sortOption}, sortDirection: ${sortDirection}`)
+
     const names = this.loadNames()
     this.saveSortParams(sortOption, sortDirection)
     this.fetchRecords(names)
@@ -68,7 +67,6 @@ export default class extends Controller {
 
   fetchRecords(names) {
     let sortOption = this.loadSortOption()
-    console.log(sortOption)
     let sortDirection = this.loadSortDirection()
     let query = names.map(n => `names[]=${encodeURIComponent(n)}`).join("&")
     if (sortOption) {
@@ -95,10 +93,6 @@ export default class extends Controller {
     }
   }
 
-  // loadSortOption() {
-  //   return localStorage.getItem("sort_option") || "time"
-  // }
-
   loadSortOption() {
   const value = localStorage.getItem("sort_option")
 
@@ -109,19 +103,15 @@ export default class extends Controller {
   return value
 }
 
-loadSortDirection() {
-  const value = localStorage.getItem("sort_direction")
+  loadSortDirection() {
+    const value = localStorage.getItem("sort_direction")
 
-  if (value === null || value === "undefined") {
-    return "asc"
+    if (value === null || value === "undefined") {
+      return "asc"
+    }
+    console.log(value)
+      return value
   }
-  console.log(value)
-    return value
-}
-
-  // loadSortDirection() {
-  //   return localStorage.getItem("sort_direction") || "asc"
-  // }
 
   saveNames(names) {
     localStorage.setItem("names", JSON.stringify(names))
@@ -170,9 +160,8 @@ loadSortDirection() {
 
   renderNoFriends(friendsContainer) {
     const header = document.createElement("h2")
-    header.classList.add("fs-fluid-7", "fst-italic",   "ps-1")
+    header.classList.add("fs-fluid-7", "fst-italic", "ps-1")
     header.textContent = 'no friends added yet'
     friendsContainer.appendChild(header)
-
   }
 }

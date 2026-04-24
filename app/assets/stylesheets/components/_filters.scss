@@ -29,5 +29,6 @@ div.column-group + div.column-group {
 @keyframes flash {
   50% {
     transform: scale(1.05);
+    background-color: $gray-200;
   }
 }

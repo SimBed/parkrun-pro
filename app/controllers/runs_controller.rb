@@ -10,6 +10,7 @@ class RunsController < ApplicationController
     handle_headings
     handle_summary_stats
     handle_pagination
+    set_cancel_button
   end
 
   def clear_filters
@@ -20,7 +21,11 @@ class RunsController < ApplicationController
   def filter
     clear_session(:run_filter_date, :run_filter_venue, :run_filter_any_agegroup_of)
     set_session("run", :date, :venue, :any_agegroup_of)
-    redirect_to runs_path
+    redirect_to runs_path(link_from: params[:link_from])
+  end
+
+  def close
+    @parkrun= params[:id]
   end
 
   private
@@ -31,6 +36,7 @@ class RunsController < ApplicationController
   end
 
   def set_sort_options
+    @link_from = params[:link_from]
     default_sort_option = "time"
     default_sort_direction = "asc"
 
@@ -112,5 +118,10 @@ class RunsController < ApplicationController
     end
     @show_pagy = true if @runs.size > pagy_limit
     @pagy, @runs = pagy(:countish, @runs, limit: pagy_limit, size: 25)
+  end
+
+  def set_cancel_button
+    @cancel_button = true if @link_from == "venue_stats"
+    @cancel_button_path = close_run_path(@parkrun) if @cancel_button
   end
 end
