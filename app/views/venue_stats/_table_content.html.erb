@@ -4,12 +4,12 @@
       <div class="d-none d-xl-grid px-2 py-2 border-bottom text-muted small fw-semibold"
           style="grid-template-columns: 100px 240px 120px 100px 100px 100px 120px;">
         <div>Position</div>
-        <div><%= sortable(column: 'parkrun', coltitle: 'Name', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
-        <div><%= sortable(column: 'count', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
-        <div><%= sortable(column: 'fastest', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
-        <div><%= sortable(column: 'median', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
-        <div><%= sortable(column: 'slowest', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
-        <div><%= sortable(column: 'avg_age', coltitle: 'Average Age', sort_column: @sort_option, sort_direction: @sort_direction) %></div>
+        <div><%= sortable(column: 'parkrun', coltitle: 'Name', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></div>
+        <div><%= sortable(column: 'count', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></div>
+        <div><%= sortable(column: 'fastest', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></div>
+        <div><%= sortable(column: 'median', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></div>
+        <div><%= sortable(column: 'slowest', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></div>
+        <div><%= sortable(column: 'avg_age', coltitle: 'Average Age', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></div>
       </div>
 
       <div class="list-group list-group-flush">
@@ -55,7 +55,7 @@
                   </div>
                 </div>
                 <div class="fw-semibold text-body">
-                  <%= link_to stat.parkrun, filter_runs_path(venue: stat.parkrun, date: @date, link_from: 'venue_stats'), class: 'like_button', data: { turbo_frame: stat.parkrun.parameterize} %>
+                  <%= link_to stat.parkrun, runs_path(filters: {runs: {venue: stat.parkrun, date: @date}}, link_from: 'venue_stats'), class: 'like_button', data: { turbo_frame: stat.parkrun.parameterize} %>
                   <%#= stat.parkrun %>
                 </div>
                 <div>

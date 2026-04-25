@@ -2,6 +2,7 @@ class VenueStatsController < ApplicationController
   allow_unauthenticated_access
 
   def index
+    extract_filters
     prepare_filter_options
     set_filters
     set_sort_options
@@ -12,20 +13,38 @@ class VenueStatsController < ApplicationController
   end
 
   def clear_filters
-    clear_session(:venue_stats_filter_any_agegroup_of)
+    session["filters"]["runs"]["any_agegroup_of"] = nil    
+    # clear_session(:venue_stats_filter_any_agegroup_of)
     redirect_to venue_stats_path
   end
 
-  def filter
-    clear_session(:venue_stats_filter_date, :venue_stats_filter_venue, :venue_stats_filter_any_agegroup_of)
-    set_session("venue_stats", :date, :venue, :any_agegroup_of)
-    redirect_to venue_stats_path
-  end
+  # def filter
+  #   clear_session(:venue_stats_filter_date, :venue_stats_filter_venue, :venue_stats_filter_any_agegroup_of)
+  #   set_session("venue_stats", :date, :venue, :any_agegroup_of)
+  #   redirect_to venue_stats_path
+  # end
 
   private
 
+  def extract_filters
+    if params[:filters]
+      new_filters = params.require(:filters).permit(
+        runs: [
+          :date,
+          { any_agegroup_of: [] }
+        ]
+        ).to_h # convert from ActionController::Parameters to hash. Oherwise using with_indifferent_access fails
+
+      session[:filters] ||= {}
+      session[:filters].deep_merge!(new_filters) # merge rather than destructively set, to avoid returning to runs page and finding venue is no longer set
+    end
+
+    @filters = (session[:filters] || {}).with_indifferent_access
+  end
+
   def set_filters
-    @date = session[:venue_stats_filter_date] || @dates&.first
+    @date = @filters.dig(:runs, :date) || @dates&.first    
+    # @date = session[:venue_stats_filter_date] || @dates&.first
   end
 
   def set_sort_options
@@ -38,7 +57,7 @@ class VenueStatsController < ApplicationController
 
   def handle_filter
     @runs = Run.where(date: @date)
-    @runs = RunQuery.new(session, @runs, :venue_stats).call
+    @runs = RunQuery.new(@filters, @runs, :venue_stats).call
   end
 
   def prepare_filter_options
@@ -51,7 +70,8 @@ class VenueStatsController < ApplicationController
   end
 
   def summary_stats_method
-    if session[:venue_stats_filter_any_agegroup_of]
+    # if session[:venue_stats_filter_any_agegroup_of]
+    if @filters.dig(:runs, :any_agegroup_of)
       :full_query
     else
       :stored_stats

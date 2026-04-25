@@ -1,7 +1,8 @@
 <div>
   <i class="bi bi-calendar3"></i>
-  <select class="form-control-sm sort me-2" name="date" onchange="this.form.requestSubmit()">
-    <%= options_for_select date_format(@dates), filter_date %>
-  </select>
+  <%= select_tag "filters[runs][date]",
+                 options_for_select(date_format(@dates), filter_date),
+                 class: "form-control-sm sort me-2",
+                 onchange: "this.form.requestSubmit()" %>
 </div>
  

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
   resources :runs, only: [ :index ] do
     collection do
-      get "filter"
+      # get "filter"
       get "clear_filters"
     end
     get :close, on: :member

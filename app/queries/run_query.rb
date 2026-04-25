@@ -6,8 +6,8 @@ class RunQuery
     any_agegroup_of
   ].freeze
 
-  def initialize(session, records, controller)
-    @session = session
+  def initialize(filters, records, controller)
+    @filters = filters
     @records = records
     @controller = controller
   end
@@ -33,10 +33,12 @@ class RunQuery
   end
 
   def filter_present?(key, controller)
-    @session["#{controller}_filter_#{key}"].present?
+    @filters.dig(controller, key).present?
+    # @session["#{controller}_filter_#{key}"].present?
   end
 
   def filter_value(key, controller)
-    @session["#{controller}_filter_#{key}"]
+    @filters.dig(controller, key)
+    # @session["#{controller}_filter_#{key}"]
   end
 end

@@ -1,6 +1,6 @@
 desc "build the database of stored stats"
 task store_stats: :environment do
-  date = Date.parse("18 April 2026")
+  date = Date.parse("25 April 2026")
   Run.where(date:).select(:parkrun).distinct.each do |run|
     parkrun = run.parkrun
     puts "Computing stats for #{parkrun} on #{date}"

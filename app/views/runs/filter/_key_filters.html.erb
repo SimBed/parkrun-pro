@@ -1,5 +1,6 @@
 <div class="d-flex flex-column flex-md-row">
-  <%= render 'shared/filter/date_filter', filter_date: session[:run_filter_date] %>  
+  <%= render 'shared/filter/date_filter', filter_date: @filters.dig(:runs, :date) %>
+  <%# <%= render 'shared/filter/date_filter', filter_date: session[:run_filter_date] %>
   <%= render 'runs/filter/venue_filter' %>  
   <%= render 'shared/filter/agegroup_display_button' %>  
 </div>
