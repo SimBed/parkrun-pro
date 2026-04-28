@@ -1,0 +1,15 @@
+<tr>
+  <td>
+    <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis">
+      <%= number_with_delimiter(@pagy.offset + run_counter + 1) %>
+    </span>
+  </td>
+  <td class="runs-name"><%= run.anonymized_name %></td>
+  <td class="runs-venue"><%= run.parkrun %></td>
+  <!--td class="runs-local"><%#= run.position %></td-->
+  <td class="runs-gender"><%= run.gender %></td-->
+  <td class="runs-agegroup"><%= run.agegroup %></td>
+  <td class="runs-count"><%= run.runs %></td>
+  <td class="runs-agegrade"><%= number_to_percentage(run.agegrade, precision: 1) %></td>
+  <td class="runs-time"><%= min_sec_format(run.time) %></td>
+</tr>

@@ -1,0 +1,54 @@
+// apply styling directly to th/td - styling to tr/table tends to have no affect with border-collapse: collapse (adjacent cell borders are merged into a single shared border)
+
+.runs-table-wrap {
+  border-radius: 0.75rem;
+  overflow: hidden; //needed for border-radius to have affect
+  border: 1px solid $gray-800;
+}
+
+.runs-table {
+  margin-bottom: 0;
+  vertical-align: middle;  
+}
+
+.runs-thead th {
+  padding: 0.75rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: $gray-500;
+  background: #1a1a2e;
+  border: none;
+  ::after {content: "↑↓"}
+  &.sortable a {
+    color: $purple-100;
+  }
+}
+
+.runs-table tbody tr {
+  &:hover > * {
+    background-color: #1a1a2e;
+  }
+  &:last-child { border-bottom: none; }
+}
+
+.runs-table td { padding: 0.5rem; }
+
+.runs-table tbody tr td {
+  font-size: 1rem;
+  background: #16213e;
+  border-bottom: 0.5px solid rgba(255,255,255,0.05);
+  color: #7b8cde;
+  &.runs-name  { font-weight: 500; color: white; }
+  &.runs-venue  { font-size: 0.9rem; }
+  &.runs-local  { font-size: 0.8rem; }
+  &.runs-gender  { font-size: 0.8rem; }
+  &.runs-agegroup  { font-size: 0.8rem; }
+  &.runs-count  { font-size: 0.8rem; }
+  &.runs-agegrade  { font-size: 0.8rem; }
+  &.runs-time  { font-family: monospace; color: $purple-200; letter-spacing: 0.03em; }
+}
+
+
+

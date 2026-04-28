@@ -1,94 +1,39 @@
 <%= turbo_frame_tag @parkrun.parameterize do %>
-<div class="mb-1 canvas gray100-canvas embossed">
-  <div class="card shadow-sm border-0">
+  <div class="runs-table-wrap">
+
     <% if @cancel_button %>
       <div class="d-flex flex-row-reverse">
         <%= link_to @cancel_button_path, data: { turbo_frame: @parkrun.parameterize } do %>
           <i class="bi bi-x-circle"></i>
         <% end %>
       </div>
-    <% end %>  
-    <div class="card-body p-0">
-      <div class="d-none d-xl-grid px-2 py-2 border-bottom text-muted small fw-semibold"
-          style="grid-template-columns: 100px 240px 240px 80px 80px 80px 80px 80px 80px;">
-        <div>Position</div>
-        <div>Name</div>
-        <div>Parkrun</div>
-        <div>Local</div>
-        <div>Gender</div>
-        <div>Group</div>
-        <div class="column col-1x"><%= sortable(column: 'runs', coltitle: 'Count', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></div>
-        <div class="column col-1x"><%= sortable(column: 'agegrade', coltitle: 'Grade', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></div>
-        <div class="column col-1x"><%= sortable(column: 'time', coltitle: 'Time', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></div>
+    <% end %>
+
+      <%# DESKTOP %>
+      <div class="d-none d-xl-block">
+        <table class="table runs-table">
+          <thead class="runs-thead">
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Venue</th>
+              <!--th>Local</th-->
+              <th>Gender</th>
+              <th>Group</th>
+              <th class="sortable"><%= sortable(column: 'runs', coltitle: 'Count', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></th>
+              <th class="sortable"><%= sortable(column: 'agegrade', coltitle: 'Grade', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></th>
+              <th class="sortable"><%= sortable(column: 'time', coltitle: 'Time', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "run_row", collection: @runs, as: :run %>
+          </tbody>
+        </table>
       </div>
 
-      <div class="list-group list-group-flush">
-        <% @runs.each_with_index do |run, index| %>
-          <div class="list-group-item py-1 border-0 border-bottom">
-
-            <%#= render partial: 'mobile', locals: {run:, index:}%>
-            <%#= render partial: 'desktop', locals: {run:, index:}%>
-
-            <%# MOBILE %>
-            <div class="d-flex d-xl-none flex-column gap-1">
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center gap-2">
-                  <div class="badge bg-primary-subtle text-primary-emphasis rounded-pill py-1 fw-semibold">
-                    <%= number_with_delimiter(@pagy.offset + index + 1) %>
-                  </div>
-                  <div class="fw-semibold text-body">
-                    <%= run.anonymized_name %>
-                  </div>
-                </div>
-                <div class="fw-semibold">
-                  <%= min_sec_format(run.time) %>
-                </div>
-              </div>
-              <div class="text-muted small">
-                <span><%= run.parkrun %></span>
-                <span class="mx-1">•</span>
-                <span><%= run.agegroup %></span>
-                <span class="mx-1">•</span>
-                <span><%= number_to_percentage(run.agegrade, precision: 1) %></span>
-              </div>
-            </div>
-
-            <%# DESKTOP %>
-            <div class="d-none d-xl-grid text-muted small align-items-center"
-                  style="grid-template-columns: 100px 240px 240px 80px 80px 80px 80px 80px 80px;">
-              <div class="d-flex align-items-center">
-                <div class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2 py-1 fw-semibold">
-                  <%= number_with_delimiter(@pagy.offset + index + 1) %>
-                </div>
-              </div>
-              <div class="fw-semibold text-body">
-                <%= run.anonymized_name %>
-              </div>
-              <div>
-                <%= run.parkrun %>
-              </div>
-              <div>
-                <%= run.position %>
-              </div>
-              <div>
-                <%= run.gender %>
-              </div>
-              <div>
-                <%= run.agegroup %>
-              </div>
-              <div>
-                <%= run.runs %>
-              </div>
-              <div>
-                <%= number_to_percentage(run.agegrade, precision: 1) %>
-              </div>
-              <div>
-                <%= min_sec_format(run.time) %>
-              </div>
-            </div>
-
-          </div>
-        <% end %>
+      <%# MOBILE %>
+      <div class="list-group list-group-flush d-xl-none">
+        <%= render partial: "run_card", collection: @runs, as: :run %>
       </div>
 
       <% if @runs.blank? %>
@@ -96,8 +41,7 @@
           No runs to display yet.
         </div>
       <% end %>
-    </div>
 
-  </div>
 </div>
+
 <% end %>
