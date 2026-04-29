@@ -1,0 +1,27 @@
+<div class="list-group-item py-1 border-0 border-bottom">
+
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-2">
+      <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill py-1 fw-semibold">
+        <%= number_with_delimiter(run_counter + 1) %>
+      </span>
+      <span class="fw-semibold text-body">
+        <%= run.anonymized_name %>
+      </span>
+      <span class="fw-semibold">
+        <%= min_sec_format(run.time) %>
+      </span>
+    </div>
+  </div>
+
+  <div class="text-muted small">
+    <span><%= run.parkrun %></span>
+    <span class="mx-1">•</span>
+    <span><%= run.date.strftime('%d %b %Y') %></span>
+    <span class="mx-1">•</span>
+    <span><%= run.agegroup %></span>
+    <span class="mx-1">•</span>
+    <span><%= number_to_percentage(run.agegrade, precision: 1) %></span>
+  </div>
+
+</div>
