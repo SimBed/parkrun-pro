@@ -1,0 +1,31 @@
+<div class="list-group-item py-2 border-0 border-bottom">
+
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-2">
+      <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill py-1 fw-semibold">
+        <%= number_with_delimiter(stat_counter + 1) %>
+      </span>
+      <span class="fw-semibold text-body">
+        <%= stat.parkrun %>
+      </span>
+      <span class="fw-semibold">
+        <%= number_with_delimiter(stat.count) %>
+      </span>
+    </div>
+  </div>
+
+  <div class="text-muted small">
+    <i class="bi bi-lightning-charge"></i>
+    <span><%= min_sec_format(stat.fastest) %></span>
+    <span class="mx-1">•</span>
+    <i class="bi bi-bullseye"></i>
+    <span><%= min_sec_format(stat.median) %></span>
+    <span class="mx-1">•</span>
+    <i class="bi bi-hourglass-split"></i>
+    <span><%= min_sec_format(stat.slowest) %></span>
+    <span class="mx-1">•</span>
+    <i class="bi bi-person"></i>
+    <span><%= number_with_precision(stat.avg_age, precision: 1) %></span>
+  </div>
+
+</div>

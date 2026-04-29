@@ -33,7 +33,13 @@
   &:last-child { border-bottom: none; }
 }
 
-.runs-table td { padding: 0.5rem; }
+.runs-table td { 
+  padding: 0.5rem;
+  span.badge {
+    background-color: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
+    }
+  }
 
 .runs-table tbody tr td {
   font-size: 1rem;
@@ -48,7 +54,40 @@
   &.runs-count  { font-size: 0.8rem; }
   &.runs-agegrade  { font-size: 0.8rem; }
   &.runs-time  { font-family: monospace; color: $purple-200; letter-spacing: 0.03em; }
+  &.runs-avgage  { font-size: 0.8rem; }
 }
 
+div.is-populated {
+  margin: 0.5rem;
+  div {
+    background-color: #0e2028;
+  }
+  table.runs-table thead.runs-thead th {
+    color: rgba(45,180,150,0.6);
+    background: #0a1a22;
+  }
+  table.runs-table td {
+    color: #b0ccc8;
+    background: #0e2028;
+    &.runs-name  { font-weight: 500; color: white; }
+    span.badge {
+      background-color: rgba(45,180,150,0.6);
+      color: white;}
+  }
 
+  .runs-thead th {
+    &.sortable a {
+      color: rgba(45,180,150,0.6);
+    }
+  }
 
+  div a {
+    color: #b0ccc8;
+  }
+
+  .runs-table tbody tr {
+    &:hover > * {
+      background-color: #0a1a22;
+    }  
+  }
+}

@@ -1,0 +1,20 @@
+<div class="d-none d-xl-block">
+  <table class="table runs-table">
+    <thead class="runs-thead">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Venue</th>
+        <!--th>Local</th-->
+        <th>Gender</th>
+        <th>Group</th>
+        <th class="sortable"><%= sortable(column: 'runs', coltitle: 'Count', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></th>
+        <th class="sortable"><%= sortable(column: 'agegrade', coltitle: 'Grade', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></th>
+        <th class="sortable"><%= sortable(column: 'time', coltitle: 'Time', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "runs/screensize/row", collection: @runs, as: :run %>
+    </tbody>
+  </table>
+</div>

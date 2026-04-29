@@ -1,0 +1,21 @@
+<tr>
+  <td>
+    <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis">
+      <%= number_with_delimiter(stat_counter + 1) %>
+    </span>
+  </td>
+  <td class="runs-venue">
+    <%= link_to stat.parkrun, runs_path(filters: {runs: {venue: stat.parkrun, date: @date}}, link_from: 'venue_stats'),
+                class: 'like_button text-white',
+                data: { turbo_frame: stat.parkrun.parameterize} %></td>
+  <td class="runs-count"><%= number_with_delimiter(stat.count) %></td>
+  <td class="runs-time"><%= min_sec_format(stat.fastest) %></td>
+  <td class="runs-time"><%= min_sec_format(stat.median) %></td>
+  <td class="runs-time"><%= min_sec_format(stat.slowest) %></td>
+  <td class="runs-avgage"><%= number_with_precision(stat.avg_age, precision: 1) %></td>
+</tr>
+<tr>
+  <td colspan="7" class="p-0">
+    <%= turbo_frame_tag stat.parkrun.parameterize %>  
+  </td>
+</tr>

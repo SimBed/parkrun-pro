@@ -1,47 +1,8 @@
 <%= turbo_frame_tag @parkrun.parameterize do %>
-  <div class="runs-table-wrap">
-
-    <% if @cancel_button %>
-      <div class="d-flex flex-row-reverse">
-        <%= link_to @cancel_button_path, data: { turbo_frame: @parkrun.parameterize } do %>
-          <i class="bi bi-x-circle"></i>
-        <% end %>
-      </div>
-    <% end %>
-
-      <%# DESKTOP %>
-      <div class="d-none d-xl-block">
-        <table class="table runs-table">
-          <thead class="runs-thead">
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Venue</th>
-              <!--th>Local</th-->
-              <th>Gender</th>
-              <th>Group</th>
-              <th class="sortable"><%= sortable(column: 'runs', coltitle: 'Count', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></th>
-              <th class="sortable"><%= sortable(column: 'agegrade', coltitle: 'Grade', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></th>
-              <th class="sortable"><%= sortable(column: 'time', coltitle: 'Time', sort_column: @sort_option, sort_direction: @sort_direction, link_from: @link_from, filters: @filters)  %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= render partial: "run_row", collection: @runs, as: :run %>
-          </tbody>
-        </table>
-      </div>
-
-      <%# MOBILE %>
-      <div class="list-group list-group-flush d-xl-none">
-        <%= render partial: "run_card", collection: @runs, as: :run %>
-      </div>
-
-      <% if @runs.blank? %>
-        <div class="px-3 py-4 text-center text-muted">
-          No runs to display yet.
-        </div>
-      <% end %>
-
-</div>
-
+  <div class="runs-table-wrap <%= 'is-populated' if @link_from %>">
+    <%= render 'cancel_button' if @cancel_button %>
+    <%= render partial: 'runs/screensize/desktop' %>
+    <%= render partial: 'runs/screensize/mobile' %>
+    <%= render 'empty_table' if @runs.blank? %>
+  </div>
 <% end %>
