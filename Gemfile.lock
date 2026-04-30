@@ -237,7 +237,7 @@ GEM
     pg (1.6.3-x86_64-darwin)
     pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
-    posthog-rails (3.6.1)
+    posthog-rails (3.6.5)
       posthog-ruby (~> 3.6)
       railties (>= 5.2.0)
     posthog-ruby (3.6.1)
@@ -555,7 +555,7 @@ CHECKSUMS
   pg (1.6.3-x86_64-darwin) sha256=ee2e04a17c0627225054ffeb43e31a95be9d7e93abda2737ea3ce4a62f2729d6
   pg (1.6.3-x86_64-linux) sha256=5d9e188c8f7a0295d162b7b88a768d8452a899977d44f3274d1946d67920ae8d
   pg (1.6.3-x86_64-linux-musl) sha256=9c9c90d98c72f78eb04c0f55e9618fe55d1512128e411035fe229ff427864009
-  posthog-rails (3.6.1) sha256=37a74c446eb5ee6f22a6ef5071dbe4d955b6c696987383c54725666c9ebf1d01
+  posthog-rails (3.6.5) sha256=d7c9d96a5d0e02f7b62b825325ddee6f52098cb3cddc044ccab261bdb9f37049
   posthog-ruby (3.6.1) sha256=5150d79a00fe34e508365c192e7650fedd2128530b8cc1f77172164bf855c969
   pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
