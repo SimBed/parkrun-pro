@@ -23,7 +23,7 @@ gem "jbuilder"
 gem "bcrypt", "~> 3.1.7"
 gem "pagy", "~> 43.5"
 gem "chartkick", "~> 5.2"
-gem "groupdate", "~> 6.7"
+gem "groupdate", "~> 6.8"
 gem "posthog-ruby"
 gem "posthog-rails"
 
