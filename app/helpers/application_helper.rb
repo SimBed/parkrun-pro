@@ -23,7 +23,7 @@ module ApplicationHelper
       # <a class="current" href="/runs?sort_direction=desc&amp;sort_option=time">Time</a>
       # NOTE: the first hash (the options parameter) provides query params to the inferred path (eg. runs_path)
       # link_to coltitle, { sort_option: column, sort_direction: direction, link_from: link_from, filters: {runs: {venue: venue, date: date }}}, { class: css_class }
-      link_to coltitle, { sort_option: column, sort_direction: direction, link_from: link_from, filters: filters}, { class: css_class }
+      link_to coltitle, { sort_option: column, sort_direction: direction, link_from: link_from, filters: filters }, { class: css_class }
     end
   end
 

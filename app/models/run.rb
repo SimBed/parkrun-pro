@@ -48,10 +48,12 @@ class Run < ApplicationRecord
   end
 
   def self.dates
-    # order(date: :desc).distinct.pluck(:date)
+    # distinct.pluck(:date) # inefficient as data grows
     this_saturday = Date.current.beginning_of_week(:saturday)
+    has_data = Run.exists?(date: this_saturday) # dont want to include this saturday before data is populated
+    end_date = has_data ? this_saturday : this_saturday - 7
 
-    (START_DATE..this_saturday).step(7).to_a.reverse
+    (START_DATE..end_date).step(7).to_a.reverse
   end
 
   def self.summary_stats(group_by: nil)
