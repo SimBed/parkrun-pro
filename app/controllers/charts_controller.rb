@@ -16,16 +16,12 @@ class ChartsController < ApplicationController
 
   def count_by_agegroup
     handle_filter
-    # column_chart_data = @runs.group(:agegroup).order(:agegroup).count
     column_chart_data = @runs.group(:agegroup).order_by_agegroup.count
-    # @runs.unscope(:order).group(:agegroup).order("count_all DESC").count
     render json: column_chart_data
   end
 
   def count_by_date
     line_chart_data = Run.group(:date).count(:date)
-    # .transform_keys { |date| date.strftime("%Y-%m-%d") }
-    # .transform_values { |count| helpers.number_with_delimiter(count) }
     render json: line_chart_data
   end
 

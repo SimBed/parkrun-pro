@@ -5,12 +5,7 @@ Rails.application.routes.draw do
       get "clear_filters"
     end
   end
-  resources :trends, only: [ :index ] do
-    collection do
-      get "filter"
-      get "clear_filters"
-    end
-  end
+  resources :trends, only: [ :index ]
   resources :runs, only: [ :index ] do
     collection do
       # get "filter"

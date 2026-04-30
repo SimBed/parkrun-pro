@@ -73,3 +73,10 @@ background-image: url('up_arrow.gif');
 a.desc {
 background-image: url('down_arrow.gif');
 }
+
+a.pill-link {
+  @include media-breakpoint-down(md) {
+     padding-left: 0.8rem;
+     padding-right: 0.8rem;
+    }
+}

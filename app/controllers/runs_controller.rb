@@ -8,7 +8,6 @@ class RunsController < ApplicationController
     set_sort_options
     handle_filter
     handle_sort
-    # handle_headings
     handle_summary_stats
     handle_pagination
     set_cancel_button
@@ -17,15 +16,8 @@ class RunsController < ApplicationController
   # TODO: clear agegroup filters only
   def clear_filters
     session["filters"]["runs"]["any_agegroup_of"] = nil
-    # clear_session(:run_filter_any_agegroup_of)
     redirect_to runs_path
   end
-
-  # def filter
-  #   clear_session(:run_filter_date, :run_filter_venue, :run_filter_any_agegroup_of)
-  #   set_session("run", :date, :venue, :any_agegroup_of)
-  #   redirect_to runs_path(link_from: params[:link_from], venue: params[:venue])
-  # end
 
   def close
     @parkrun= params[:id]
@@ -41,7 +33,7 @@ class RunsController < ApplicationController
           :venue,
           { any_agegroup_of: [] }
         ]
-        ).to_h # convert from ActionController::Parameters to hash. Oherwise using with_indifferent_access fails
+        ).to_h # convert from ActionController::Parameters to hash. Oherwise with_indifferent_access fails
 
       session[:filters] ||= {}
       session[:filters].deep_merge!(new_filters)
@@ -50,30 +42,14 @@ class RunsController < ApplicationController
     @filters = (session[:filters] || {}).with_indifferent_access
   end
 
-  # def extract_filters
-  #   if params[:filters]
-  #     session[:filters] = params.require(:filters).permit(
-  #       runs: [
-  #         :date,
-  #         :venue,
-  #         { any_agegroup_of: [] }
-  #       ]
-  #       ).to_h # convert from ActionController::Parameters to hash. Oherwise using with_indifferent_access fails
-  #   end
-
-  #   @filters = (session[:filters] || {}).with_indifferent_access # convert from hash to hash with indifferent access. Otherwise dig with symbols blows up.
-  # end
-
   def set_filters
     @date = @filters.dig(:runs, :date) || @dates&.first
     @parkrun = @filters.dig(:runs, :venue)  || "All"
-    # @date = session[:run_filter_date] ||= @dates&.first
-    # @parkrun = session[:run_filter_venue] ||= "All"
   end
 
   def set_sort_options
     @link_from = params[:link_from]
-    @venue = params[:venue]
+    # @venue = params[:venue]
     default_sort_option = "time"
     default_sort_direction = "asc"
 
@@ -108,23 +84,9 @@ class RunsController < ApplicationController
     @parkruns = [ [ "All Venues", "All" ] ] + Run.parkruns
     # ok to show parkruns that didnt have results on the selected date. Only showing parkruns that have results on the selected date is confusing if you change filters and the parkrun selected disappears from the dropdown.
     # Better to show all parkruns that have results in the database, even if they didnt have results on the selected date.
-    # @parkruns = [ [ "All Venues", "All" ] ] + @runs.distinct(:parkrun).order(:parkrun).pluck(:parkrun)
   end
 
-  # def handle_headings
-  #   # needed for chart title, which cant it seems be passed by the chart endppoint
-  #   @grouping_size = @runs.size < 2000 ? 60 : 20
-
-  #   @summary_title = "#{@parkrun + (@parkrun == 'All' ? ' Venues' : '') }, #{@date}"
-  #   @summary_sub_title = if session[:run_filter_any_agegroup_of]
-  #     "(#{helpers.pluralize(session[:run_filter_any_agegroup_of].length, 'age-group')} selected)"
-  #   else
-  #     "(All age-groups)"
-  #   end
-  # end
-
   def summary_stats_method
-    # if session[:run_filter_any_agegroup_of]
     if @filters.dig(:runs, :any_agegroup_of)
       :full_query
     elsif @parkrun == "All"

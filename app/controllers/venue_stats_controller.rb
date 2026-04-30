@@ -9,20 +9,12 @@ class VenueStatsController < ApplicationController
     handle_filter
     handle_summary_stats
     handle_sort
-    # handle_pagination
   end
 
   def clear_filters
-    session["filters"]["runs"]["any_agegroup_of"] = nil    
-    # clear_session(:venue_stats_filter_any_agegroup_of)
+    session["filters"]["runs"]["any_agegroup_of"] = nil
     redirect_to venue_stats_path
   end
-
-  # def filter
-  #   clear_session(:venue_stats_filter_date, :venue_stats_filter_venue, :venue_stats_filter_any_agegroup_of)
-  #   set_session("venue_stats", :date, :venue, :any_agegroup_of)
-  #   redirect_to venue_stats_path
-  # end
 
   private
 
@@ -43,8 +35,7 @@ class VenueStatsController < ApplicationController
   end
 
   def set_filters
-    @date = @filters.dig(:runs, :date) || @dates&.first    
-    # @date = session[:venue_stats_filter_date] || @dates&.first
+    @date = @filters.dig(:runs, :date) || @dates&.first
   end
 
   def set_sort_options
@@ -57,7 +48,8 @@ class VenueStatsController < ApplicationController
 
   def handle_filter
     @runs = Run.where(date: @date)
-    @runs = RunQuery.new(@filters, @runs, :venue_stats).call
+    # deliberately pass runs as the controller as we are using the same filters for runs and venue stats
+    @runs = RunQuery.new(@filters, @runs, :runs).call
   end
 
   def prepare_filter_options
@@ -70,7 +62,6 @@ class VenueStatsController < ApplicationController
   end
 
   def summary_stats_method
-    # if session[:venue_stats_filter_any_agegroup_of]
     if @filters.dig(:runs, :any_agegroup_of)
       :full_query
     else
@@ -88,9 +79,4 @@ class VenueStatsController < ApplicationController
       StoredStats.for(@date) || full_query_method.call
     end
   end
-
-  # def handle_pagination
-  #   pagy_limit = 100
-  #   @pagy, @venue_stats = pagy(:countish, @venue_stats, limit: pagy_limit)
-  # end
 end
