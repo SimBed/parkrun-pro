@@ -1,6 +1,7 @@
 class ChartsController < ApplicationController
   allow_unauthenticated_access
   def count_by_time
+    extract_filters
     handle_filter
     @grouping_size = @runs.size < 2000 ? 60 : 20
     line_chart_data = @runs.group("FLOOR(time / #{@grouping_size}) * #{@grouping_size}").count(:time).sort.to_h.transform_keys do |seconds|
@@ -15,6 +16,7 @@ class ChartsController < ApplicationController
   end
 
   def count_by_agegroup
+    extract_filters
     handle_filter
     column_chart_data = @runs.group(:agegroup).order_by_agegroup.count
     render json: column_chart_data
@@ -75,11 +77,15 @@ class ChartsController < ApplicationController
 
   private
 
+  def extract_filters
+    @date = params[:date]
+    @parkrun = params[:parkrun]
+    @filters = (params[:filters] || {})
+  end
+
   def handle_filter
-    date = session[:run_filter_date]
-    parkrun = session[:run_filter_venue]
-    @runs = Run.where(date:)
-    @runs = @runs.where(parkrun:) unless parkrun == "All"
-    @runs = RunQuery.new(session, @runs, :run).call
+    @runs = Run.where(date: @date)
+    @runs = @runs.where(parkrun: @parkrun) unless @parkrun == "All"
+    @runs = RunQuery.new(@filters, @runs, :runs).call
   end
 end
