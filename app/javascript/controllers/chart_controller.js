@@ -1,18 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="chart"
+// passing chartkick options directly to the chart doesn't work for some reason, so we have to wait for the chart to be rendered and then update the options
 export default class extends Controller {
-  static targets = [ "fastestTimeByDate" ]
   connect() {
     if (Chartkick.charts["fastestTimeByDate"]) {this.format_labels("fastestTimeByDate")};
-    if (Chartkick.charts["medianTimeByDate"]) {this.format_labels("medianTimeByDate")};
     if (Chartkick.charts["slowestTimeByDate"]) {this.format_labels("slowestTimeByDate")};
+    if (Chartkick.charts["medianTimeByDate"]) {this.format_labels("medianTimeByDate")};
   }
 
-
   format_labels(chart_instance) {
-    setTimeout(() => {  
-      const chart =  Chartkick.charts[chart_instance].chart;
+    // setTimeout(() => {  
+      // const chart =  Chartkick.charts[chart_instance].chart;
+      this.waitForChart(chart_instance, (chart) => {
       switch (chart_instance) {
         case "fastestTimeByDate":
           chart.options.scales.y.min = 780   // 13:00
@@ -38,7 +37,25 @@ export default class extends Controller {
         return this.formatSeconds(value)
       }      
       chart.update()
-    }, 2000);
+    })
+    // }, 2000);
+  }
+
+  waitForChart(id, callback) {
+    let attempts = 0
+
+    const check = () => {
+      const chart = Chartkick.charts[id]?.getChartObject()
+
+      if (chart) {
+        callback(chart) // chart is ready, run code
+      } else if (attempts < 300) { // ~5 seconds max
+        attempts++  // safety to avoid infinite loop
+        requestAnimationFrame(check) // try again next frame
+      }
+    }
+
+    check()
   }
     
   formatSeconds(value) {
