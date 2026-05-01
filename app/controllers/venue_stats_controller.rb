@@ -71,7 +71,7 @@ class VenueStatsController < ApplicationController
 
   def handle_summary_stats
     # Use of lambda for lazy execution (only run if needed)
-    full_query_method = -> { @runs.unscope(:order).summary_stats(group_by: "parkrun") }
+    full_query_method = -> { @runs.unscope(:order).summary_stats(group_by: "venue") }
     @venue_stats = case summary_stats_method
     when :full_query
       full_query_method.call

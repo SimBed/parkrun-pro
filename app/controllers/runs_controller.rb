@@ -20,7 +20,7 @@ class RunsController < ApplicationController
   end
 
   def close
-    @parkrun= params[:id]
+    @venue = params[:id]
   end
 
   private
@@ -44,7 +44,7 @@ class RunsController < ApplicationController
 
   def set_filters
     @date = @filters.dig(:runs, :date) || @dates&.first
-    @parkrun = @filters.dig(:runs, :venue)  || "All"
+    @venue = @filters.dig(:runs, :venue)  || "All"
   end
 
   def set_sort_options
@@ -66,7 +66,7 @@ class RunsController < ApplicationController
 
   def handle_filter
     @runs = Run.where(date: @date)
-    @runs = @runs.where(parkrun: @parkrun) unless @parkrun == "All"
+    @runs = @runs.where(venue: @venue) unless @venue == "All"
     @runs = RunQuery.new(@filters, @runs, :runs).call
   end
 
@@ -77,19 +77,20 @@ class RunsController < ApplicationController
   def prepare_filter_options
     prepare_dates
     prepare_agegroups
-    prepare_parkruns
+    prepare_venues
   end
 
-  def prepare_parkruns
-    @parkruns = [ [ "All Venues", "All" ] ] + Run.parkruns
-    # ok to show parkruns that didnt have results on the selected date. Only showing parkruns that have results on the selected date is confusing if you change filters and the parkrun selected disappears from the dropdown.
-    # Better to show all parkruns that have results in the database, even if they didnt have results on the selected date.
+  def prepare_venues
+    @venues = [ [ "All Venues", "All" ] ] + Run.venues
+    # ok to show venues that didnt have results on the selected date. Only showing venues that have results on the
+    # selected date is confusing if you change filters and the venue selected disappears from the dropdown.
+    # Better to show all venues that have results in the database, even if they didnt have results on the selected date.
   end
 
   def summary_stats_method
     if @filters.dig(:runs, :any_agegroup_of)
       :full_query
-    elsif @parkrun == "All"
+    elsif @venue == "All"
       :material_view
     else
       :stored_stats
@@ -105,7 +106,7 @@ class RunsController < ApplicationController
     when :material_view
       SummaryStats.on(@date)[0] || full_query_method.call
     when :stored_stats
-      StoredStats.for(@date, @parkrun) || full_query_method.call
+      StoredStats.for(@date, @venue) || full_query_method.call
     end
   end
 
@@ -122,6 +123,6 @@ class RunsController < ApplicationController
 
   def set_cancel_button
     @cancel_button = true if @link_from == "venue_stats"
-    @cancel_button_path = close_run_path(@parkrun) if @cancel_button
+    @cancel_button_path = close_run_path(@venue) if @cancel_button
   end
 end

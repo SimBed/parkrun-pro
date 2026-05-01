@@ -75,6 +75,7 @@ export default class extends Controller {
     if (sortDirection) {
       query += `&sort_direction=${encodeURIComponent(sortDirection)}`
     }
+    console.log(`Fetching with query: ${query}`)
     fetch(`/friends?${query}`, {
       headers: { "Accept": "text/vnd.turbo-stream.html" }
     })  

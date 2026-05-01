@@ -2,7 +2,7 @@
   <i class="bi bi-sort-alpha-down fs-6"></i>
   <select class="form-control-sm sort" name="sort_option" onchange="this.form.requestSubmit()">
     <option disabled="disabled" selected="selected" value="">Sort by</option>
-    <% [['parkrun', 'name'], ['count', 'count'], ['fastest', 'fastest'], ['median', 'median'],
+    <% [['venue', 'name'], ['count', 'count'], ['fastest', 'fastest'], ['median', 'median'],
         ['slowest', 'slowest'], ['avg_age', 'average age']].each do |value, label| %>
       <option value="<%= value %>" <%="selected" if @sort_option == value%> ><%= label %></option>
     <% end %>

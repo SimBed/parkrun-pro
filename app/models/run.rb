@@ -8,7 +8,7 @@ class Run < ApplicationRecord
   scope :order_by_agegrade_desc, -> { order("agegrade DESC NULLS LAST, time ASC, name ASC") }
   scope :order_by_runs_asc, -> { order(runs: :asc, time: :asc, name: :asc) }
   scope :order_by_runs_desc, -> { order(runs: :desc, name: :asc) }
-  scope :order_by_parkrun, -> { order(:parkrun) }
+  scope :order_by_venue, -> { order(:venue) }
   scope :has_agegroup_like, ->(key) { where("agegroup LIKE ?", "%#{key}%") }
   # the nulls in agegrade would get ordered first by default
   # scope :order_by_agegrade, -> { order(agegrade: :desc, time: :asc, name: :asc) }
@@ -34,9 +34,9 @@ class Run < ApplicationRecord
     name
   end
 
-  def self.parkruns
-    # NOTE: Run.distinct(:parkrun) (without the pluck) doesnt return what is intuitively expected. Run.select(:parkrun).distinct works as expected.
-    order(parkrun: :asc).distinct.pluck(:parkrun)
+  def self.venues
+    # NOTE: Run.distinct(:venue) (without the pluck) doesnt return what is intuitively expected. Run.select(:venue).distinct works as expected.
+    order(venue: :asc).distinct.pluck(:venue)
   end
 
   def self.agegroups
@@ -62,9 +62,9 @@ class Run < ApplicationRecord
     # FROM runs
 
     # With grouping (venue_stats view):
-    # SELECT parkrun, COUNT(time), MIN(time)...
+    # SELECT venue, COUNT(time), MIN(time)...
     # FROM runs
-    # GROUP BY parkrun
+    # GROUP BY venue
 
     select_parts = []
     select_parts << group_by if group_by
@@ -124,7 +124,7 @@ class Run < ApplicationRecord
       SELECT COUNT(*) FROM (
         SELECT id,
                ROW_NUMBER() OVER (
-                 PARTITION BY name, date, time, parkrun, agegrade
+                 PARTITION BY name, date, time, venue, agegrade
                  ORDER BY id
                ) AS row_num
         FROM #{table_name}
@@ -142,7 +142,7 @@ class Run < ApplicationRecord
         SELECT id FROM (
           SELECT id,
                  ROW_NUMBER() OVER (
-                   PARTITION BY name, date, time, parkrun, agegrade
+                   PARTITION BY name, date, time, venue, agegrade
                    ORDER BY id
                  ) AS row_num
           FROM #{table_name}

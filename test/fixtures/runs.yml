@@ -6,7 +6,7 @@ one:
   position: 1
   runs: 399
   agegrade: 0.823e2
-  parkrun: Aberbeeg
+  venue: Aberbeeg
   date: 2026-03-14  
 two:
   name: Angela BOWMAN
@@ -16,5 +16,5 @@ two:
   position: 39
   runs: 214
   agegrade: 0.6868e2
-  parkrun: Abbey Park
+  venue: Abbey Park
   date: 2026-03-14

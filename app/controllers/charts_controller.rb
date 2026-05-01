@@ -79,13 +79,13 @@ class ChartsController < ApplicationController
 
   def extract_filters
     @date = params[:date]
-    @parkrun = params[:parkrun]
+    @venue = params[:venue]
     @filters = (params[:filters] || {})
   end
 
   def handle_filter
     @runs = Run.where(date: @date)
-    @runs = @runs.where(parkrun: @parkrun) unless @parkrun == "All"
+    @runs = @runs.where(venue: @venue) unless @venue == "All"
     @runs = RunQuery.new(@filters, @runs, :runs).call
   end
 end

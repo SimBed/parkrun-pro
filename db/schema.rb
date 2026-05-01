@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_15_184658) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_01_170307) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -36,21 +36,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_184658) do
     t.date "date"
     t.string "gender"
     t.string "name"
-    t.string "parkrun"
     t.integer "position"
     t.integer "runs"
     t.integer "time"
     t.datetime "updated_at", null: false
+    t.string "venue"
     t.index ["agegrade"], name: "index_runs_on_agegrade"
     t.index ["agegroup"], name: "index_runs_on_agegroup"
     t.index ["date"], name: "index_runs_on_date"
     t.index ["gender"], name: "index_runs_on_gender"
     t.index ["name"], name: "index_runs_on_name"
-    t.index ["parkrun", "time", "date"], name: "index_runs_on_parkrun_and_time_and_date"
-    t.index ["parkrun"], name: "index_runs_on_parkrun"
     t.index ["position"], name: "index_runs_on_position"
     t.index ["runs"], name: "index_runs_on_runs"
     t.index ["time"], name: "index_runs_on_time"
+    t.index ["venue", "time", "date"], name: "index_runs_on_venue_and_time_and_date"
+    t.index ["venue"], name: "index_runs_on_venue"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -70,13 +70,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_184658) do
     t.integer "fastest"
     t.float "mean"
     t.float "median"
-    t.string "parkrun", null: false
     t.integer "slowest"
     t.float "stddev"
     t.datetime "updated_at", null: false
-    t.index ["date", "parkrun"], name: "index_stored_stats_on_date_and_parkrun", unique: true
+    t.string "venue", null: false
+    t.index ["date", "venue"], name: "index_stored_stats_on_date_and_venue", unique: true
     t.index ["date"], name: "index_stored_stats_on_date"
-    t.index ["parkrun"], name: "index_stored_stats_on_parkrun"
+    t.index ["venue"], name: "index_stored_stats_on_venue"
   end
 
   create_table "users", force: :cascade do |t|
