@@ -1,9 +1,9 @@
 desc "scrape each parkrun venue endpoint for latest results"
 task get_results: :environment do
-  date = Date.parse("25 April 2026")
+  date = Date.parse("2 May 2026")
   count = 0
   first_venue_id = Venue.where(active: true).order(:id).first.id
-  Venue.where(active: true).order(:id).limit(900).find_each(start: 1603, batch_size: 10) do |venue|
+  Venue.where(active: true).order(:id).limit(900).find_each(start: first_venue_id, batch_size: 15) do |venue|
     puts "processing #{venue.name}, id: #{venue.id}"
     rows = []
     time_now = Time.current
@@ -31,7 +31,7 @@ task get_results: :environment do
         end
       venue_name = venue.name
       rows << { name:, gender:, agegroup:, time: seconds, position:, runs:, agegrade:,
-                parkrun: venue_name,
+                venue: venue_name,
                 date:,
                 created_at: time_now,
                 updated_at: time_now

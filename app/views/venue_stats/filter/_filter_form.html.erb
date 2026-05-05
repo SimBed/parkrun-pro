@@ -1,5 +1,5 @@
 <div class="sticky-top mb-2 canvas gray100-canvas embossed" data-controller="agegroup-filter">
-  <div class="search">
+  <div class="filter">
     <%= form_with(url: venue_stats_path, method: "get") do %>
       <%= render 'venue_stats/filter/key_filters' %>    
       <div class="mb-1 px-1 d-none" data-agegroup-filter-target="filters">

@@ -1,5 +1,4 @@
 .canvas {
-  // position: relative;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-right: 0.25rem;
@@ -15,32 +14,5 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-  }
-  .cancel-bottom-right {
-    top: auto;
-    bottom: 0.1rem;
-    right: 0.1rem;
-    @include media-breakpoint-up(sm) {
-      bottom: 1rem;
-      right: 1rem;
-    }    
-  }
-  .hide {
-    margin-bottom: 1rem;
-    @include media-breakpoint-up(sm) {
-    }    
-  }
-  &.width32 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-right: 0;
-    padding-left: 0;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem  ;     
-    @include media-breakpoint-up(md) {
-      width: 32rem;
-      margin-left: auto;
-      margin-right: auto; 
-    }
   }
 }

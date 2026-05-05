@@ -6,7 +6,7 @@
   </td>
   <td class="runs-venue">
     <%= link_to stat.venue, runs_path(filters: {runs: {venue: stat.venue, date: @date}}, link_from: 'venue_stats'),
-                class: 'like_button text-white',
+                class: 'like_button',
                 data: { turbo_frame: stat.venue.parameterize} %></td>
   <td class="runs-count"><%= number_with_delimiter(stat.count) %></td>
   <td class="runs-time"><%= min_sec_format(stat.fastest) %></td>

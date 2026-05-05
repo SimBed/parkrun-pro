@@ -57,6 +57,7 @@
   &.runs-avgage  { font-size: 0.8rem; }
 }
 
+// style the runs table differently when rendered in a turbo frame (eg from a venue stats venue link)
 div.is-populated {
   margin: 0.5rem;
   div {

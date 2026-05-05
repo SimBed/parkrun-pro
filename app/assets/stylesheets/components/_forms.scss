@@ -1,4 +1,4 @@
-div.search {
+div.filter {
 	position:relative;
   padding-right: 15px;
   padding-left: 15px;
@@ -26,138 +26,10 @@ select.sort {
 }
 
 form fieldset {
-  color: $gray-800;
-  font-family: $font-stack;
   font-size: 0.9em;
-  font-weight: normal;
-  label {
-    margin-right: 0.5rem;
-    margin-bottom: 0.4rem;
-    line-height: 0.7rem;
-  }
-}
-
-legend {
-  width:auto;
-  font-size: 0.9rem;
-  font-weight: normal;
-  padding-right: 0.75rem;
-}
-
-.chbox-lbl-filters {
-  font-size: 0.8rem;
-}
-
-label {
-  display: block;
-  line-height: 1.1rem;
-  }
-
-/*couldn't get to the bottom of why this is needed but checkbox and checkbox label misaligned without */
-input[type="checkbox"] {
-  vertical-align: middle
-}
-
-.searchdelete {
-  margin-left:auto;
-}
-
-div.field, div.actions {
-  margin-bottom: 0.4rem;
-  .confirmation {
-  font-size: 80%;
-  padding-left :1rem;
-  margin-bottom :0;
-}
-input.disabled {
-  pointer-events: none;
-  opacity: 30%;
-  }
-  &.reduce input {
-    font-size: 80%;
-    text-transform: lowercase;
-    padding: 0.25rem;
-  }  
-}
-
-div.actions input {
-  background-color: $gray-800;
-  // border-color: $black;
-  color: $white;
-  border-radius: 0.5rem;
-  padding: 0.25rem;
-  box-shadow: 0.1rem 0.1rem 0.3rem $gray-800;
-  text-transform: capitalize;
-  font-size: 0.8em;  
-  &:hover {
-    opacity: 0.8;
-    box-shadow: none;    
-  }
-}
-
-div.image_actions input {
-  vertical-align:middle;
-  border-radius: 0.5rem;
-  box-shadow: 0.3rem 0.3rem 0.6rem $gray-800;
-  font-size: 0.8em;
-  transform: scale(0.8);
-  &:hover {
-    opacity: 0.8;
-    box-shadow: none;    
-  }
-}
-
-form {
-  &.admin_form {
-    position: relative; //for benefit of cancel button
-    background-color: $gray-100;
-    padding: 0.5rem;
-    box-shadow: 1px 3px 6px $black;
-    border-radius: 0.375rem;
-    .cancel {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-    }
-  }
-  .form-mandatory::after {
-    content: "  *";
-    font-size: 0.7rem;
-  }
-
-  span.sub-label {
-    font-size: 0.7rem;
-  }
-
-  &.signup .form-control {
-    padding-top:0;
-    padding-bottom:0;
-  }
-
-  &.entries select {
-    max-width: 95%;
-  }
-
-  &.hidden {
-    display: none;
-  }
-}
-
-h2 form {
-  display: inline-block;
-  font-size: 0.5em;
-  select.sort {
-    color: $gray-700;
-    border: solid;
-    border-color: $gray-50;
-    border-width: 1px;
-    background-color: $gray-50;  
-  }
-}
-
-input.score {
-// using character width units as 'Player X Score' is fixed 14/15 characters 
-  width: 16ch;
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  padding: 0.75rem 1rem;
 }
 
 input::placeholder {
@@ -165,4 +37,53 @@ input::placeholder {
   opacity: 0.65;
   font-style: italic;
   font-size: 80%;
+}
+
+.chbox-lbl-filters {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  padding: 2px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0;
+  line-height: 1.5;
+  white-space: nowrap;
+  transition: background 0.1s;
+  &:hover {
+    background: var(--bs-secondary-bg);
+  }
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 3px;
+    background: var(--bs-body-bg);
+    cursor: pointer;
+    position: relative;
+    transition: background 0.1s, border-color 0.1s;
+  }
+
+  input[type="checkbox"]:checked {
+    background: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+
+  // creates the tick from a border
+  input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 0.5px;
+    width: 5px;
+    height: 9px;
+    border: 1.5px solid white;
+    border-top: none;
+    border-left: none;
+    transform: rotate(40deg);
+  }  
 }
