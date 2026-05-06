@@ -1,16 +1,10 @@
 Rails.application.routes.draw do
   resources :venue_stats, only: [ :index ] do
-    collection do
-      get "filter"
-      get "clear_filters"
-    end
+    get "clear_filters", on: :collection
   end
   resources :trends, only: [ :index ]
-  resources :runs, only: [ :index ] do
-    collection do
-      # get "filter"
-      get "clear_filters"
-    end
+  resources :runs, only: [ :index ], param: :venue do
+    get :clear_filters, on: :collection
     get :close, on: :member
   end
   resources :friends, only: [ :index ]

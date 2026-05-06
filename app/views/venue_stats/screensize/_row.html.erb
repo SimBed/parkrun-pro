@@ -5,7 +5,7 @@
     </span>
   </td>
   <td class="runs-venue">
-    <%= link_to stat.venue, runs_path(filters: {runs: {venue: stat.venue, date: @date}}, link_from: 'venue_stats'),
+    <%= link_to stat.venue, runs_path(filters: {runs: {venue: stat.venue, date: @date}}, referrer: 'venue_stats'),
                 class: 'like_button',
                 data: { turbo_frame: stat.venue.parameterize} %></td>
   <td class="runs-count"><%= number_with_delimiter(stat.count) %></td>

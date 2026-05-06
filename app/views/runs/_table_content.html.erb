@@ -1,5 +1,5 @@
 <%= turbo_frame_tag @venue.parameterize do %>
-  <div class="runs-table-wrap <%= 'is-populated' if @link_from %>">
+  <div class="runs-table-wrap <%= 'is-populated' if @referrer %>">
     <%= render 'cancel_button' if @cancel_button %>
     <%= render partial: 'runs/screensize/desktop' %>
     <%= render partial: 'runs/screensize/mobile' %>

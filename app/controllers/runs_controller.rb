@@ -5,6 +5,7 @@ class RunsController < ApplicationController
     extract_filters
     prepare_filter_options
     set_filters
+    set_referrer
     set_sort_options
     handle_filter
     handle_sort
@@ -20,7 +21,7 @@ class RunsController < ApplicationController
   end
 
   def close
-    @venue = params[:id]
+    @venue = params[:venue]
   end
 
   private
@@ -43,16 +44,19 @@ class RunsController < ApplicationController
     @venue = @filters.dig(:runs, :venue)  || "All"
   end
 
+  # retain if request came from a turboized venue_stats page
+  def set_referrer
+    @referrer = params[:referrer]
+  end
+
   def set_sort_options
-    @link_from = params[:link_from]
-    # @venue = params[:venue]
     default_sort_option = "time"
     default_sort_direction = "asc"
 
-    # if time search, ignore any sort params and use defaults, to ensure time search always sorts by time ascending
+    # if time search, ignore any sort params (for this request) and use defaults, to ensure time search always sorts by time ascending
     if params[:time_input]
-      @sort_option = session[:run_sort_option] = default_sort_option
-      @sort_direction = session[:run_sort_direction] = default_sort_direction
+      @sort_option = default_sort_option
+      @sort_direction = default_sort_direction
     else
       @sort_option = session[:run_sort_option] = params[:sort_option] || session[:run_sort_option] || default_sort_option
       @sort_direction = session[:run_sort_direction] = params[:sort_direction] || session[:run_sort_direction] || default_sort_direction
@@ -118,7 +122,7 @@ class RunsController < ApplicationController
   end
 
   def set_cancel_button
-    @cancel_button = true if @link_from == "venue_stats"
+    @cancel_button = true if @referrer == "venue_stats"
     @cancel_button_path = close_run_path(@venue) if @cancel_button
   end
 
