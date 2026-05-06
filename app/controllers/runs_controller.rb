@@ -27,13 +27,9 @@ class RunsController < ApplicationController
 
   def extract_filters
     if params[:filters]
-      new_filters = params.require(:filters).permit(
-        runs: [
-          :date,
-          :venue,
-          { any_agegroup_of: [] }
-        ]
-        ).to_h # convert from ActionController::Parameters to hash. Oherwise with_indifferent_access fails
+      new_filters = filter_params.to_h # convert from ActionController::Parameters to hash. Oherwise with_indifferent_access fails
+
+      normalize_runs_filters!(new_filters)
 
       session[:filters] ||= {}
       session[:filters].deep_merge!(new_filters)
@@ -124,5 +120,15 @@ class RunsController < ApplicationController
   def set_cancel_button
     @cancel_button = true if @link_from == "venue_stats"
     @cancel_button_path = close_run_path(@venue) if @cancel_button
+  end
+
+  def filter_params
+    params.require(:filters).permit(
+      runs: [
+        :date,
+        :venue,
+        { any_agegroup_of: [] }
+      ]
+    )
   end
 end

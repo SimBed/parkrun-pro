@@ -1,10 +1,10 @@
 desc "scrape new venues for hitoric results"
 task get_historic_results: :environment do
-  start_date = Date.new(2026, 1, 3)
-  end_date = Date.new(2026, 4, 11)
+  start_date = Date.new(2026, 2, 7)
+  end_date = Date.new(2026, 5, 2)
   dates = (start_date..end_date).step(7).to_a
   # ["christchurch", "belvoirforest", "yorkcommunitywoodland", "brookleys", "greenwichpeninsula"].each do |code_name|
-  [ "greenwichpeninsula" ].each do |code_name|
+  [ "highcliffebeach" ].each do |code_name|
     venue = Venue.find_by(code_name:)
     next unless venue
     venue_name = venue.name
@@ -35,7 +35,7 @@ task get_historic_results: :environment do
             hours * 3600 + minutes * 60 + secs
           end
         rows << { name:, gender:, agegroup:, time: seconds, position:, runs:, agegrade:,
-                  parkrun: venue_name,
+                  venue: venue_name,
                   date:,
                   created_at: time_now,
                   updated_at: time_now

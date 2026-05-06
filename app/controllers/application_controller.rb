@@ -15,4 +15,13 @@ class ApplicationController < ActionController::Base
   def prepare_dates
     @dates = Run.dates
   end
+
+  def normalize_runs_filters!(filters)
+    return unless filters.key?(:runs)
+
+    runs = filters[:runs]
+
+    # Ensure keys exist even if not submitted. Otherwise when a final agegroup is unchecked, the key is missing from the params and so is not updated in the session, meaning the filter is not cleared as required.
+    runs[:any_agegroup_of] = nil unless runs.key?(:any_agegroup_of)
+  end
 end
