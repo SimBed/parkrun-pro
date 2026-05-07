@@ -3,12 +3,12 @@
     <thead class="runs-thead">
       <tr>
         <th></th>
-        <th class="sortable"><%= sortable(column: 'venue', coltitle: 'Name', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></th>
-        <th class="sortable"><%= sortable(column: 'count', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></th>
-        <th class="sortable"><%= sortable(column: 'fastest', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></th>
-        <th class="sortable"><%= sortable(column: 'median', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></th>
-        <th class="sortable"><%= sortable(column: 'slowest', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></th>
-        <th class="sortable"><%= sortable(column: 'avg_age', coltitle: 'Average Age', sort_column: @sort_option, sort_direction: @sort_direction, filters: @filters) %></th>
+        <th class="sortable"><%= sortable(column: 'venue', coltitle: 'Name', **@sortable_options) %></th>
+        <th class="sortable"><%= sortable(column: 'count', **@sortable_options) %></th>
+        <th class="sortable"><%= sortable(column: 'fastest', **@sortable_options) %></th>
+        <th class="sortable"><%= sortable(column: 'median', **@sortable_options) %></th>
+        <th class="sortable"><%= sortable(column: 'slowest', **@sortable_options) %></th>
+        <th class="sortable"><%= sortable(column: 'avg_age', coltitle: 'Average Age', **@sortable_options) %></th>
       </tr>
     </thead>
     <tbody>

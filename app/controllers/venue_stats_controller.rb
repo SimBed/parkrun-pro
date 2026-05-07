@@ -5,7 +5,7 @@ class VenueStatsController < ApplicationController
     extract_filters
     prepare_filter_options
     set_filters
-    set_sort_options
+    set_sortable_options
     handle_filter
     handle_summary_stats
     handle_sort
@@ -33,6 +33,15 @@ class VenueStatsController < ApplicationController
 
   def set_filters
     @date = @filters.dig(:runs, :date) || @dates&.first
+  end
+
+  def set_sortable_options
+    set_sort_options
+    @sortable_options = {
+      sort_column: @sort_option,
+      sort_direction: @sort_direction,
+      filters: @filters
+    }
   end
 
   def set_sort_options

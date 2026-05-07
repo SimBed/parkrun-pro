@@ -5,8 +5,7 @@ class RunsController < ApplicationController
     extract_filters
     prepare_filter_options
     set_filters
-    set_referrer
-    set_sort_options
+    set_sortable_options
     handle_filter
     handle_sort
     handle_summary_stats
@@ -42,6 +41,17 @@ class RunsController < ApplicationController
   def set_filters
     @date = @filters.dig(:runs, :date) || @dates&.first
     @venue = @filters.dig(:runs, :venue)  || "All"
+  end
+
+  def set_sortable_options
+    set_referrer
+    set_sort_options
+    @sortable_options = {
+      sort_column: @sort_option,
+      sort_direction: @sort_direction,
+      referrer: @referrer,
+      filters: @filters
+    }
   end
 
   # retain if request came from a turboized venue_stats page

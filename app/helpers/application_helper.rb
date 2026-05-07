@@ -13,6 +13,7 @@ module ApplicationHelper
     css_class = column == sort_column ? "current #{sort_direction}" : "notcurrent"
     direction = opp_direction(sort_direction)
     if data_action # handle by stimulus
+      # <a class="notcurrent" data-action="click->friends#sort" data-sort-option="runs" data-sort-direction="desc" href="#">Count</a>
       link_to coltitle, "#", class: css_class,
         data: {
           action: "click->#{data_action}",

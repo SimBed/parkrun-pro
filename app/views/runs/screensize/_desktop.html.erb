@@ -8,9 +8,9 @@
         <!--th>Local</th-->
         <th>Gender</th>
         <th>Group</th>
-        <th class="sortable"><%= sortable(column: 'runs', coltitle: 'Count', sort_column: @sort_option, sort_direction: @sort_direction, referrer: @referrer, filters: @filters)  %></th>
-        <th class="sortable"><%= sortable(column: 'agegrade', coltitle: 'Grade', sort_column: @sort_option, sort_direction: @sort_direction, referrer: @referrer, filters: @filters)  %></th>
-        <th class="sortable"><%= sortable(column: 'time', coltitle: 'Time', sort_column: @sort_option, sort_direction: @sort_direction, referrer: @referrer, filters: @filters)  %></th>
+        <th class="sortable"><%= sortable(column: 'runs', coltitle: 'Count', **@sortable_options) %></th>
+        <th class="sortable"><%= sortable(column: 'agegrade', coltitle: 'Grade', **@sortable_options) %></th>
+        <th class="sortable"><%= sortable(column: 'time', coltitle: 'Time', **@sortable_options) %></th>
       </tr>
     </thead>
     <tbody>

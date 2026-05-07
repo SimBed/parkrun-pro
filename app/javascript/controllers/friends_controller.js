@@ -54,11 +54,11 @@ export default class extends Controller {
     const sortOption =
       el.value || // triggered by selecting an option from <select> (small screen)
       el.dataset.sortOption || // triggered by link click in heading (large screen)
-      el.closest("form")?.querySelector('[name="sort_option"]')?.value // triggered by sort order button click (small screen)
+      el.closest("form")?.querySelector('[name="sort_option"]')?.value // triggered by sort order arrow button click (small screen)
 
     const sortDirection =
       el.dataset.sortDirection || // triggered by link click in heading (large screen)
-      el.closest("form")?.dataset.sortDirection // triggered by selecting an option from <select> or sort order button click (small screen)
+      el.closest("form")?.dataset.sortDirection // triggered by selecting an option from <select> or sort order arrow button click (small screen)
 
     const names = this.loadNames()
     this.saveSortParams(sortOption, sortDirection)
