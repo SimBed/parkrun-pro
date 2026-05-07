@@ -9,23 +9,28 @@ opacity: 0.7; }
 
 a.like_button {
   border-radius: 0.5rem;
-  padding: 0.5rem 0.5rem;
+  padding: 0.2rem 0.2rem;
   text-decoration: none;
-  color: $white;
-  background-color: #1a1a2e;
-  border-color: #1a1a2e;  
+  color: var(--bs-primary-text-emphasis);
+  background-color: $purple-100;
+  border-color: $purple-100;     
   font-weight: 500;
   box-shadow: none;
   // font-size: 0.7rem;
   // text-transform: uppercase;
+  @include media-breakpoint-up(xl) {
+    padding: 0.5rem 0.5rem;
+    color: $white;
+    background-color: $purple-500;
+    border-color: $purple-500;        
+  }  
   &:hover {
     opacity: 0.8;
     box-shadow: 0.1rem 0.1rem 0.3rem $gray-700;
     background-color: $gray-900;
     border-color: $gray-900;
   }
-  @include media-breakpoint-up(md) {
-  }
+
 }
 
 // sort headers

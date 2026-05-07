@@ -13,4 +13,8 @@ module RunsHelper
       "%d:%02d:%02d" % [ hours, minutes, secs ]
     end
   end
+
+  def venue_frame_id(venue, variant)
+  "#{venue.parameterize}-#{variant}"
+  end
 end

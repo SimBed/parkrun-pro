@@ -10,6 +10,7 @@ class RunsController < ApplicationController
     handle_sort
     handle_summary_stats
     handle_pagination
+    set_screensize
     set_cancel_button
   end
 
@@ -21,6 +22,7 @@ class RunsController < ApplicationController
 
   def close
     @venue = params[:venue]
+    set_screensize
   end
 
   private
@@ -133,7 +135,11 @@ class RunsController < ApplicationController
 
   def set_cancel_button
     @cancel_button = true if @referrer == "venue_stats"
-    @cancel_button_path = close_run_path(@venue) if @cancel_button
+    @cancel_button_path = close_run_path(@venue, variant: @variant) if @cancel_button
+  end
+
+  def set_screensize
+    @variant = params[:variant] || :desktop
   end
 
   def filter_params

@@ -5,6 +5,6 @@
       <%= render 'time_search' if @show_pagy%>
       <%= render 'sort_selection' %>
     </div>
-    <%= render 'table_content' %>
+    <%= render partial: 'table_content', locals: { venue: @venue, variant: @variant } %>
   </div>
 <% end %>

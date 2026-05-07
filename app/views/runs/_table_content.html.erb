@@ -1,4 +1,5 @@
-<%= turbo_frame_tag @venue.parameterize do %>
+<%#= turbo_frame_tag @venue.parameterize do %>
+<%= turbo_frame_tag venue_frame_id(@venue, @variant) do %>
   <div class="runs-table-wrap <%= 'is-populated' if @referrer %>">
     <%= render 'cancel_button' if @cancel_button %>
     <%= render partial: 'runs/screensize/desktop' %>

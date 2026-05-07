@@ -1,2 +1,2 @@
 <%# render an empty turbo frame %>
-<%= turbo_frame_tag @venue.parameterize %>
+<%= turbo_frame_tag venue_frame_id(@venue.parameterize, @variant) %>

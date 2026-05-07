@@ -2,24 +2,24 @@
 
   <div class="d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center gap-2">
-      <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill py-1 fw-semibold">
+      <span class="badge rounded-pill py-1 fw-semibold">
         <%= number_with_delimiter(@pagy.offset + run_counter + 1) %>
       </span>
-      <span class="fw-semibold text-body">
+      <span class="runs-name">
         <%= run.anonymized_name %>
       </span>
-      <span class="fw-semibold">
+      <span class="runs-time">
         <%= min_sec_format(run.time) %>
       </span>
     </div>
   </div>
 
   <div class="text-muted small">
-    <span><%= run.venue %></span>
+    <span class="runs-venue"><%= run.venue %></span>
     <span class="mx-1">•</span>
-    <span><%= run.agegroup %></span>
+    <span class="runs-agegroup"><%= run.agegroup %></span>
     <span class="mx-1">•</span>
-    <span><%= number_to_percentage(run.agegrade, precision: 1) %></span>    
+    <span class="runs-agegrade"><%= number_to_percentage(run.agegrade, precision: 1) %></span>    
   </div>
 
 </div>

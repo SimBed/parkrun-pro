@@ -1,14 +1,15 @@
-<div class="list-group-item py-2 border-0 border-bottom">
+<div class="list-group-item py-1 border-0 border-bottom">
 
   <div class="d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center gap-2">
       <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill py-1 fw-semibold">
         <%= number_with_delimiter(stat_counter + 1) %>
       </span>
-      <span class="fw-semibold text-body">
-        <%= stat.venue %>
-      </span>
-      <span class="fw-semibold">
+      <span>
+        <%= link_to stat.venue, runs_path(filters: {runs: {venue: stat.venue, date: @date}}, referrer: 'venue_stats', variant: 'mobile'),
+                    class: 'like_button fw-semibold',
+                    data: { turbo_frame: venue_frame_id(stat.venue, 'mobile') } %></span>
+      <span class="fw-semibold runs-count">
         <%= number_with_delimiter(stat.count) %>
       </span>
     </div>
@@ -28,4 +29,7 @@
     <span><%= number_with_precision(stat.avg_age, precision: 1) %></span>
   </div>
 
+</div>
+<div>
+  <%= turbo_frame_tag venue_frame_id(stat.venue, 'mobile') %>  
 </div>

@@ -1,0 +1,74 @@
+// applies to Mobile where div structure is used (desktop uses table structure and is styled separately with tables component)
+
+div.runs-table-wrap {
+  div span {
+    &.runs-name  { font-weight: 600; color: black; }
+    &.runs-time  { font-family: monospace; font-size: 1.0rem; font-weight: 600; color: $purple-300; letter-spacing: 0.03em; }
+    &.badge {
+      background-color: var(--bs-primary-bg-subtle);
+      color: var(--bs-primary-text-emphasis);
+    }      
+  }
+  // style the runs table differently when rendered in a turbo frame (eg from a venue stats venue link)
+  &.is-populated {
+    margin: 0.5rem;
+    div { background-color: #0e2028;}
+    div span {
+        color: #b0ccc8;
+        background: #0e2028;
+        &.runs-name  { font-weight: 500; color: white; }
+      &.runs-time  { font-family: monospace; letter-spacing: 0.03em; }
+      &.runs-venue  { font-size: 0.9rem; }
+      &.runs-agegroup  { font-size: 0.8rem; }
+      &.runs-count  { font-size: 0.8rem; }
+      &.runs-agegrade  { font-size: 0.8rem; }        
+      &.badge {
+        background-color: rgba(45,180,150,0.6);
+        color: white;}
+      }
+    div a {
+      color: #b0ccc8;
+    }
+  }
+}
+
+
+
+
+//   table.runs-table {
+//     thead.runs-thead th {
+//     color: rgba(45,180,150,0.6);
+//     background: #0a1a22;
+//     }
+
+//     td {
+//         color: #b0ccc8;
+//         background: #0e2028;
+//         &.runs-name  { font-weight: 500; color: white; }
+//         span.badge {
+//           background-color: rgba(45,180,150,0.6);
+//           color: white;}
+//       }    
+
+//       .runs-thead th {
+//         &.sortable a {
+//           color: rgba(45,180,150,0.6);
+//         }
+//       }
+
+//       div a {
+//         color: #b0ccc8;
+//       }
+      
+//       tbody tr {
+//         &:hover > * {
+//           background-color: #0a1a22;
+//         }  
+//       }
+  
+
+// // applies to mobile where div table structure is used instead of table element
+//         span.badge {
+//           background-color: rgba(45,180,150,0.6);
+//           color: white;}
+//       }    

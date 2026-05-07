@@ -1,3 +1,4 @@
+// applies to Desktop where table structure is used (mobile uses div structure and is styled separately with divtables component)
 // apply styling directly to th/td - styling to tr/table tends to have no affect with border-collapse: collapse (adjacent cell borders are merged into a single shared border)
 
 .runs-table-wrap {
@@ -18,7 +19,7 @@
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: $gray-500;
-  background: #1a1a2e;
+  background: $purple-500;
   border: none;
   ::after {content: "↑↓"}
   &.sortable a {
@@ -28,7 +29,7 @@
 
 .runs-table tbody tr {
   &:hover > * {
-    background-color: #1a1a2e;
+    background-color: $purple-550;
   }
   &:last-child { border-bottom: none; }
 }
@@ -43,9 +44,9 @@
 
 .runs-table tbody tr td {
   font-size: 1rem;
-  background: #16213e;
+  background: $purple-600;
   border-bottom: 0.5px solid rgba(255,255,255,0.05);
-  color: #7b8cde;
+  color: $purple-300;
   &.runs-name  { font-weight: 500; color: white; }
   &.runs-venue  { font-size: 0.9rem; }
   &.runs-local  { font-size: 0.8rem; }
@@ -60,35 +61,45 @@
 // style the runs table differently when rendered in a turbo frame (eg from a venue stats venue link)
 div.is-populated {
   margin: 0.5rem;
-  div {
-    background-color: #0e2028;
-  }
-  table.runs-table thead.runs-thead th {
+  div { background-color: #0e2028;}
+
+  table.runs-table {
+    thead.runs-thead th {
     color: rgba(45,180,150,0.6);
     background: #0a1a22;
-  }
-  table.runs-table td {
-    color: #b0ccc8;
-    background: #0e2028;
-    &.runs-name  { font-weight: 500; color: white; }
-    span.badge {
-      background-color: rgba(45,180,150,0.6);
-      color: white;}
-  }
-
-  .runs-thead th {
-    &.sortable a {
-      color: rgba(45,180,150,0.6);
     }
-  }
 
-  div a {
-    color: #b0ccc8;
-  }
+    td {
+        color: #b0ccc8;
+        background: #0e2028;
+        &.runs-name  { font-weight: 500; color: white; }
+        span.badge {
+          background-color: rgba(45,180,150,0.6);
+          color: white;}
+      }    
 
-  .runs-table tbody tr {
-    &:hover > * {
-      background-color: #0a1a22;
-    }  
-  }
+      .runs-thead th {
+        &.sortable a {
+          color: rgba(45,180,150,0.6);
+        }
+      }
+
+      div a {
+        color: #b0ccc8;
+      }
+      
+      tbody tr {
+        &:hover > * {
+          background-color: #0a1a22;
+        }  
+      }
+  
+
+// applies to mobile where div table structure is used instead of table element
+        span.badge {
+          background-color: rgba(45,180,150,0.6);
+          color: white;}
+      }    
+
+
 }
