@@ -1,15 +1,16 @@
-desc "scrape new venues for historic results"
-task get_historic_results: :environment do
-  start_date = Date.new(2026, 4, 18)
-  end_date = Date.new(2026, 4, 18)
+desc "correct bulk mis-scrapes"
+task correct_runs: :environment do
+  start_date = Date.new(2026, 5, 2)
+  end_date = Date.new(2026, 5, 2)
   dates = (start_date..end_date).step(7).to_a
-  # ["christchurch", "belvoirforest", "yorkcommunitywoodland", "brookleys", "greenwichpeninsula"].each do |code_name|
-  [ "newent" ].each do |code_name|
-    venue = Venue.find_by(code_name:)
+  [ "Burnham and Highbridge", "Jersey Farm", "Sixfields Upton", "Hartlepool", "South Shields", "Troon", "Camperdown", "Simmons Park",
+  "Horspath", "Orangefield", "Squerryes Winery", "Ross-on-Wye", "Halifax", "Carrickfergus", "Rogiet", "Harcourt Hill", "Omagh",
+  "Chevin Forest", "Great Dunmow", "Crawfordsburn Country", "Palacerigg Country", "Garvagh Forest" ].each do |venue_name|
+    venue = Venue.find_by(name: venue_name)
     next unless venue
-    venue_name = venue.name
     dates.each do |date|
-      puts "processing #{venue_name}, id: #{venue.id} for date: #{date}"
+      Run.where(venue: venue_name, date: start_date).delete_all
+      puts "processing #{venue_name} for date: #{date}"
       rows = []
       time_now = Time.current
       response = WebsiteRequester.new(venue.results_page(date: date)).request

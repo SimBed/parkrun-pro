@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     get "median_time_by_date"
     get "slowest_time_by_date"
     get "avg_age_by_date"
+    get "over80s_by_date"
+    get "over90s_by_date"
   end
   root "runs#index"
 

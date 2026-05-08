@@ -22,8 +22,17 @@ class ChartsController < ApplicationController
     render json: column_chart_data
   end
 
+  # def count_by_date
+  #   line_chart_data = Run.group(:date).count(:date)
+  #   render json: line_chart_data
+  # end
   def count_by_date
-    line_chart_data = Run.group(:date).count(:date)
+    male_agegroups = Agegroup.where(gender: "male").pluck(:name)
+    female_agegroups = Agegroup.where(gender: "female").pluck(:name)
+    male_data = Run.where(agegroup: male_agegroups).group(:date).order(:date).count.transform_keys { |date| date.strftime("%b %-d") }
+    female_data = Run.where(agegroup: female_agegroups).group(:date).order(:date).count.transform_keys { |date| date.strftime("%b %-d") }
+    non_specified_data = Run.where(agegroup: "").group(:date).order(:date).count.transform_keys { |date| date.strftime("%b %-d") }
+    line_chart_data = [ { name: "Male", data: male_data }, { name: "Female", data: female_data }, { name: "Not Specified", data: non_specified_data } ]
     render json: line_chart_data
   end
 
@@ -72,6 +81,28 @@ class ChartsController < ApplicationController
       .to_h.transform_values do |age|
                               helpers.number_with_precision(age, precision: 1)
                            end
+    render json: line_chart_data
+  end
+
+  def over80s_by_date
+    male_over_80_agegroups = [ "VM80-84", "VM85-89", "VM90-94", "VM95-99" ]
+    female_over_80_agegroups = [ "VW80-84", "VW85-89", "VW90-94", "VW95-99" ]
+    # over_80_agegroups = male_over_80_agegroups + female_over_80_agegroups
+    # have to transform date otherwise formatting gets changed to 2026-mm-dd. Then need to order by date to avoid random ordering.
+    male_data =Run.where(agegroup: male_over_80_agegroups).group(:date).order(:date).count.transform_keys { |date| date.strftime("%b %-d") }
+    female_data =Run.where(agegroup: female_over_80_agegroups).group(:date).order(:date).count.transform_keys { |date| date.strftime("%b %-d") }
+    # With Chartkick you can pass an array of series hashes for multiple lines on the same chart
+    line_chart_data = [ { name: "Male", data: male_data }, { name: "Female", data: female_data } ]
+    # line_chart_data = Run.where("agegroup IN (?)", over_80_agegroups).group(:date).count
+    render json: line_chart_data
+  end
+
+  def over90s_by_date
+    male_over_90_agegroups = [ "VM90-94", "VM95-99" ]
+    female_over_90_agegroups = [ "VW90-94", "VW95-99" ]
+    male_data =Run.where(agegroup: male_over_90_agegroups).group(:date).order(:date).count.transform_keys { |date| date.strftime("%b %-d") }
+    female_data =Run.where(agegroup: female_over_90_agegroups).group(:date).order(:date).count.transform_keys { |date| date.strftime("%b %-d") }
+    line_chart_data = [ { name: "Male", data: male_data }, { name: "Female", data: female_data } ]
     render json: line_chart_data
   end
 
