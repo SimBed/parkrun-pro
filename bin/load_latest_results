@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e #exit immediately if any command fails
+
+DATESTAMP=$(date +"%Y%m%d")
+LATEST_RUNS_FILE="latest_runs_$DATESTAMP.csv"
+production_db='parkrun_pro_production'
+
+echo "Copying from '$LATEST_RUNS_FILE' to '$production_db' database..."
+psql -d $production_db -U railsapps -c "\COPY runs FROM $LATEST_RUNS_FILE CSV HEADER"
+echo "✅ Copy completed successfully."
+
+# gives access to RAILS_MASTER_KEY and RAILS_ENV
+set -a # automatically export all variables created afterwards, so eg RAILS_MASTER_KEY is available to the subsequent rails commands
+source /etc/environment.d/parkrun-pro.conf
+set +a
+
+echo "Computing StoredStats for '$production_db' database..."
+bin/rails store_stats
+echo "✅ Stored Stats computed successfully."
+
+echo "Refreshing SummaryStats material view for '$production_db' database..."
+bin/rails summary_stats
+echo "✅ Summary Stats refreshed successfully."

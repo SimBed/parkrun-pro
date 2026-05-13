@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# bin/extract_latest_data 
+
+# So results update workflow:
+# rake get_results
+# bin/extract_latest_data
+# scp latest_runs_date.csv simbed-server:apps//parkrun-pro/
+# psql -d parkrun_pro_production -U railsapps -c "\COPY runs FROM 'latest_runs_date.csv' CSV HEADER"
+# refresh matrerialised view/compute stored stats
+
+DATESTAMP=$(date +"%Y%m%d")
+DB_NAME='parkrun_pro_development'
+LATEST_RUNS_FILE="latest_runs_$DATESTAMP.csv"
+echo "Copying latest data from '$DB_NAME' to '$LATEST_RUNS_FILE'..."
+# LAST_RUN_ID=$(psql -d "$DB_NAME" -t -c "SELECT MAX(id) FROM runs;")
+# -d	database name
+# -c	command to execute (otherwise psql expects interactive input)
+# -t	tuples only (no headers/footer)
+
+psql -d "$DB_NAME" -c "\COPY (
+  SELECT *
+  FROM runs
+  WHERE date > current_date - 1
+) TO $LATEST_RUNS_FILE CSV HEADER"
+
+echo "✅ Latest results extracted successfully."
+
+# pg_dump unsuitable for dumping an extract of data.
+# pg_dump \
+#   --data-only \
+#   --table=runs \
+#   --where="id > $LAST_RUN_ID" \  unrecognized option
+#   $DB_NAME > $LATEST_RUNS_FILE
+# # --where="date = CURRENT_DATE"
+
