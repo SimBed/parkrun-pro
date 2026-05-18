@@ -1,0 +1,2 @@
+module BestTimesHelper
+end

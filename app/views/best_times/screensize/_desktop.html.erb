@@ -1,0 +1,18 @@
+<div class="d-none d-xl-block">
+  <table class="table runs-table">
+    <thead class="runs-thead">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Venue</th>
+        <th>Date</th>
+        <th>Group</th>
+        <th>Runs</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "best_times/screensize/row", collection: @runs, as: :run %>
+    </tbody>
+  </table>
+</div>

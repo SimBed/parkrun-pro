@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   resources :venue_stats, only: [ :index ] do
     get "clear_filters", on: :collection
   end
+  resources :best_times, only: [ :index ] do
+    get "clear_filters", on: :collection
+  end
   resources :trends, only: [ :index ]
   resources :runs, only: [ :index ], param: :venue do
     get :clear_filters, on: :collection

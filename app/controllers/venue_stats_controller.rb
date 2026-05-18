@@ -6,7 +6,7 @@ class VenueStatsController < ApplicationController
     prepare_filter_options
     set_filters
     set_sortable_options
-    handle_filter
+    handle_filters
     handle_summary_stats
     handle_sort
   end
@@ -52,7 +52,7 @@ class VenueStatsController < ApplicationController
     @next_direction = @sort_direction == "asc" ? "desc" : "asc"
   end
 
-  def handle_filter
+  def handle_filters
     @runs = Run.where(date: @date)
     # deliberately pass runs as the controller as we are using the same filters for runs and venue stats
     @runs = RunQuery.new(@filters, @runs, :runs).call

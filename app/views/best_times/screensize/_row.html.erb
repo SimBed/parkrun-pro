@@ -1,0 +1,13 @@
+<tr>
+  <td>
+    <span class="badge rounded-pill">
+      <%= number_with_delimiter(run_counter + 1) %>
+    </span>
+  </td>
+  <td class="runs-name"><%= run.anonymized_name %></td>
+  <td class="runs-venue"><%= run.venue %></td>
+  <td class="runs-local"><%= run.date.strftime('%d %b %Y') %></td>  
+  <td class="runs-agegroup"><%= run.agegroup %></td>
+  <td class="runs-count"><%= run.runs %></td>
+  <td class="runs-time"><%= min_sec_format(run.time) %></td>
+</tr>

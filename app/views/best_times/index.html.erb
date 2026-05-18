@@ -1,0 +1,9 @@
+<div class="container my-4">
+  <%= render 'shared/hero' %>
+  <%= turbo_frame_tag 'filter_and_data' do %>
+    <%= render 'best_times/filter/filter_form' %>
+    <%= turbo_frame_tag 'data' do %>
+      <%= render 'table' %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,5 @@
+<div class="runs-table-wrap">
+  <%= render partial: 'best_times/screensize/desktop' %>
+  <%= render partial: 'best_times/screensize/mobile' %>
+  <%= render 'empty_table' if @runs.blank? %>
+</div>

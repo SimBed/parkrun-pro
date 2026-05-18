@@ -6,7 +6,7 @@ class RunsController < ApplicationController
     prepare_filter_options
     set_filters
     set_sortable_options
-    handle_filter
+    handle_filters
     handle_sort
     handle_summary_stats
     handle_pagination
@@ -76,7 +76,7 @@ class RunsController < ApplicationController
     @next_direction = @sort_direction == "asc" ? "desc" : "asc"
   end
 
-  def handle_filter
+  def handle_filters
     @runs = Run.where(date: @date)
     @runs = @runs.where(venue: @venue) unless @venue == "All"
     @runs = RunQuery.new(@filters, @runs, :runs).call
