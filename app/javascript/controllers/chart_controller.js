@@ -6,6 +6,8 @@ export default class extends Controller {
     if (Chartkick.charts["fastestTimeByDate"]) {this.format_labels("fastestTimeByDate")};
     if (Chartkick.charts["slowestTimeByDate"]) {this.format_labels("slowestTimeByDate")};
     if (Chartkick.charts["medianTimeByDate"]) {this.format_labels("medianTimeByDate")};
+    if (Chartkick.charts["fastestTimeByAgeGroupMale"]) {this.format_labels("fastestTimeByAgeGroupMale")};
+    if (Chartkick.charts["fastestTimeByAgeGroupFemale"]) {this.format_labels("fastestTimeByAgeGroupFemale")};
   }
 
   format_labels(chart_instance) {

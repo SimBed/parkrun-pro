@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     get "avg_age_by_date"
     get "over80s_by_date"
     get "over90s_by_date"
+    get "fastest_time_by_agegroup_male"
+    get "fastest_time_by_agegroup_female"
   end
   root "runs#index"
 

@@ -106,7 +106,25 @@ class ChartsController < ApplicationController
     render json: line_chart_data
   end
 
-  private
+  def fastest_time_by_agegroup_male
+    agegroups = Agegroup.male_with_age
+    agegroups_data = {}
+    agegroups.each do |agegroup|
+      time = Run.where(agegroup: agegroup).minimum(:time)
+      agegroups_data[agegroup] = time
+    end
+    render json: agegroups_data
+  end
+
+  def fastest_time_by_agegroup_female
+    agegroups = Agegroup.female_with_age
+    agegroups_data = {}
+    agegroups.each do |agegroup|
+      time = Run.where(agegroup: agegroup).minimum(:time)
+      agegroups_data[agegroup] = time
+    end
+    render json: agegroups_data
+  end
 
   def extract_filters
     @date = params[:date]

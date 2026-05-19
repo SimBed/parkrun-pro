@@ -88,4 +88,12 @@ class Agegroup < ApplicationRecord
   def self.women
     where(category: [ "senior", "veteran" ], gender: "female").order(:position).pluck(:name)
   end
+
+  def self.male_with_age
+    where(gender: "male").where.not(average_age: nil).order(:position).pluck(:name)
+  end
+
+  def self.female_with_age
+    where(gender: "female").where.not(average_age: nil).order(:position).pluck(:name)
+  end
 end
