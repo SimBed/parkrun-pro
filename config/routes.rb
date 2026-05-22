@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "pages/about"
+  get "about" => "pages#about"
   resources :venue_stats, only: [ :index ] do
     get "clear_filters", on: :collection
   end
@@ -28,7 +30,7 @@ Rails.application.routes.draw do
     get "fastest_time_by_agegroup_male"
     get "fastest_time_by_agegroup_female"
   end
-  root "runs#index"
+  root "pages#about"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

@@ -1,0 +1,158 @@
+  <div class="about-sections container pt-4 mt-4">
+
+    <section class="about-section about-section--full">
+      <div class="about-section__content">      
+      <h1>About Parkrun Pro</h1>
+      <p class="about-section__body">
+        5km Parkruns take place across the UK in 800+ locations every Saturday morning with around 200,000 runners and walkers participating each week.
+      </p>
+      <p class="about-section__body">
+        <span class='fst-italic'>Parkrun Pro</span> aggregates age & gender grouped results across these venues to provide insights, achievements and trends that are not readily available on the official Parkrun individual event pages.
+      </p>
+      <p class="about-section__body">
+        <span class='fst-italic'>Parkrun Pro</span> is an independent, non-commercial project, not affiliated with <%= link_to "Parkrun", "https://www.parkrun.org.uk" %>.
+      </p>
+
+      <nav class="about-nav" aria-label="Page sections">
+        <a href="#explore" class="about-nav__pill">Explore</a>
+        <a href="#why" class="about-nav__pill">Why?</a>
+        <a href="#collaboration" class="about-nav__pill">Collaboration</a>
+        <a href="#data" class="about-nav__pill">Data</a>
+        <a href="#feedback" class="about-nav__pill">Feedback</a>
+        <a href="#good" class="about-nav__pill">Good at running?</a>
+      </nav>
+      </div>
+
+    </section>
+
+    <section id="explore" class="about-section about-section--img-right">
+      <div class="about-section__content">
+        <p class="about-section__tag">Explore</p>
+        <p class="about-section__body">
+          See how your own times compare across Parkrun events throughout the UK. Observe seasonal changes and age-group, gender and venue variations. Celebrate the achievements of our older runners across the country still going strong!
+        </p>
+
+        <ul class="about-list">
+          <li>fastest, average (and slowest!) times across the age-groups</li>
+          <li>participation rates each week</li>
+          <li>compare venues</li>
+          <li>follow friends</li>
+        </ul>
+
+        <div class="about-stats">
+          <div class="about-stats__chip">
+            <span class="about-stats__num"><%= number_to_human(@run_count) %></span>
+            <span class="about-stats__lbl">Runs logged</span>
+          </div>
+          <div class="about-stats__chip">
+            <span class="about-stats__num"><%= number_with_delimiter(@venue_count, delimiter: ",") %></span>
+            <span class="about-stats__lbl">Venues</span>
+          </div>
+          <div class="about-stats__chip">
+            <span class="about-stats__num"><%= min_sec_format(@fastest_time) %></span>
+            <span class="about-stats__lbl">Fastest time</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-section__media">
+        <%= image_tag "about/stats.png",
+              alt: "stats from one particular week",
+              class: "about-section__img",
+              loading: "lazy" %>
+      </div>
+    </section>
+
+    <section id="why" class="about-section about-section--img-left">
+      <div class="about-section__media">
+        <%= image_tag "about/count_by_age.png",
+              alt: "count by age-group column chart",
+              class: "about-section__img",
+              loading: "lazy" %>
+      </div>
+
+      <div class="about-section__content">
+        <p class="about-section__tag">Why?</p>
+
+        <p class="about-section__body">
+          I'm a <span class='fst-italic'>professional web-developer hobbyist</span>. I enjoy building professional-grade web applications that are interesting and add value. 
+        </p>
+        <p class="about-section__body">
+          Parkruns produce large amouts of data. I built this project to explore the data, create extra motivation in my running, provide a resource for others to do the same, have fun and develop my skills.
+        </p>  
+        <p class="about-section__body">
+          Men consistently turn out in greater numbers than women across the age-groups by about 30%. But at one age-group, women consistently out-participate men. What is going on there??
+        </p>  
+      </div>
+    </section>
+
+    <section id="collaboration" class="about-section about-section--img-right">
+      <div class="about-section__content">
+        <p class="about-section__tag">Collaboration</p>
+
+        <p class="about-section__body">
+          If you have web development experience and are interested in collaborating on this project or to build new projects, I would love to hear from you! Parkrun Pro is built with the following stack:
+        </p>
+
+        <ul class="about-list">
+          <li>Ruby on Rails</li>
+          <li>PostgreSQL</li>
+          <li>Bootstrap</li>
+          <li>Hotwire</li>
+        </ul>        
+
+      </div>
+
+      <div class="about-section__media">
+        <%= image_tag "about/venues.png",
+              alt: "table of venues and their stats",
+              class: "about-section__img",
+              loading: "lazy" %>
+      </div>      
+    </section>
+
+    <section id="data" class="about-section about-section--img-left">
+      <div class="about-section__media">
+        <%= image_tag "about/friends.png",
+              alt: "manage friends form",
+              class: "about-section__img",
+              loading: "lazy" %>
+      </div>
+
+      <div class="about-section__content">
+        <p class="about-section__tag">A Word on Data</p>
+
+        <ul class="about-list">
+          <li>Participants' age-groups are as published by Parkrun. I assume them to be true in the vast majority of cases.</li>
+          <li>To determine average age, I make the assumption that participants are evenly distributed across their age-group.</li>
+          <li>A small percentage of participants are anonymous and I remove these from the analysis.</li>
+          <li>There is no means to uniquely identify participants with shared names. When following friends, you may also see data for other participants who happen to share their name. Bad news if you are friends with a <span class='fst-italic'>Paul Smith</span>.</li>
+          <li>There seems to be no officially published list of active Parkrun venues. If you are aware of a missing venue, please let me know.</li>
+          <li>Data is collated from January 3, 2026 onwards.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="feedback" class="about-section about-section--full">
+      <div class="about-section__content">
+        <p class="about-section__tag">Feedback</p>
+        <p class="about-section__body">
+          I would love to hear your feedback, suggestions, and bug reports. Please get in touch at surfthepark@gmail.com.
+        </p>
+      </div>
+
+    </section>        
+
+    <section id="good" class="about-section about-section--full">
+      <div class="about-section__content">
+        <p class="about-section__tag">But are you any good at running?</p>
+        <p class="about-section__body">
+          Not really! PB: 23:46.
+        </p>
+        <p class="about-section__body">
+          That week 27,982 people ran faster than me. (I was the 23rd <span class='fst-italic'>Daniel</span> in my age-group nationally!)
+        </p>
+      </div>
+    </section>
+
+  </div>
