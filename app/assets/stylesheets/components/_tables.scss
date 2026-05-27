@@ -1,7 +1,7 @@
 // applies to Desktop where table structure is used (mobile uses div structure and is styled separately with divtables component)
 // apply styling directly to th/td - styling to tr/table tends to have no affect with border-collapse: collapse (adjacent cell borders are merged into a single shared border)
 
-.runs-table-wrap {
+.table-wrap {
   border-radius: 0.75rem;
   overflow: hidden; //needed for border-radius to have affect
   border: 1px solid $gray-800;
@@ -95,11 +95,16 @@ div.is-populated {
       }
   
 
-// applies to mobile where div table structure is used instead of table element
+      // applies to mobile where div table structure is used instead of table element
         span.badge {
           background-color: rgba(45,180,150,0.6);
           color: white;}
-      }    
+      }
+}
 
-
+caption {
+  caption-side: top;
+  text-align: left;
+  padding-bottom: 10px;
+  font-weight: bold;
 }

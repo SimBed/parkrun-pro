@@ -1,0 +1,14 @@
+<% flash.each do |flash_type, message| %>
+    <% bootstrap_class = case flash_type.to_sym
+       when :notice then "success"
+       when :alert  then "danger"
+       when :error  then "danger"
+       else flash_type
+    end %>
+  <div class="flash__message alert alert-<%= bootstrap_class %>"
+    data-controller="removals"
+    data-action="animationend->removals#remove"
+  >
+    <%= message %>
+  </div>
+<% end %>

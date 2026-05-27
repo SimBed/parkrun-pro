@@ -1,11 +1,4 @@
 <% content_for :title, "Editing venue" %>
-
-<h1>Editing venue</h1>
-
-<%= render "form", venue: @venue %>
-
-<br>
-
-<div>
-  <%= link_to "Back to venues", venues_path %>
-</div>
+<%= turbo_frame_tag @venue do %>
+  <%= render "form", venue: @venue %>
+<% end %>

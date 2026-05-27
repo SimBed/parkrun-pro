@@ -1,42 +1,53 @@
-<%= form_with(model: venue) do |form| %>
+<%= form_with(model: venue, class: 'admin_form pt-4 my-1') do |form| %>
   <% if venue.errors.any? %>
-    <div style="color: red">
+    <div id="error_explanation">
       <h2><%= pluralize(venue.errors.count, "error") %> prohibited this venue from being saved:</h2>
 
       <ul>
-        <% venue.errors.each do |error| %>
+        <% venue.errors.each do |venue| %>    
           <li><%= error.full_message %></li>
-        <% end %>
+        <% end %>        
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="field">
+    <%= form.label :name, class: 'form-label fw-bolder' %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
-  <div>
-    <%= form.label :code_name, style: "display: block" %>
-    <%= form.text_field :code_name %>
-  </div>
-  <div>
-    <%= form.label :verified, style: "display: block" %>
+
+  <div class="field">
+    <%= form.label :code_name, class: 'form-label fw-bolder' %>
+    <%= form.text_field :code_name, class: "form-control" %>
+  </div>  
+
+  <div class="field">
+    <%= form.label :address, class: 'form-label fw-bolder' %>
+    <%= form.text_field :address, class: "form-control" %>
+  </div>   
+  
+  <div class="field">
+    <%= form.label :postcode, class: 'form-label fw-bolder' %>
+    <%= form.text_field :postcode, class: "form-control" %>
+  </div>   
+
+  <%= form.label :verified, class: "form-label fw-bolder" %>
+  <div class="field">    
     <%= form.checkbox :verified %>
   </div>
-  <div>
-    <%= form.label :address, style: "display: block" %>
-    <%= form.text_field :address %>
-  </div>
-  <div>
-    <%= form.label :postcode, style: "display: block" %>
-    <%= form.text_field :postcode %>
-  </div>
-  <div>
-    <%= form.label :active, style: "display: block" %>
+
+  <%= form.label :active, class: "form-label fw-bolder" %>
+  <div class="field">    
     <%= form.checkbox :active %>
   </div>
 
-  <div>
+  <div class="actions mt-3">
     <%= form.submit %>
   </div>
+
+  <% if venue.new_record? %>
+    <div class='cancel' data-controller="form-cancel"><%= link_to 'X', '#', data: { action: 'form-cancel#cancel' } %> </div>  
+  <% else %>
+    <div class='cancel'><%= link_to 'X', venues_path %> </div>  
+  <% end %>   
 <% end %>

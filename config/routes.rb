@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get :close, on: :member
   end
   resources :friends, only: [ :index ]
-  resources :venues
+  resources :venues, except: [ :show, :destroy ]
   resource :session
   resources :passwords, param: :token
   resources :users, only: [ :index ]

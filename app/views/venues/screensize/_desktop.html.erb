@@ -1,0 +1,8 @@
+<div class="d-none d-xl-block">
+  <table class="table venues-table">
+    <caption><%="#{@venues.size} Venues"%></caption>
+    <tbody>
+      <%= render partial: "venues/screensize/row", collection: @venues, as: :venue %>
+    </tbody>
+  </table>
+</div>

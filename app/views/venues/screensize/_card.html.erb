@@ -1,0 +1,20 @@
+<div class="list-group-item py-2 border-0 border-bottom">
+
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-2">
+      <span class="runs-name">
+        <%= venue.name %>
+      </span>
+      <span class="runs-time">
+        <%= venue.active? ? '&#9989;'.html_safe : '&#x274c;'.html_safe %>
+      </span>
+    </div>
+  </div>
+
+  <div class="text-muted small">
+    <span class="runs-venue"><%= link_to venue.code_name, venue.homepage, target: "_blank", rel: "noopener noreferrer" %></span>
+    <span class="mx-1">•</span>
+    <span class="runs-agegroup"><%= venue.postcode %></span> 
+  </div>
+
+</div>

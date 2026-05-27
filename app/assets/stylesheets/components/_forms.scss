@@ -87,3 +87,58 @@ input::placeholder {
     transform: rotate(40deg);
   }  
 }
+
+form {
+  &.admin_form {
+    position: relative; //for benefit of cancel button
+    background-color: $gray-100;
+    padding: 0.5rem;
+    box-shadow: 1px 3px 6px $black;
+    border-radius: 0.375rem;
+    .cancel {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+  .form-mandatory::after {
+    content: "  *";
+    font-size: 0.7rem;
+  }
+
+  span.sub-label {
+    font-size: 0.7rem;
+  }
+
+  &.signup .form-control {
+    padding-top:0;
+    padding-bottom:0;
+  }
+
+  &.entries select {
+    max-width: 95%;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+div.actions input {
+  background-color: $gray-800;
+  // border-color: $black;
+  color: $white;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  box-shadow: 0.1rem 0.1rem 0.3rem $gray-800;
+  text-transform: capitalize;
+  font-size: 0.8em;  
+  &:hover {
+    opacity: 0.8;
+    box-shadow: none;    
+  }
+}
+
+div.field, div.actions {
+  margin-bottom: 0.4rem;
+}

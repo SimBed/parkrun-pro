@@ -24,6 +24,18 @@ form button.btn-sort-direction {
   }
 }
 
+.btn {
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: 0.1rem 0.1rem 0.3rem $gray-800;
+  text-transform: capitalize;
+  &:hover {
+    opacity: 0.8;
+    box-shadow: none;    
+  }
+}
+
 
 
 

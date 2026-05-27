@@ -1,13 +1,13 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Venues" %>
 
-<h1>Venues <small> <%="(#{@venues.size})"%> </small></h1>
+<div class="container px-1 mt-2">
+  <%= link_to new_venue_path, data: { turbo_frame: dom_id(Venue.new)}, alt: 'New Venue', class: 'btn btn-dark p-1' do %>
+                              <i class="bi bi-plus-lg me-md-1"></i><span class="">Venue</span><% end %>
+  <%= turbo_frame_tag Venue.new do %>
+    <%= render 'empty_table' if @venues.empty? %>
+  <% end %>
 
-<div id="venues">
-  <% @venues.each do |venue| %>
-    <%= render venue %>
+  <%= turbo_frame_tag 'venues' do %>
+    <%= render 'table' unless @venues.empty? %>
   <% end %>
 </div>
-
-<%= link_to "New venue", new_venue_path %>
