@@ -1,13 +1,15 @@
 <tr>
-  <td class="venues-name"><%= venue.name %></td>
+  <%# use sanitize to silence brakeman. Otherwise it would warn to risk of model attribute in `link_to` href
+      which could cause for example (if someone had somehow stored javascript:alert(1) as the homepage) the generated link to execute script.
+   %>
+  <td class="venues-name"><%= link_to venue.name, sanitize(venue.homepage), target: "_blank", rel: "noopener noreferrer" %></td>
   <td class="venues-active"><%= venue.active? ? '&#9989;'.html_safe : '&#x274c;'.html_safe %></td>
-  <td class="venues-code-name"><%= link_to venue.code_name, venue.homepage, target: "_blank", rel: "noopener noreferrer" %></td>
   <td class="venues-postcode"><%= venue.postcode %></td>
   <td class="venues-address"><%= venue.address %></td>
   <td class="venues-edit"><%= link_to image_tag('edit.png', class: "table_icon"), edit_venue_path(venue), data: { turbo_frame: dom_id(venue) } %></td>
 </tr>
 <tr>
-  <td colspan="6" class="p-0">
+  <td colspan="5" class="p-0">
     <%= turbo_frame_tag venue %>  
   </td>
-</tr>  
+</tr>

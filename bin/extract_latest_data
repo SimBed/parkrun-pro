@@ -23,6 +23,7 @@ psql -d "$DB_NAME" -c "\COPY (
   FROM runs
   WHERE date > current_date - 2
 ) TO $LATEST_RUNS_FILE CSV HEADER"
+  # WHERE created_at::date = CURRENT_DATE
 
 echo "✅ Latest results extracted successfully."
 

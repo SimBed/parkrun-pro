@@ -6,7 +6,7 @@ class VenueStatsController < ApplicationController
     prepare_filter_options
     set_filters
     set_sortable_options
-    handle_filters
+    # handle_filters
     handle_summary_stats
     handle_sort
   end
@@ -52,12 +52,6 @@ class VenueStatsController < ApplicationController
     @next_direction = @sort_direction == "asc" ? "desc" : "asc"
   end
 
-  def handle_filters
-    @runs = Run.where(date: @date)
-    # deliberately pass runs as the controller as we are using the same filters for runs and venue stats
-    @runs = RunQuery.new(@filters, @runs, :runs).call
-  end
-
   def prepare_filter_options
     prepare_dates
     prepare_agegroups
@@ -77,7 +71,12 @@ class VenueStatsController < ApplicationController
 
   def handle_summary_stats
     # Use of lambda for lazy execution (only run if needed)
-    full_query_method = -> { @runs.unscope(:order).summary_stats(group_by: "venue") }
+    # full_query_method = -> { @runs.unscope(:order).summary_stats(group_by: "venue") }
+    full_query_method = Proc.new { @runs = Run.where(date: @date)
+                                   # deliberately pass runs as the controller as we are using the same filters for runs and venue stats
+                                   @runs = RunQuery.new(@filters, @runs, :runs).call
+                                   @runs.unscope(:order).summary_stats(group_by: "venue")
+                                  }
     @venue_stats = case summary_stats_method
     when :full_query
       full_query_method.call
