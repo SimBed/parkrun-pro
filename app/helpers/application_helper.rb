@@ -23,8 +23,11 @@ module ApplicationHelper
     else # direct request to server
       # <a class="current" href="/runs?sort_direction=desc&amp;sort_option=time">Time</a>
       # NOTE: the first hash (the options parameter) provides query params to the inferred path (eg. runs_path)
-      # link_to coltitle, { sort_option: column, sort_direction: direction, referrer: referrer, filters: {runs: {venue: venue, date: date }}}, { class: css_class }
-      link_to coltitle, { sort_option: column, sort_direction: direction, referrer: referrer, filters: filters }, { class: css_class }
+      # data: { turbo_prefetch: false } prevents Turbo's default 'pre-fetch' request on hover which would be in additon to the actual click request
+      # so doubles up on the server side method calls playing havoc with the sort direction. https://turbo.hotwired.dev/handbook/drive#prefetching-links-on-hover
+      link_to coltitle,
+              { sort_option: column, sort_direction: direction, referrer: referrer, filters: filters },
+              { class: css_class, data: { turbo_prefetch: false } }
     end
   end
 

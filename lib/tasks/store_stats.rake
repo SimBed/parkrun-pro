@@ -1,6 +1,6 @@
 desc "build the database of stored stats"
 task store_stats: :environment do
-  date = Date.parse("23 May 2026")
+  date = Date.parse("30 May 2026")
   # date = Date.today # now can be run directly on production on day of results
   Run.where(date:).select(:venue).distinct.each do |run|
     venue = run.venue
