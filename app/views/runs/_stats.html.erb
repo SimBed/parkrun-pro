@@ -8,7 +8,7 @@
             #  {name: 'SD', number: min_sec_format(stats.stddev), icon: 'bi-plus-slash-minus' },
              {name: 'Average Age', number: number_with_precision(stats.avg_age, precision: 1), icon: 'bi-person' }] %>
 
-<div class="mb-3 canvas gray100-canvas embossed">
+
   <!--h3 class= "stats"><%="#{@summary_title}"%>
     <div class="sub-title"><%="#{@summary_sub_title}"%></div>
   </h3-->
@@ -17,4 +17,3 @@
       <%= render partial: 'stat', collection: @stats %>
     </div>
   </div>
-</div>

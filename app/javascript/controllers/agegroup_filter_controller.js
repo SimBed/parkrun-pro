@@ -43,5 +43,4 @@ export default class extends Controller {
     // rather than the containing button which does 'have a form'
     event.currentTarget.form.requestSubmit()
   }
-
 }
