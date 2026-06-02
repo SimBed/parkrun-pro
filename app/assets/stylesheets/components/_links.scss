@@ -16,21 +16,24 @@ a.like_button {
   border-color: $purple-100;     
   font-weight: 500;
   box-shadow: none;
-  // font-size: 0.7rem;
-  // text-transform: uppercase;
+  &:hover {
+    opacity: 0.8;
+    box-shadow: 0.1rem 0.1rem 0.3rem $gray-700;
+    background-color: $gray-200;
+    border-color: $gray-200;
+  }
   @include media-breakpoint-up(xl) {
     padding: 0.5rem 0.5rem;
     color: $white;
     background-color: $purple-500;
     border-color: $purple-500;        
+    &:hover {
+      opacity: 0.8;
+      box-shadow: 0.1rem 0.1rem 0.3rem $gray-700;
+      background-color: $gray-900;
+      border-color: $gray-900;
+    }
   }  
-  &:hover {
-    opacity: 0.8;
-    box-shadow: 0.1rem 0.1rem 0.3rem $gray-700;
-    background-color: $gray-900;
-    border-color: $gray-900;
-  }
-
 }
 
 // sort headers

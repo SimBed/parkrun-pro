@@ -1,0 +1,111 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "41479f2ed3ab25f489566e7e031dea2723367b4ac6397632adf4a4c1ed694440",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/venues/screensize/_row.html.erb",
+      "line": 2,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.name, (Unresolved Model).new.homepage, :target => \"_blank\", :rel => \"noopener noreferrer\")",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "venues/_table",
+          "line": 3,
+          "file": "app/views/venues/_table.html.erb",
+          "rendered": {
+            "name": "venues/_table_content",
+            "file": "app/views/venues/_table_content.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "venues/_table_content",
+          "line": 2,
+          "file": "app/views/venues/_table_content.html.erb",
+          "rendered": {
+            "name": "venues/screensize/_desktop",
+            "file": "app/views/venues/screensize/_desktop.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "venues/screensize/_desktop",
+          "line": 5,
+          "file": "app/views/venues/screensize/_desktop.html.erb",
+          "rendered": {
+            "name": "venues/screensize/_row",
+            "file": "app/views/venues/screensize/_row.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "venues/screensize/_row"
+      },
+      "user_input": "(Unresolved Model).new.homepage",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "b08f82c712b8151c64d4d742a9855249ff69e46e9f7bc788ec427abffcafdc00",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/venues/screensize/_card.html.erb",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.name, sanitize((Unresolved Model).new.homepage), :target => \"_blank\", :rel => \"noopener noreferrer\")",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "venues/_table",
+          "line": 3,
+          "file": "app/views/venues/_table.html.erb",
+          "rendered": {
+            "name": "venues/_table_content",
+            "file": "app/views/venues/_table_content.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "venues/_table_content",
+          "line": 3,
+          "file": "app/views/venues/_table_content.html.erb",
+          "rendered": {
+            "name": "venues/screensize/_mobile",
+            "file": "app/views/venues/screensize/_mobile.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "venues/screensize/_mobile",
+          "line": 2,
+          "file": "app/views/venues/screensize/_mobile.html.erb",
+          "rendered": {
+            "name": "venues/screensize/_card",
+            "file": "app/views/venues/screensize/_card.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "venues/screensize/_card"
+      },
+      "user_input": "(Unresolved Model).new.homepage",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "8.0.4"
+}
