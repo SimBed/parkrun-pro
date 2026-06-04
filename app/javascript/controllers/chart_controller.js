@@ -8,6 +8,10 @@ export default class extends Controller {
     if (Chartkick.charts["medianTimeByDate"]) {this.format_labels("medianTimeByDate")};
     if (Chartkick.charts["fastestTimeByAgeGroupMale"]) {this.format_labels("fastestTimeByAgeGroupMale")};
     if (Chartkick.charts["fastestTimeByAgeGroupFemale"]) {this.format_labels("fastestTimeByAgeGroupFemale")};
+    if (Chartkick.charts["fastestTimeByAgeGroup"]) {this.format_labels("fastestTimeByAgeGroup")};
+    if (Chartkick.charts["countByDate"]) {this.add_tooltip_footer("countByDate")};
+    if (Chartkick.charts["over80sByDate"]) {this.add_tooltip_footer("over80sByDate")};
+    if (Chartkick.charts["over90sByDate"]) {this.add_tooltip_footer("over90sByDate")};
   }
 
   format_labels(chart_instance) {
@@ -37,10 +41,24 @@ export default class extends Controller {
       chart.options.plugins.tooltip.callbacks.label = (context) => {
         const value = context.raw
         return this.formatSeconds(value)
-      }      
+      }  
       chart.update()
     })
     // }, 2000);
+  }
+
+  add_tooltip_footer(chart_instance) {
+    this.waitForChart(chart_instance, (chart) => {
+      chart.options.plugins.tooltip.callbacks.footer = (tooltipItems) => {
+        const total = tooltipItems.reduce((sum, item) => {
+          return sum + item.raw
+        }, 0)
+        const formattedTotal = new Intl.NumberFormat('en-GB').format(total)
+        
+        return `Total: ${formattedTotal}`
+      }       
+      chart.update()
+    })
   }
 
   waitForChart(id, callback) {

@@ -33,9 +33,11 @@
   </div>
 
   <div class="mb-3 canvas gray100-canvas embossed">
-    <%= column_chart charts_count_by_date_path, stacked: true,title: "Participants by Date",
-                                              thousands: ",",
-                                              library: { animation: true } %>
+    <%= column_chart charts_count_by_date_path, stacked: true,
+                                                title: "Participants by Date",
+                                                id: 'countByDate',
+                                                thousands: ",",
+                                                library: { animation: true } %>
   </div>
 
   <div class="mb-3 canvas gray100-canvas embossed">
@@ -54,7 +56,7 @@
                                                 %>
   </div>
 
-  <div class="mb-3 canvas gray100-canvas embossed">
+  <!--div class="mb-3 canvas gray100-canvas embossed">
     <%= line_chart charts_fastest_time_by_agegroup_male_path, stacked: true,
                                                 title: "Fastest Time by Age Group (Male)",
                                                 id: 'fastestTimeByAgeGroupMale',
@@ -67,6 +69,18 @@
                                                 title: "Fastest Time by Age Group (Female)",
                                                 id: 'fastestTimeByAgeGroupFemale',
                                                 library: { animation: true }
+                                                %>
+  </div-->
+
+  <div class="mb-3 canvas gray100-canvas embossed">
+    <%= line_chart charts_fastest_time_by_agegroup_path, stacked: false,
+                                                title: "Fastest Time by Age Group",
+                                                id: 'fastestTimeByAgeGroup',
+                                                library: { animation: true,     
+                                                           scales: { y: { min: 780,
+                                                                          max: 3720
+                                                                        } }
+                                                          }
                                                 %>
   </div>
 </div>

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get "over90s_by_date"
     get "fastest_time_by_agegroup_male"
     get "fastest_time_by_agegroup_female"
+    get "fastest_time_by_agegroup"
   end
   root "pages#about"
 

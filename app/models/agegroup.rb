@@ -96,4 +96,5 @@ class Agegroup < ApplicationRecord
   def self.female_with_age
     where(gender: "female").where.not(average_age: nil).order(:position).pluck(:name)
   end
+
 end
