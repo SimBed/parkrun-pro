@@ -21,7 +21,7 @@ echo "Copying latest data from '$DB_NAME' to '$LATEST_RUNS_FILE'..."
 psql -d "$DB_NAME" -c "\COPY (
   SELECT *
   FROM runs
-  WHERE created_at::date = CURRENT_DATE
+  WHERE date > current_date - 2   
 ) TO $LATEST_RUNS_FILE CSV HEADER"
   # WHERE created_at::date = CURRENT_DATE
   # WHERE date > current_date - 2  

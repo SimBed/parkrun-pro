@@ -1,6 +1,6 @@
 a Rails app for exploring Parkrun data
 
-[Parkrun Pro](https://parkrun-pro.simbed.duckdns.org)  
+[Parksurf](https://parksurf.co.uk/)  
 <img src="public/screenshot.png" alt="demo image" width="300"><br>
 
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
