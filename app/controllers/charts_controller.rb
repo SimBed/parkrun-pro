@@ -115,7 +115,7 @@ class ChartsController < ApplicationController
     end
     render json: agegroups_data
   end
-  
+
   def fastest_time_by_agegroup_female
     agegroups = Agegroup.female_with_age
     agegroups_data = {}
@@ -125,7 +125,7 @@ class ChartsController < ApplicationController
     end
     render json: agegroups_data
   end
-  
+
   def fastest_time_by_agegroup
     male_agegroups = Agegroup.male_with_age
     female_agegroups = Agegroup.female_with_age
@@ -133,11 +133,11 @@ class ChartsController < ApplicationController
     female_agegroups_data = {}
     male_agegroups.each do |agegroup|
       time = Run.where(agegroup: agegroup).minimum(:time)
-      male_agegroups_data[agegroup.delete('M')] = time
+      male_agegroups_data[agegroup.delete("M")] = time
     end
     female_agegroups.each do |agegroup|
       time = Run.where(agegroup: agegroup).minimum(:time)
-      female_agegroups_data[agegroup.delete('W')] = time
+      female_agegroups_data[agegroup.delete("W")] = time
     end
     line_chart_data = [ { name: "Male", data: male_agegroups_data }, { name: "Female", data: female_agegroups_data } ]
     render json: line_chart_data

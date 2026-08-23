@@ -1,10 +1,11 @@
 desc "scrape each parkrun venue endpoint for latest results"
 task get_results: :environment do
-  date = Date.parse("27 June 2026")
+  date = Date.parse("22 August 2026")
   count = 0
     first_venue_id = Venue.where(active: true).order(:id).first.id
+    # first_venue_id = 1284
     Venue.where(active: true).order(:id).limit(900).find_each(start: first_venue_id, batch_size: 15) do |venue|
-    # [ "Aberbeeg" ].each do |venue_name|
+    # [ "Great Dunmow" ].each do |venue_name|
     # venue = Venue.find_by(name: venue_name)
     next unless venue
     puts "processing #{venue.name}, id: #{venue.id}"

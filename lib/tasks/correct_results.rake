@@ -1,11 +1,9 @@
 desc "correct bulk mis-scrapes"
 task correct_runs: :environment do
-  start_date = Date.new(2026, 5, 2)
-  end_date = Date.new(2026, 5, 2)
+  start_date = Date.new(2026, 8, 15)
+  end_date = Date.new(2026, 8, 15)
   dates = (start_date..end_date).step(7).to_a
-  [ "Burnham and Highbridge", "Jersey Farm", "Sixfields Upton", "Hartlepool", "South Shields", "Troon", "Camperdown", "Simmons Park",
-  "Horspath", "Orangefield", "Squerryes Winery", "Ross-on-Wye", "Halifax", "Carrickfergus", "Rogiet", "Harcourt Hill", "Omagh",
-  "Chevin Forest", "Great Dunmow", "Crawfordsburn Country", "Palacerigg Country", "Garvagh Forest" ].each do |venue_name|
+  [ "Billericay" ].each do |venue_name|
     venue = Venue.find_by(name: venue_name)
     next unless venue
     dates.each do |date|
