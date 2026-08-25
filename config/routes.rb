@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :mps
   get "pages/about"
   get "about" => "pages#about"
   resources :venue_stats, only: [ :index ] do

@@ -1,0 +1,24 @@
+<tr>
+  <td>
+    <span class="badge rounded-pill">
+      <%= number_with_delimiter(mp_counter + 1) %>
+    </span>
+  </td>
+  <td class="runs-name"><%= mp.name %></td>
+  <td class="runs-name"><%= mp.party %></td>
+  <td class="runs-name"><%= mp.constituency %></td>
+  <td class="runs-name"><%= mp.agegroup %></td>
+  <td class="runs-name"><%= mp.runs %></td>
+  <td class="runs-name"><%= mp.venue %></td>
+  <td class="runs-name"><%= mp.date.strftime('%d %b %Y') %></td>
+  <td class="runs-name"><%= min_sec_format(mp.pb) %></td>
+  <% if authenticated? %>
+    <td class="runs-edit"><%= link_to image_tag('edit.png', class: "table_icon"), edit_mp_path(mp), data: { turbo_frame: dom_id(mp) } %></td>
+  <% end %>
+</tr>
+<tr>
+  <% colspan = authenticated? ? 11 : 10 %>
+  <td colspan="<%= colspan %>" class="p-0">
+    <%= turbo_frame_tag mp %>  
+  </td>
+</tr>

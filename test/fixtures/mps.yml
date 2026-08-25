@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  party: MyString
+  constituency: MyString
+  agegroup: MyString
+  pb: 1
+  date: 2026-08-24
+  venue: MyString
+  runs: 1
+
+two:
+  name: MyString
+  party: MyString
+  constituency: MyString
+  agegroup: MyString
+  pb: 1
+  date: 2026-08-24
+  venue: MyString
+  runs: 1

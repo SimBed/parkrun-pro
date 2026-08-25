@@ -1,0 +1,4 @@
+<% content_for :title, "Editing MP" %>
+<%= turbo_frame_tag @mp do %>
+  <%= render "form", mp: @mp %>
+<% end %>

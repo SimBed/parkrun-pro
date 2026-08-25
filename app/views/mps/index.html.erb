@@ -1,0 +1,16 @@
+<% content_for :title, "MPs" %>
+
+<div class="container my-4">
+  <%= render 'shared/hero' %>
+  <% if authenticated? %>
+  <%= link_to new_mp_path, data: { turbo_frame: dom_id(Mp.new)}, alt: 'New MP', class: 'btn btn-dark p-1' do %>
+                              <i class="bi bi-plus-lg me-md-1"></i><span class="">MP</span><% end %>
+  <% end %>
+  <%= turbo_frame_tag Mp.new do %>
+    <%= render 'empty_table' if @mps.empty? %>
+  <% end %>
+
+  <%= turbo_frame_tag 'mps' do %>
+    <%= render 'table' unless @mps.empty? %>
+  <% end %>
+</div>

@@ -1,0 +1,2 @@
+class Mp < ApplicationRecord
+end

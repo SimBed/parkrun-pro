@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @mp %>
+
+<div>
+  <%= link_to "Edit this mp", edit_mp_path(@mp) %> |
+  <%= link_to "Back to mps", mps_path %>
+
+  <%= button_to "Destroy this mp", @mp, method: :delete %>
+</div>

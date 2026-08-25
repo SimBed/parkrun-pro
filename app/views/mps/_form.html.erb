@@ -1,0 +1,57 @@
+<%= form_with(model: mp) do |form| %>
+  <% if mp.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(mp.errors.count, "error") %> prohibited this mp from being saved:</h2>
+
+      <ul>
+        <% mp.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :party, style: "display: block" %>
+    <%= form.text_field :party %>
+  </div>
+
+  <div>
+    <%= form.label :constituency, style: "display: block" %>
+    <%= form.text_field :constituency %>
+  </div>
+
+  <div>
+    <%= form.label :agegroup, style: "display: block" %>
+    <%= form.text_field :agegroup %>
+  </div>
+
+  <div>
+    <%= form.label :pb, style: "display: block" %>
+    <%= form.number_field :pb %>
+  </div>
+
+  <div>
+    <%= form.label :date, style: "display: block" %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div>
+    <%= form.label :venue, style: "display: block" %>
+    <%= form.text_field :venue %>
+  </div>
+
+  <div>
+    <%= form.label :runs, style: "display: block" %>
+    <%= form.number_field :runs %>
+  </div>
+
+  <div>
+    <%= form.submit @mp.new_record? ? "Create MP" : "Update MP" %>
+  </div>
+<% end %>

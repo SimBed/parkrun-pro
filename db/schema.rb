@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_18_084739) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_24_115455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_18_084739) do
     t.index ["gender"], name: "index_agegroups_on_gender"
     t.index ["name"], name: "index_agegroups_on_name", unique: true
     t.index ["position"], name: "index_agegroups_on_position"
+  end
+
+  create_table "mps", force: :cascade do |t|
+    t.string "agegroup"
+    t.string "constituency"
+    t.datetime "created_at", null: false
+    t.date "date"
+    t.string "name"
+    t.string "party"
+    t.integer "pb"
+    t.integer "runs"
+    t.datetime "updated_at", null: false
+    t.string "venue"
   end
 
   create_table "runs", force: :cascade do |t|

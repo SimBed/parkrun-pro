@@ -1,0 +1,23 @@
+<div class="d-none d-xl-block">
+  <table class="table runs-table">
+    <thead class="runs-thead">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Party</th>
+        <th>Constituency</th>
+        <th>Age Group</th>
+        <th>Runs</th>
+        <th>Venue</th>
+        <th>Date</th>
+        <th>PB 2026</th>
+        <% if authenticated? %>
+          <th></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "mps/screensize/row", collection: @mps, as: :mp %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,7 @@
+<%= turbo_stream.update "mps" do %>
+  <%= render partial: "table" %>
+<% end %>
+<%= turbo_stream.update "new_mp" do %>
+  <%= render inline:'' %>
+<% end %>
+<%= turbo_stream.prepend("flash", partial: "layouts/flash") %>
