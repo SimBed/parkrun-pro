@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :politicians, only: [ :index ]
   resources :mps
   get "pages/about"
   get "about" => "pages#about"

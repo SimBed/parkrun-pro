@@ -4,7 +4,7 @@ class MpsController < ApplicationController
 
   # GET /mps or /mps.json
   def index
-    @mps = Mp.all
+    @mps = Mp.order(pb: :asc)
   end
 
   # GET /mps/1 or /mps/1.json
