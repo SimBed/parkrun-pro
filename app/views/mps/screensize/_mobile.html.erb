@@ -1,3 +1,17 @@
 <div class="list-group list-group-flush d-xl-none">
-  <%= render partial: "venues/screensize/card", collection: @venues, as: :venue %>
+  <div class="mps-title-bar">
+    <div>
+      <h2 class="mps-title">Parliamentary Leaderboard 2026</h2>
+    </div>
+    <span class="mps-badge"><%= "#{pluralize(@mp_size, "MP") }" %></span>
+  </div>    
+  <%= render partial: "mps/screensize/card", collection: @mps, as: :mp %>
+  <div class="mps-title-bar">
+    <div>
+      <div class="mps-subtitle">Elected Members of the House of Commons only</div>
+      <div class="mps-subtitle">Other MPs are known to have supported and volunteered in 2026 or participated in earlier years</div>
+      <div class="mps-subtitle"><em>RUNS</em> is an aggregate total from all years</div>
+      <div class="mps-subtitle">Please email surfthepark@gmail.com with any errors or emissions</div>
+    </div>
+  </div>  
 </div>

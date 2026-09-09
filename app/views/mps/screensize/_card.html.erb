@@ -1,19 +1,33 @@
-<div class="list-group-item py-1 border-0 border-bottom">
+<div class="list-group-item py-2 border-0 border-bottom">
 
   <div class="d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-center gap-2">
-      <span class="venues-name">
-        <%= link_to venue.name, sanitize(venue.homepage), target: "_blank", rel: "noopener noreferrer" %>
+      <span class="badge rounded-pill py-1 fw-semibold">
+        <%= number_with_delimiter(mp_counter + 1) %>
       </span>
-      <span class="venues-time">
-        <%= venue.active? ? '&#9989;'.html_safe : '&#x274c;'.html_safe %>
+      <span class="runs-name">
+        <%= mp.name %>
+      </span>
+      <span class="runs-time">
+        <%= min_sec_format(mp.pb) %>
       </span>
     </div>
   </div>
 
-  <div class="text-muted small">
+  <div class="text-muted small my-1">
+    <span class="runs-venue"><%= mp.party %></span>
     <span class="mx-1">•</span>
-    <span class="venues-agegroup"><%= venue.postcode %></span> 
+    <span class="runs-agegroup"><%= mp.constituency %></span>
+  </div>
+
+  <div class="text-muted small">
+    <span class="runs-agegrade"><%= mp.venue %></span>      
+    <span class="mx-1">•</span>
+    <span class="runs-agegrade"><%= mp.date.strftime('%d %b %Y') %></span>    
+    <span class="mx-1">•</span>
+    <span class="runs-venue"><%= mp.agegroup %></span>
+    <span class="mx-1">•</span>
+    <span class="runs-agegroup"><%= "#{pluralize(mp.runs, 'run')}" %></span>
   </div>
 
 </div>

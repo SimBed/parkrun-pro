@@ -1,0 +1,24 @@
+<form action="/mps" method="GET", class="d-flex d-xl-none align-items-center">
+  <i class="bi bi-sort-alpha-down fs-6"></i>
+  <select class="form-control-sm sort" name="sort_option" onchange="this.form.requestSubmit()">
+    <option disabled="disabled" selected="selected" value="">Sort by</option>
+    <option value="name" <%="selected" if @sort_option == "name"%> >Name</option>
+    <option value="party" <%="selected" if @sort_option == "party"%> >Party</option>
+    <option value="constituency" <%="selected" if @sort_option == "constituency"%> >Constituency</option>
+    <option value="agegroup" <%="selected" if @sort_option == "agegroup"%> >Age Group</option>
+    <option value="runs" <%="selected" if @sort_option == "runs"%> >Runs</option>
+    <option value="venue" <%="selected" if @sort_option == "venue"%> >Venue</option>
+    <option value="date" <%="selected" if @sort_option == "date"%> >Date</option>
+    <option value="pb" <%="selected" if @sort_option == "pb"%> >PB 2026</option>
+  </select>
+
+  <button name="sort_direction" value="<%= @next_direction %>" class="btn btn-sort-direction btn-primary">
+    <span class="arrow-default">
+      <%= @sort_direction == "asc" ? "↑" : "↓" %>
+    </span>
+
+    <span class="arrow-hover">
+      <%= @next_direction == "asc" ? "↑" : "↓" %>
+    </span>    
+  </button>
+</form>

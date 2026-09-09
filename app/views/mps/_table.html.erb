@@ -1,5 +1,10 @@
 <%= turbo_frame_tag 'table' do %>
   <div class="canvas gray100-canvas embossed px-md-2 py-2 mb-3">
+    <%= tag.div class: class_names(
+      "canvas gray100-canvas embossed col col-lg-6 col-xl-4 p-1 mb-2", "d-xl-none"
+      ) do %>
+      <%= render 'sort_selection' %>
+    <% end %>    
     <%= render partial: 'table_content' %>
   </div>
 <% end %>

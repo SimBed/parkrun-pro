@@ -1,6 +1,6 @@
 desc "scrape each parkrun venue endpoint for latest results"
 task get_results: :environment do
-  date = Date.parse("22 August 2026")
+  date = Date.parse("5 September 2026")
   count = 0
     first_venue_id = Venue.where(active: true).order(:id).first.id
     # first_venue_id = 1284

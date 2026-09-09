@@ -1,16 +1,26 @@
 <div class="d-none d-xl-block">
+  <div class="mps-title-bar">
+    <div>
+      <h2 class="mps-title">Parliamentary Leaderboard 2026</h2>
+      <div class="mps-subtitle">Elected Members of the House of Commons only</div>
+      <div class="mps-subtitle">Other MPs are known to have supported and volunteered in 2026 or participated in earlier years</div>
+      <div class="mps-subtitle"><em>RUNS</em> is an aggregate total from all years</div>
+      <div class="mps-subtitle">Please email surfthepark@gmail.com with any errors or emissions</div>
+    </div>
+    <span class="mps-badge"><%= "#{pluralize(@mp_size, "MP") } participated" %></span>
+  </div>  
   <table class="table runs-table">
     <thead class="runs-thead">
       <tr>
         <th></th>
-        <th>Name</th>
-        <th>Party</th>
-        <th>Constituency</th>
-        <th>Age Group</th>
-        <th>Runs</th>
-        <th>Venue</th>
-        <th>Date</th>
-        <th>PB 2026</th>
+        <th class='sortable'><%= link_to "Name", mps_path(sort_option: :name, sort_direction: @next_direction) %></th>
+        <th class='sortable'><%= link_to "Party", mps_path(sort_option: :party, sort_direction: @next_direction) %></th>
+        <th class='sortable'><%= link_to "Constituency", mps_path(sort_option: :constituency, sort_direction: @next_direction) %></th>
+        <th class='sortable'><%= link_to "Age Group", mps_path(sort_option: :agegroup, sort_direction: @next_direction) %></th>
+        <th class='sortable'><%= link_to "Runs", mps_path(sort_option: :runs, sort_direction: @next_direction) %></th>
+        <th class='sortable'><%= link_to "Venue", mps_path(sort_option: :venue, sort_direction: @next_direction) %></th>
+        <th class='sortable'><%= link_to "Date", mps_path(sort_option: :date, sort_direction: @next_direction) %></th>
+        <th class='sortable'><%= link_to "PB 2026", mps_path(sort_option: :pb, sort_direction: @next_direction) %></th>
         <% if authenticated? %>
           <th></th>
         <% end %>

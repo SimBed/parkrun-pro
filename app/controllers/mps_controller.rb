@@ -4,7 +4,11 @@ class MpsController < ApplicationController
 
   # GET /mps or /mps.json
   def index
-    @mps = Mp.order(pb: :asc)
+    @sort_option = params[:sort_option] || "pb"
+    @sort_direction = params[:sort_direction] || "asc"
+    @next_direction = @sort_direction == "asc" ? "desc" : "asc"
+    @mps = Mp.order(@sort_option => @sort_direction, pb: :asc)
+    @mp_size = @mps.size
   end
 
   # GET /mps/1 or /mps/1.json
