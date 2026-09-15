@@ -55,6 +55,14 @@ class Agegroup < ApplicationRecord
     }
   end
 
+
+  def next
+    return name if [ "VM95-99", "VW95-99", "SW---", "SM---", "MWC", "WWC" ].include? name
+
+    Agegroup.find_by(position: position + 1)
+    # Agegroup.where("position > ?", position).order(:position).first # alternative approach
+  end
+
   private
 
   def self.junior
