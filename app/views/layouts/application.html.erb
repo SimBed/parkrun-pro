@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
+  <% page_title = content_for(:title) || "Parksurf - aggregated UK parkrun results & analysis" %>
+  <% page_description = content_for(:description) || \
+    "aggregates age & gender grouped parkrun results across 800+ venues in the UK. Provides insights, trends, records, friends achievements and MP leaderboard." %>
   <head>
-    <title><%= content_for(:title) || "aggregated Parkrun data" %></title>
+    <title><%= page_title %></title>
+    <meta name="description" content="<%= page_description %>">    
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Parksurf">
     <meta name="mobile-web-app-capable" content="yes">
-    <%= render 'layouts/opengraph' %>    
+    <%= render 'layouts/opengraph', { page_title: page_title, page_description: page_description } %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
