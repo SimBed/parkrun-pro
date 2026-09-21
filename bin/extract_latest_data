@@ -21,9 +21,10 @@ echo "Copying latest data from '$DB_NAME' to '$LATEST_RUNS_FILE'..."
 psql -d "$DB_NAME" -c "\COPY (
   SELECT *
   FROM runs
-  WHERE date > current_date - 1  
+  WHERE venue = 'Brackenhurst Campus' and date < current_date
 ) TO $LATEST_RUNS_FILE CSV HEADER"
   # WHERE created_at::date > CURRENT_DATE - 1
+  # WHERE date > current_date - 1
   # WHERE created_at::date = CURRENT_DATE
   # WHERE date > current_date - 2
   # WHERE created_at > TIMESTAMP '2026-08-15 21:45:00'

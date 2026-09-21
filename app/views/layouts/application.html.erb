@@ -11,6 +11,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Parksurf">
     <meta name="mobile-web-app-capable" content="yes">
+    <!-- avoids Google treating url + query parameters as separate domain -->
+    <link rel="canonical" href="https://parksurf.co.uk<%= request.path %>">    
     <%= render 'layouts/opengraph', { page_title: page_title, page_description: page_description } %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
