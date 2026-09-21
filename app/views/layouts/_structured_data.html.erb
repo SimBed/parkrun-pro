@@ -1,0 +1,12 @@
+<!-- Structured data helps search engines understand the content of the website better and improve its visibility in search results. -->
+<% structured_data = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Parksurf',
+    url: 'https://parksurf.co.uk/',
+    description: "Provides insights, trends, age and course records, friends achievements and MP leaderboard for parkrun events in the UK. It helps parkrunners to track their progress, compare with others and stay motivated.",
+  } %>
+
+<script type="application/ld+json">
+  <%= raw(structured_data.to_json) %>
+</script>

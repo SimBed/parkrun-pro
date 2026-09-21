@@ -3,7 +3,7 @@
 <html lang="en">
   <% page_title = content_for(:title) || "Parksurf - aggregated UK parkrun results & analysis" %>
   <% page_description = content_for(:description) || \
-    "aggregates age & gender grouped parkrun results across 800+ venues in the UK. Provides insights, trends, records, friends achievements and MP leaderboard." %>
+    "aggregates age & gender grouped parkrun results across 800+ venues in the UK. Provides insights, trends, age and course records, friends achievements and MP leaderboard." %>
   <head>
     <title><%= page_title %></title>
     <meta name="description" content="<%= page_description %>">    
@@ -14,6 +14,7 @@
     <!-- avoids Google treating url + query parameters as separate domain -->
     <link rel="canonical" href="https://parksurf.co.uk<%= request.path %>">    
     <%= render 'layouts/opengraph', { page_title: page_title, page_description: page_description } %>
+    <%= render 'layouts/structured_data' %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
