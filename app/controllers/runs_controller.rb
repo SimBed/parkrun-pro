@@ -135,7 +135,7 @@ class RunsController < ApplicationController
 
   def set_cancel_button
     @cancel_button = true if @referrer == "venue_stats"
-    @cancel_button_path = close_run_path(@venue, variant: @variant) if @cancel_button
+    @cancel_button_path = close_run_path(@venue) if @cancel_button
   end
 
   def set_screensize
